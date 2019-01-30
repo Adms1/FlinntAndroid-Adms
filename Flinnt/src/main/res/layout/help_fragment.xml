@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+android:layout_height="fill_parent"
+android:layout_width="fill_parent"
+android:orientation="vertical"
+android:background="@color/white" >
+
+<TextView
+    android:id="@+id/page_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:text="View Course &amp; Manage Settings"
+    android:textStyle="normal"
+    android:textColor="@color/black" 
+    android:textSize="18sp"/>
+
+<ImageView 
+    android:id="@+id/imageview_screenshot"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:src="@drawable/help_sample"
+     />
+
+</LinearLayout>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/course_cardview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    android:background="@android:color/white"
+    android:minHeight="@dimen/cardview_suggested_height"
+    android:minWidth="154dp"
+    card_view:cardCornerRadius="@dimen/cardview_corner_radius"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.edu.flinnt.util.SelectableRoundedCourseImageView
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_course_image"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/course_image"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_course_image" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/relative_community"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/wishlist_course_name_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:minLines="2"
+                    android:lineSpacingExtra="@dimen/margin_5dp"
+                    android:text="6Th-HBK-English"
+                    android:textColor="#1a1718"
+                    android:textSize="@dimen/text_size_15sp"/>
+
+                <!--  <ImageView
+                      android:id="@+id/course_community_image"
+                      android:layout_width="20dp"
+                      android:layout_height="20dp"
+                      android:layout_alignParentRight="true"
+                      android:layout_marginLeft="10dp"
+                      android:layout_marginRight="10dp"
+                      android:src="@drawable/course_community"
+                      android:visibility="visible" />-->
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative_community"
+                android:background="@android:color/white"
+                android:gravity="bottom">
+
+                <RelativeLayout
+                    android:id="@+id/linearView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:background="@android:color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/linear_institute_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:background="@android:color/white"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/wishlist_course_institute_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="2dp"
+                            android:singleLine="true"
+                            android:text="Institute Name "
+                            android:textColor="#828282"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/totalStudentsLinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/linear_institute_name"
+                        android:background="@android:color/white"
+                        android:orientation="horizontal"
+                        android:paddingBottom="6dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/wishlist_course_users"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Users: "
+                            android:textColor="#828282"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/wishlist_course_no_of_users"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="45"
+                            android:textColor="#4e4e4e"
+                            android:textSize="13sp" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_ratings"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:gravity="end|right">
+
+                            <TextView
+                                android:id="@+id/wishlist_course_ratings"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="4.3"
+                                android:textColor="#828282"
+                                android:textSize="13sp" />
+
+                            <ImageView
+                                android:layout_width="13dp"
+                                android:layout_height="13dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_star_grey600_24dp" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/totalStudentsLinear"
+                        android:background="@android:color/white"
+                        android:orientation="horizontal"
+                        android:paddingBottom="5dp">
+
+                        <TextView
+                            android:id="@+id/old_price_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="10000: "
+                            android:textColor="#828282"
+                            android:textSize="@dimen/text_size_15sp"
+                            />
+
+                        <TextView
+                            android:id="@+id/newPriceTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="10000"
+                            android:textColor="#47AAFA"
+                            android:textSize="@dimen/text_size_15sp"
+                            android:textStyle="bold"  />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

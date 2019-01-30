@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_backgroung"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/logo_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/flinnt_app_logo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/first_name_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext_height"
+                    android:background="@drawable/bg_account_white_edges"
+                    android:hint="@string/first_name"
+                    android:inputType="textCapSentences"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/last_name_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext_height"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_account_white_edges"
+                    android:hint="@string/last_name"
+                    android:inputType="textCapSentences"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/email_mobile_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext_height"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_account_white_edges"
+                    android:hint="@string/email_mobile_hint"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/password_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext_height"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_account_white_edges"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/confirm_password_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext_height"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_account_white_edges"
+                    android:hint="@string/confirm_password"
+                    android:imeActionLabel="@string/submit_keyboard"
+                    android:inputType="textPassword"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_marginTop="28dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/submit_button_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:background="@drawable/bg_account_blue_edges"
+                    android:capitalize="characters"
+                    android:text="@string/submit"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/terms_conditions_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/terms_and_condition_signup"
+                android:textColor="@color/gray"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

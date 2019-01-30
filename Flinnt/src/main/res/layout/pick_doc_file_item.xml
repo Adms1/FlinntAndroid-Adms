@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              android:paddingTop="20dip">
+    <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:contentDescription="png"
+            android:src="@drawable/attachment_pdf"/>
+    <TextView
+            android:id="@+id/FileName_Audio"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dip"
+            android:background="@color/white"
+            android:gravity="left|center_vertical"
+            android:text=""
+            android:textColor="@color/black"/>
+</LinearLayout>

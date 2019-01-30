@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.edu.flinnt.util.RippleBackground xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:rb_color="#3fa3ff"
+    app:rb_duration="3000"
+    app:rb_radius="15dp"
+    app:rb_rippleAmount="1"
+    app:rb_scale="6">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tab_title_customtab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="POST"
+            android:textColor="#99ffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tab_unread_count_customtab"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="2dp"
+            android:background="@drawable/round_unread_count_bg_black"
+            android:gravity="center"
+            android:text="99+"
+            android:textColor="@android:color/white"
+            android:textSize="9sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</com.edu.flinnt.util.RippleBackground>

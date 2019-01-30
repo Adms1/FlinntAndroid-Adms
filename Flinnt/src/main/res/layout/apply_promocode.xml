@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:minWidth="400dp"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+
+        android:text="@string/apply_promocode_text"
+        android:textColor="@color/ColorPrimary"
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@+id/enterPromoEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_code_hint"
+        android:imeActionLabel="@string/redeem_keyboard"
+        android:maxLength="10"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/invalidMsgTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="10dp"
+        android:text="@string/invalid_msg"
+        android:textColor="#FF4349"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/coupanRecycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|right"
+        android:padding="10dp">
+        <Button
+            android:id="@+id/cencelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:background="@color/transparent"
+            android:text="@string/cancel"
+            android:textAllCaps="true"
+            android:textColor="@color/gray"
+            android:paddingRight="@dimen/coupon_button_space"
+            style="?android:attr/borderlessButtonStyle"
+            android:textSize="20sp" />
+        <Button
+            android:id="@+id/redeemBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/redeem_text"
+            android:textAllCaps="true"
+            android:paddingLeft="@dimen/coupon_button_space"
+            android:textColor="@color/ColorPrimary"
+            style="?android:attr/borderlessButtonStyle"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

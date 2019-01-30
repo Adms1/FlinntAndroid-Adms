@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cardview_toolbar_width">38dp</dimen>
+
+    <dimen name="cardview_suggested_width">120dp</dimen>
+    <dimen name="cardview_suggested_height">170dp</dimen>
+    <dimen name="coupon_button_space">15dp</dimen>
+
+    <dimen name="margin_1dp">1.5px</dimen>
+    <dimen name="margin_3dp">4.5px</dimen>
+    <dimen name="margin_5dp">7.5px</dimen>
+    <dimen name="margin_7dp">10.5px</dimen>
+    <dimen name="margin_10dp">15px</dimen>
+    <dimen name="margin_15dp">22.5px</dimen>
+    <dimen name="margin_18dp">27px</dimen>
+    <dimen name="margin_20dp">30px</dimen>
+    <dimen name="margin_25dp">37.5px</dimen>
+    <dimen name="margin_35dp">52.5px</dimen>
+    <dimen name="margin_40dp">60px</dimen>
+    <dimen name="margin_50dp">75px</dimen>
+    <dimen name="margin_70dp">105px</dimen>
+    <dimen name="margin_100dp">150px</dimen>
+    <dimen name="margin_120dp">180px</dimen>
+    <dimen name="margin_500dp">750px</dimen>
+    <dimen name="margin_750dp">1125px</dimen>
+
+</resources>

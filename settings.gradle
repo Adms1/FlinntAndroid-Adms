@@ -1,0 +1,6 @@
+include ':TokenAutoCompleteLib', ':RTEditor', ':RTEditor-Toolbar', ':sdp1'
+include ':BottomLib'
+include ':CropLib'
+include ':Flinnt'
+include ':imagepicker'
+project(':sdp1').projectDir = new File('sdp')

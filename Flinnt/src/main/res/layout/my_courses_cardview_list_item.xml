@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/course_cardview"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="5dp"
+    android:background="@android:color/white"
+    android:minWidth="327dp"
+    card_view:cardCornerRadius="@dimen/cardview_corner_radius"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent" >
+
+            <com.edu.flinnt.util.SelectableRoundedCourseImageView
+                android:id="@+id/course_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_course_image_list" />
+
+            <TextView
+                android:id="@+id/course_unread_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="23dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="#99000000"
+                android:gravity="center"
+                android:minWidth="23dp"
+                android:text="3"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:paddingRight="10dp" >
+
+                    <TextView
+                        android:id="@+id/course_name_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/course_community_image"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="6Th-HBK-English"
+                        android:textColor="#1a1718"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:id="@+id/course_community_image"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/course_community"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@android:color/white"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:background="@android:color/white"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:id="@+id/course_total_students_header_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="No. of Students: "
+                                android:textColor="#828282"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/course_total_students_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="45"
+                                android:textColor="#4e4e4e"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="2dp"
+                            android:background="@android:color/white"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:id="@+id/course_total_posts_header_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total Post: "
+                                android:textColor="#828282"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/course_total_posts_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="45"
+                                android:textColor="#4e4e4e"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- <android.support.v7.widget.Toolbar
+                        android:id="@+id/course_toolbar"
+                        android:layout_width="@dimen/cardview_toolbar_width"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:color/white"
+                        android:gravity="right" /> -->
+
+                    <RelativeLayout
+                    android:id="@+id/realtiveView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:paddingBottom="5dp" >
+
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/course_toolbar"
+                        android:layout_width="@dimen/cardview_toolbar_width"
+                        android:layout_height="38dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:color/white" />
+                </RelativeLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

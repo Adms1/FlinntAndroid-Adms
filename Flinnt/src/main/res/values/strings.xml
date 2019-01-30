@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Flinnt</string>
+    <string name="hello_world">Hello world!</string>
+    <!-- Navigation Drawer -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="my_courses">My Courses</string>
+    <string name="join_course">Join a Course</string>
+    <string name="course_invites">Course Invites</string>
+    <string name="user_requests">User Requests</string>
+    <string name="join_community">Join A Community</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="notifications">Notifications</string>
+    <string name="alerts">Alerts</string>
+    <string name="settings">Settings</string>
+    <string name="about_us">About Us</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="help">Help</string>
+    <string name="faq">FAQ</string>
+
+    <string name="logout">Logout</string>
+
+    <!-- Course Menu -->
+    <string name="invite_user">Invite User</string>
+    <string name="users">Users</string>
+    <string name="mute">Mute</string>
+    <string name="give_ratting">Give Rating</string>
+    <string name="unsubscribe">Unsubscribe</string>
+    <string name="course_info">Course Info</string>
+    <string name="filter_by">Filter by Post</string>
+
+    <!-- fab Menu -->
+    <string name="alert">Alert</string>
+    <string name="message">Message</string>
+    <string name="album">Album</string>
+    <string name="quiz">Quiz</string>
+    <string name="post">Post</string>
+    <string name="course">Course</string>
+    <string name="poll">Poll</string>
+
+    <!-- Sign Up -->
+    <string name="sign_up">Sign Up</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_mobile_hint">Email/Mobile</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="submit">Submit</string>
+    <string name="submit_keyboard">SUBMIT</string>
+
+    <!-- Login -->
+    <string name="login">Login</string>
+    <string name="apply_filters">Apply Filters</string>
+
+    <string name="forgot_password_que">Forgot Password?</string>
+    <string name="new_user_sign_up">NEW USER? SIGN UP</string>
+    <string name="login_keyboard">LOGIN</string>
+
+    <!-- Forgot Password -->
+    <string name="forgot_password">Forgot Password</string>
+    <string name="enter_username_reset_password">Enter your username below to reset your password</string>
+
+    <!-- Verify Mobile -->
+    <string name="verify_mobile">Verify Mobile</string>
+    <string name="verify">Verify</string>
+    <string name="verify_keyboard">VERIFY</string>
+    <string name="already_verified">I\'ve already verified</string>
+    <string name="sent_verification_code_on_mobile">	<![CDATA[
+	    We have sent a verification code on mobile no: <b>"xxxxxxxxxx"</b>.
+	    ]]>
+    </string>
+    <string name="enter_code_and_verify">Enter the code below and click to verify.</string>
+    <string name="enter_verification_code">Enter verification code</string>
+    <string name="sms_delivery_take_time">Please note that SMS delivery can take a minute or more.</string>
+    <string name="sms_not_received">Did not receive SMS? Try Again</string>
+    <string name="call_for_help">For help call : 0-79-4014-9800</string>
+
+    <!-- Verify Emaill -->
+    <string name="verify_email">Verify Email</string>
+    <string name="sent_verification_link_on_email">	<![CDATA[
+	    We have sent a verification link on email: <b>"xxxxxxxxxx"</b>.
+	    ]]>
+    </string>
+    <string name="click_link_and_verify">Click on link to verify your email.</string>
+    <string name="email_not_received">Did not receive Email? Try Again</string>
+
+    <string name="verify_mobile_and_email">Verify Mobile And Email</string>
+
+    <!-- Terms and Conditions -->
+    <string name="terms_and_condition">Terms and Conditions</string>
+    <string name="terms_and_condition_verify">By verifying account, you agree to our Terms and Conditions.</string>
+    <string name="terms_and_condition_signup">By clicking Submit, you agree to our Terms and Conditions.</string>
+
+    <!-- Join a course -->
+    <string name="course_code">Course Code</string>
+    <string name="join_course_title">Enter a 6-digit course code you have obtained from your institute.</string>
+
+    <!-- Post Detailview -->
+    <string name="tags">Tags</string>
+    <string name="like">Like</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="comments">Comments</string>
+    <string name="post_comments">Comments</string>
+    <string name="add_comments">Add Comments</string>
+
+    <!-- Message Detailview -->
+    <string name="reply">Reply</string>
+    <string name="replies">Replies</string>
+    <string name="add_reply">Add reply</string>
+
+    <string name="select_answer">Select Answer</string>
+
+    <!-- Add Post -->
+    <string name="add_post">Add Post</string>
+    <string name="choose_template">Choose a Template</string>
+    <string name="post_details">Post Details</string>
+    <string name="attach_file">Attach File</string>
+    <string name="add_tag">Add Tag</string>
+    <string name="add_tag_comma">Add Tags (Separate with comma)</string>
+    <string name="publish">Publish</string>
+    <string name="edit_post">Edit Post</string>
+    <string name="write_a_comment">Write a comment...</string>
+    <!--
+    <string name="select_course">Select Course</string>
+    <string name="select_user_message">Select users to send message</string>
+    <string name="add_description">Add Description</string>-->
+
+    <!-- Add Alert -->
+    <string name="add_alert">Add Alert</string>
+    <string name="alert_details">Alert Details</string>
+    <string name="alert_description">Alert Description</string>
+
+    <!-- Add Course -->
+    <string name="add_course">Add Course</string>
+    <string name="course_details">Course Details</string>
+    <string name="course_title">Course Title</string>
+    <string name="course_image">Course Image</string>
+
+    <!-- Add Banner -->
+    <string name="add_banner">Edit Banner</string>
+    <string name="banner_image">Banner Image</string>
+    <string name="banner_details">Banner Details</string>
+
+
+    <!-- Add Album -->
+    <string name="add_album">Add Album</string>
+    <string name="album_details">Album Details</string>
+    <string name="album_description">Album Description</string>
+
+    <!-- Add Message -->
+    <string name="add_message">Add Message</string>
+    <string name="message_details">Message Details</string>
+    <string name="message_description">Message Description</string>
+    <string name="select_users">Select Users</string>
+    <string name="message_sent">Message has been sent</string>
+    <string name="message_updated">Message has been updated</string>
+
+    <!-- Add Quiz -->
+    <string name="add_quiz">Add Quiz</string>
+    <string name="que_details">Question Details</string>
+    <string name="write_question">Write your question here</string>
+    <string name="write_options">Write Options</string>
+    <string name="select_corr_ans_msg">Select correct answer</string>
+
+    <!-- Profile -->
+    <string name="view_profile">View Profile</string>
+    <string name="update_birthday">Update your birthdate</string>
+    <string name="gender_prompt">Select</string>
+    <string name="select_birthday">Select your birthdate</string>
+    <string-array name="gender_arrays">
+        <item>Select</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="select_date_arrays">
+        <item>Select Date</item>
+    </string-array>
+    <string-array name="select_time_arrays">
+        <item>Select Time</item>
+    </string-array>
+
+    <string name="select_date">Select Date</string>
+    <string name="select_time">Select Time</string>
+
+    <!-- Menu -->
+    <string name="action_settings">Settings</string>
+    <string name="edit">Edit</string>
+    <string name="repost">Repost</string>
+    <string name="done">Done</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="update">Update</string>
+    <!-- Validation -->
+    <string name="required_all_field">All fields are required.</string>
+    <string name="current_pass_wrong">Enter correct current password.</string>
+    <string name="validate_pass">Use 6 character or more for password</string>
+    <string name="pass_max_number">Password must be 15 or less character.</string>
+    <string name="confirmpass_not_match">Password and confirm password must be same.</string>
+    <string name="validate_email_mobile">Add valid email or mobile number</string>
+    <string name="validate_mobile_number">Add valid mobile number</string>
+    <string name="validate_email">Add valid email</string>
+    <string name="invalid_varification_code">Invalid verification code</string>
+
+    <string name="course_code_invalide">Add correct code</string>
+    <string name="course_request_invalide">You must add note</string>
+
+    <string name="no_internet_conn_title_dialog">No Internet Connection</string>
+    <string name="no_internet_conn_message_dialog">Internet is not enabled. Do you want to go to settings menu?</string>
+
+    <string name="account_not_verified">Your account is not verified.</string>
+    <string name="account_verified">Your account has been verified.</string>
+    <string name="photo">Photo</string>
+    <string name="video">Video</string>
+    <string name="audio">Audio</string>
+    <string name="link">Link</string>
+    <string name="pdf">PDF</string>
+
+    <string name="action_search">Search</string>
+    <string name="action_options">Options</string>
+    <string name="teacher">Teacher</string>
+    <string name="teachers">Teachers</string>
+    <string name="select_all">Select All</string>
+    <string name="todo">TODO</string>
+    <string name="remove_from_course">Remove from Course</string>
+    <string name="disallow_messsage">Disallow messsage</string>
+    <string name="allow_message">Allow message</string>
+    <string name="disallow_comment">Disallow comment</string>
+    <string name="remove_selection">Remove from Selection</string>
+    <string name="students">Students</string>
+    <string name="with_selected_users">With Selected Users</string>
+
+    <string name="comment_reply">Mute all Comment/Reply</string>
+    <string name="sound">Mute all Sounds</string>
+
+    <string name="auto_download">Autodownload media</string>
+
+    <string name="course_comment_reply">Comment / Reply</string>
+    <string name="course_sound">Sound</string>
+    <string name="course_mute_setting_message">No longer available. Set custom notification by tapping on top left menu and then tap on settings.</string>
+
+    <string name="close">Close</string>
+    <string name="close_txt">CLOSE</string>
+
+    <string name="allow_comment">Allow comment</string>
+
+    <string name="email_mobile">Email/Mobile</string>
+    <string name="learner">Learner</string>
+    <string name="learners">Learners</string>
+
+    <string name="allow_users">Allow users to comment</string>
+    <string name="display_teacher_name">Display teacher name</string>
+    <string name="post_comment">Display comment without approval</string>
+    <string name="subscription_days">Maximum subscription days for learner</string>
+    <string name="add_course_settings">Allow learner to teacher message</string>
+    <string name="allow_repost">Allow re-post</string>
+    <string name="can_delete">Maximum no. of post a teacher can delete in a day</string>
+    <string name="allow_teacher_message">Allow teacher to teacher message</string>
+
+
+    <!-- Audio Recorder -->
+    <string name="audio_recorder">Audio Recorder</string>
+    <string name="record">Record</string>
+    <string name="success_record">Recorded Successfully</string>
+    <string name="start_record">Click on Record to start recording.</string>
+    <string name="stop_button">Stop</string>
+    <string name="recording">Recording…</string>
+    <string name="playing">Playing…</string>
+    <string name="stopped">Stopped</string>
+    <string name="send_menu">Send</string>
+    <string name="play_menu">Play</string>
+    <string name="welcome_have_a_look_around">Welcome! Have a look around.</string>
+    <string name="skip">SKIP</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce condimentum dui eu est porta, ut varius sem porttitor. Suspendisse sapien nunc, congue vel neque in, dapibus vestibulum risus. Duis feugiat ornare tellus, eu sollicitudin mauris laoreet a. Vivamus eu erat urna. Nunc varius leo ac laoreet faucibus. Curabitur quis lectus et massa tristique semper. Aliquam ullamcorper quis tellus sit amet consectetur. Sed finibus ante vitae velit pharetra volutpat. Donec tempus ipsum eu diam finibus, nec posuere neque sollicitudin. Proin est leo, consequat vitae orci in, luctus dapibus ante.</string>
+
+    <string name="images">Images</string>
+    <string name="image">Image</string>
+
+    <string name="no_learner_found">No Learner Found</string>
+
+    <string name="no_teacher_found">No Teacher Found</string>
+
+    <string name="want_to_delete">Want to delete ?</string>
+
+    <string name="textLinks"><a href="http://">Google</a></string>
+    <string name="browse_courses">Browse Courses</string>
+    <string name="add_to_wish_list">Add to wishlist</string>
+    <string name="successfully_deleted">Successfully deleted</string>
+    <string name="no_bookmark_found">No Bookmark Found</string>
+    <string name="switch_user">Switch User</string>
+    <string name="already_logged_in">This account already exists on your device</string>
+    <string name="add_account">Add Account</string>
+    <string name="no_more_accounts_than_5">You have reached maximum limit of adding user account.</string>
+    <string name="un_subscribe">UN-SUBSCRIBE</string>
+    <string name="send_request">SEND REQUEST TO JOIN</string>
+    <string name="enter_review_here">Enter review here</string>
+    <string name="join_course_u">JOIN COURSE</string>
+    <string name="users_who_have_joined_this_course_also_joined">Users who have joined this courses</string>
+    <string name="more_courses_from">More courses from</string>
+    <string name="read_more">...Read More</string>
+    <string name="read_less">Read Less</string>
+
+    <string name="view_more">View All...</string>
+    <string name="view_less">View Less</string>
+    <string name="view_all">View all</string>
+    <string name="no_description_found">No description found</string>
+    <string name="rate_this_course">Rate this course</string>
+    <string name="share">Share</string>
+    <string name="cart">Cart</string>
+
+    <string name="join_now">JOIN NOW</string>
+    <string name="all_reviews">ALL REVIEWS</string>
+    <string name="all_reviews_txt"><u>All Reviews</u></string>
+    <string name="give_your_rating">Give your rating</string>
+
+    <string name="refund_course_txt">Refund a course</string>
+
+    <!-- My Course -->
+    <string name="no_course_message">LEARN FROM INSTITUTIONS AND EXPERTS</string>
+    <string name="browse_course_button">BROWSE COURSES</string>
+    <string name="no_course_found">No Course Found</string>
+    <string name="birthdate_update_message">Your birthdate has been updated</string>
+    <string name="successfully_joined_message">Successfully Joined</string>
+    <string name="toolbar_title">Flinnt</string>
+    <string name="mute_text">Mute</string>
+    <string name="dialog_text">Are you sure?</string>
+    <string name="logout_text">Logout</string>
+
+
+    <!-- Browse Course -->
+    <string name="no_course_found_message">Hurray! You joined all courses. Keep watching this space for upcoming courses.</string>
+    <string name="nocourse_msg_browsecourse">"No Course Found"</string>
+    <string name="retry_msg">"Retry"</string>
+    <string name="no_internet_msg">"No Internet connection. Make sure Wi-Fi or Cellular data is turned on, then try again"</string>
+
+
+    <!-- Browse Course details -->
+    <string name="unsubscribe_button">UNSUBSCRIBE</string>
+    <string name="cancel_button">CANCEL</string>
+    <string name="buy_now_button">BUY NOW</string>
+    <string name="free_course">Free</string>
+    <string name="request_sent">Request has been sent.</string>
+    <string name="category_text">Category : </string>
+    <string name="categories_text">Categories : </string>
+    <string name="view_more_text">VIEW MORE</string>
+    <string name="view_more_text_new"><u>View More</u></string>
+    <string name="read_more_text">READ MORE</string>
+    <string name="read_more_text_new"><u>Read More</u></string>
+    <string name="wishlisted_text">Wishlisted</string>
+    <string name="topics_text"> topics and </string>
+    <string name="content_text"> contents </string>
+    <string name="purchased_by_title">Purchased by</string>
+    <string name="course_desrcipriton_title">Course Description</string>
+    <string name="reviews_title">Reviews</string>
+    <string name="ratting_total_text">Ratings</string>
+    <string name="no_app_available">You may not have a proper app for viewing this content</string>
+    <string name="share_title_msg">Share with your friends</string>
+
+    <!--    <string name="unable_join_msg">Subscription closed</string>-->
+    <string name="join_now_msg">Your contact information will be shared with the course owner.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Wish List-->
+    <string name="wishlist_title">My Wishlist</string>
+    <string name="empty_wishlist_message">You have no courses in your list</string>
+
+
+    <!-- Communication -->
+    <string name="no_post_found">No Post Found</string>
+    <string name="no_post_learner">Your teacher will soon add notes, home work, important notice etc.</string>
+    <string name="no_post_teacher">Communicate and share notice, home work and circulars with your learners.</string>
+    <string name="communication_page_title">COMMUNICATIONS</string>
+
+    <!-- Content -->
+    <string name="no_content_found">No Content Found</string>
+    <string name="no_content_learner">Your teacher will soon add contents.</string>
+    <string name="content_page_title">CONTENT</string>
+    <string name="content_delteted_message">Content has been deleted</string>
+    <string name="contents">Contents</string>
+    <string name="show_full_description">Show full description</string>
+
+    <!-- Edit Content -->
+    <string name="edit_contents_title">Add/Edit Contents</string>
+    <string name="edit_contents">Edit Content</string>
+    <string name="show_delete_dialog_title">Are you sure?</string>
+    <string name="delete_section_text">This will remove the section permanently.</string>
+    <string name="delete_content_text">This will remove the content permanently.</string>
+    <string name="content_show_hide">Show/Hide</string>
+    <string name="content_delete">Delete</string>
+    <string name="tooltip_content_edit">Hide/show or delete section or file.</string>
+
+    <string name="add_files">Add Files</string>
+    <string name="edit_section_name">Edit Section Name</string>
+    <string name="show_content">Show</string>
+    <string name="hide_content">Hide</string>
+    <string name="delete">Delete</string>
+    <string name="send_notification">Send Notification</string>
+    <string name="resend_notification">Resend Notification</string>
+    <string name="resend_send_notification">Resend Notification</string>
+    <string name="make_copy">Make a Copy</string>
+    <string name="send_notification_msg">Send Successfully</string>
+    <string name="add_section_descr_msg">Click here to add Section or chapter name.</string>
+
+
+    <!-- Checkout -->
+    <string name="payment_summary_text">Payment Summary</string>
+    <string name="subtotal_text">Subtotal</string>
+    <string name="discount_text">Discount</string>
+    <string name="total_text">Total</string>
+    <string name="apply_promocode_text">Apply Promocode</string>
+    <string name="enter_code_hint">Enter Your Code</string>
+    <string name="redeem_text">Redeem</string>
+    <string name="redeem_keyboard">REDEEM</string>
+    <string name="apply_here_text"><u><b>Apply Promocode</b></u></string>
+    <string name="invalid_msg">The Promocode that you entered is invalid</string>
+    <string name="promocode_applied_text">Promocode is applied</string>
+    <string name="coupon_pre_message1">Get&#160;</string>
+    <string name="coupon_pre_message2"> off, click to apply</string>
+    <string name="couponcode_blank_msg">Add coupon code</string>
+    <string name="couponcode_blank_title_msg">Promo Code</string>
+    <string name="checkout_validation_msg">All parameters are mandatory.</string>
+    <string name="currency">₹ </string>
+    <string name="checkout_successfully_joined">Successfully joined </string>
+    <string name="checkout">Checkout</string>
+
+
+    <!-- User Requests Bottom Sheet-->
+    <string name="email_client">Choose an Email client :</string>
+    <string name="email_subject"> - Update your profile</string>
+    <string name="email_text_first_line">Thanks for sending the request to join the course : </string>
+    <string name="email_text_second_line">Pl. Update your profile and resend the request so that I can approve the same.</string>
+
+    <string name="send_email">Send Email</string>
+    <string name="send_message">Send Message</string>
+
+    <!-- Select Institute-->
+    <string name="select_institute">Select Institute</string>
+    <string name="request_dialog_text">I want to join in this course, please grant me access</string>
+    <string name="send_request_title">Send request to join in this course</string>
+    <string name="request_dialog_note">Important: Incomplete profile may lead to your request being rejected Click here to update your profile</string>
+
+    <!--Institute Course List-->
+    <string name="private_course">Private</string>
+
+
+    <!--Post Viewers-->
+    <string name="no_viewers_msg">No Viewers Found</string>
+    <string name="delete_post_msg">Post has been deleted</string>
+    <string name="delete_post_title">Delete Post</string>
+    <string name="delete_btn">Delete</string>
+
+
+    <!--Post Likes-->
+    <string name="no_likes_msg">No Likes Found</string>
+
+    <!--Post Comments-->
+    <string name="no_comments_msg">No Comments Found</string>
+    <string name="comment_blank">Comment text could not be blank</string>
+    <string name="preview">Preview</string>
+    <string name="empty_edit_content">Oops! There are no contents available to edit.</string>
+    <string name="edit_hide">Hide</string>
+    <string name="edit_show">Show</string>
+
+    <!--Personal Information-->
+    <string name="personal_information_title">Personal Information</string>
+    <string name="personal_dialog_title">Personal Information</string>
+    <string name="personal_add_last">Add Last Name</string>
+    <string name="personal_add_first">Add First Name</string>
+    <string name="choose_your_interest">Choose your interest</string>
+
+    <string name="personal_add_institute">Add Institute Name</string>
+    <string name="personal_add_gender">Add Gender</string>
+    <string name="personal_add_education">Add Education</string>
+    <string name="personal_add_age">Add Age</string>
+    <string name="personal_first_minimum">Use 2 character or more for first name</string>
+    <string name="personal_last_minimum">Use 2 character or more for last name</string>
+    <string name="personal_institute_minimum">Use 2 character or more for institute name</string>
+    <string name="personal_age_minimum">" Age must be 2 or more years"</string>
+    <string name="personal_close_button">CLOSE</string>
+    <string name="institute_name">Institute Name</string>
+    <string name="gender">Gender</string>
+    <string name="date_of_birth">Date Of Birth</string>
+    <string name="city">City</string>
+    <string name="email_id">Email Address</string>
+    <string name="mobile_no">Mobile No.</string>
+    <string name="change_password">Change Password</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="personal_add_mobile">Add Mobile Number</string>
+    <string name="personal_mobile_minimun">Add valid mobile number</string>
+    <string name="personal_add_city">Add City</string>
+    <string name="personal_city_minimum">City must be at least 3 characters long</string>
+    <string name="minimum_first_name">Use 2 character or more for first name</string>
+    <string name="minimum_last_name">Use 2 character or more for last name</string>
+    <string name="minimum_city">Use 3 character or more for city</string>
+
+    <!--New Communication-->
+    <string name="bottom_attachment">Attachment</string>
+    <string name="bottom_add_image">Add Image</string>
+    <string name="bottom_album">Album</string>
+    <string name="bottom_template">Template</string>
+    <string name="bottom_users">Users</string>
+    <string name="bottom_schedule">Schedule</string>
+
+    <string name="switch_to_album">Oops! You can\'t add \'Users\' and \'Album\' together. Remove the selected attachment?</string>
+    <string name="switch_to_attachment">Oops! You can\'t add \'Attachment\' and \'Album\' together. Remove the selected attachment?</string>
+    <string name="remove_users">Are you sure you want to remove Users?</string>
+    <string name="remove_schedule">Are you sure you want to remove Schedule?</string>
+    <string name="remove_attachment">Are you sure you want to remove Attachment?</string>
+    <string name="remove_album">Are you sure you want to remove Album?</string>
+
+    <string name="communication_add">Post has been added successfully</string>
+    <string name="communication_edit">Post has been updated successfully</string>
+    <string name="attachment_text">Add attachment</string>
+    <string name="attachment_more_text">Add attachment and more</string>
+
+    <string name="attachment_description_hint">Share day-to-day happenings and updates</string>
+    <string name="attachment_description_hint_teacher">Say Hello to your Learners with a text message or image!</string>
+    <string name="attachment_description_hint_learner">Type your message here</string>
+    <string name="attachment_romove_message">Oops! You cannot add Album to selected course as a Learner. Do you wish to remove Album?</string>
+    <string name="user_romove_message">Oops! Selected users will be removed. Are your sure?</string>
+    <string name="mark_for_review">\tMark for review</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <!--Quiz Screen-->
+    <string name="quiz_question_filter">Question list</string>
+    <string name="quiz_unanswered_txt">Unanswered</string>
+    <string name="quiz_reviewpending_txt">Review Pending</string>
+
+    <string name="finish">Finish</string>
+    <string name="title_activity_quiz_result">QuizResultActivity</string>
+    <string name="quiz_date">Quiz Date:\t</string>
+    <string name="total_duration">Total Duration:\t</string>
+    <string name="resume_quiz">Resume Quiz</string>
+    <string name="start_quiz">Start Quiz</string>
+    <string name="view_result">View Result</string>
+    <string name="result_analysis">Result Analysis</string>
+    <string name="explanation">Explanation</string>
+    <string name="score">Score:\t</string>
+    <string name="time_take_to_swer">Time taken to answer:\t</string>
+    <string name="selected_correct_answer">\t\tYou have selected correct answer</string>
+    <string name="selected_incorrect_answer">\t\tYou have selected wrong answer</string>
+    <string name="actual_correct_answer">\t\tActual correct answer</string>
+    <string name="got_it">GOT IT</string>
+    <string name="reset">RESET</string>
+
+    <string name="questions_list_title">Questions List</string>
+    <string name="exit_quiz_message">Are you sure you want to exit?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="how_to_use_test">How to use quiz?</string>
+    <string name="quiz_attamped_txt">Attempted</string>
+    <string name="quiz_unattamped_txt">Unattempted</string>
+
+    <string name="quiz_finish_exam_txt">Finish Quiz</string>
+
+    <string name="quiz_analysis_txt">Quiz Analysis</string>
+
+    <string name="quiz_persional_commu_txt">Personal Communication</string>
+    <string name="quiz_date_txt">Quiz Date</string>
+    <string name="quiz_que_no_txt">Que.\nNo.</string>
+    <string name="quiz_topic_chapter_txt">Topic/Chapter</string>
+    <string name="quiz_your_answer_txt">Your\nAnswer</string>
+    <string name="quiz_currect_answer_txt">Correct\nAnswer</string>
+    <string name="quiz_currect_answer_course_txt">%Correct\nAnswer from\nthe Course</string>
+    <string name="quiz_mark_txt">Mark</string>
+    <string name="quiz_grade_txt">Grade:</string>
+    <string name="quiz_total_marks_txt">Total Marks:</string>
+    <string name="quiz_section_name_txt">Section Name</string>
+    <string name="quiz_test_date_txt">Quiz Date :</string>
+    <string name="quiz_persional_commu_summary_txt">Personal Communication: You Deliver a Great Elevator Pitch</string>
+    <string name="quiz_total_que_txt">Total Que.</string>
+    <string name="quiz_correct_txt">Correct</string>
+    <string name="quiz_wrong_txt">Wrong</string>
+    <string name="default_error_message_quiz_result">Unexpected error occurred while fetching result.</string>
+    <string name="default_error_message_quiz_details">Unexpected error occurred while processing your request.</string>
+    <string name="you_rank">Your Rank:\t</string>
+    <string name="mark_obtained">Mark Obtained:\t</string>
+    <string name="quiz_tutorial_insturction">If you will close or left the quiz due to any reason, \nyou have to start quiz again.</string>
+    <string name="finish_quiz_message">Quiz time is finished.You will be redirected to result page.</string>
+    <string name="ask_a_question">Ask a question</string>
+    <string name="option_a">Write Option A</string>
+    <string name="option_b">Write Option B</string>
+    <string name="option_c">Write Option C</string>
+    <string name="option_d">Write Option D</string>
+    <string name="add_poll">Add Poll</string>
+    <string name="edit_poll">Edit Poll</string>
+    <string name="repost_poll">Repost Poll</string>
+    <string name="bottom_end_date">End Date</string>
+    <string name="end_date">Poll ends on\t:</string>
+    <string name="submit_poll">Submit Poll</string>
+
+
+    <!--Poll-->
+    <string name="bookmark_txt">Bookmark</string>
+    <string name="unbookmark_txt">UnBookmark</string>
+    <string name="delete_poll_msg">Poll has been deleted</string>
+
+    <!--Persional Contact Information-->
+    <string name="select_category_txt">I am interested in</string>
+    <string name="select_category_msg_txt">Please select your category.</string>
+    <string name="poll_vote_sent">Your vote has been sent successfully</string>
+    <string name="select_poll_option">Select anyone option to vote in Poll</string>
+    <string name="poll_result">Poll Result</string>
+    <string name="give_your_opinion">Give your opinion</string>
+    <string name="your_opinion">Your opinion</string>
+
+    <!--Course Invites-->
+    <string name="accepted_msg">Accepted</string>
+    <string name="rejected_msg">Rejected</string>
+    <string name="conformation_msg">Are you sure?"</string>
+    <string name="no_pending_req_msg">No Pending Request</string>
+
+
+    <!--QR Code-->
+    <string name="invalid_qr_code">Invalid QR code</string>
+    <string name="error">Error</string>
+
+
+    <!--Buyers Screen-->
+    <string name="no_buyer_msg">No Buyer Found</string>
+
+
+    <!--Notification Screen-->
+    <string name="notification_title">Notification</string>
+    <string name="conformation_msg_delte">Are you sure you want to delete notification?</string>
+    <string name="no_notifications">No Notifications Found</string>
+
+
+    <!--Add Files-->
+    <string name="add_file">Add Files</string>
+    <string name="content_add">Content has been added successfully</string>
+    <string name="content_update">Content has been updated successfully</string>
+    <string name="content_copy">Content has been copied successfully</string>
+    <string name="learner_can_preview">Learner can preview before they join/buy</string>
+    <string name="empty_content_txt">Your content is empty right now, Add some files.</string>
+    <string name="add_file_content">Add Files</string>
+    <string name="content_title_validation">Use 2 character or more for title</string>
+    <string name="content_attachment_validation">Add Attachment</string>
+
+
+    <!--Refund Screen-->
+    <string name="refund_dialog_message_title">You have been unsubscribed from </string>
+    <string name="refund_dialog_message_one">Your refund will be initiated within one week.</string>
+    <string name="refund_dialog_message_two">For any help call us on 079-4014 9800 between 9:30 am to 6:30 pm on Monday to Saturday.</string>
+    <string name="refund_dialog_message_three">We will be always here with great deals to share. </string>
+    <string name="refund_course">Refund a course</string>
+    <string name="sorry_You_are">We\'re sorry you are unhappy with </string>
+    <string name="like_a_refund">\n and would like a refund.</string>
+    <string name="help_us_improve">Help us improve: why are you getting a refund?</string>
+    <string name="select_reason">Select any reason</string>
+    <string name="more">MORE</string>
+    <string name="select_course">Select Course</string>
+    <string name="select_user_message">Select users to send message</string>
+    <string name="add_description">Add Description</string>
+    <string name="upload_media">Uploading media...</string>
+    <string name="attachment">Attachment</string>
+    <string name="choose_action">Choose an Action</string>
+    <string name="record_with_flinnt">Record with flinnt</string>
+    <string name="choose_video_track">Choose video track</string>
+    <string name="invalid_lint">Invalid Link</string>
+    <string name="add_valid_link">Add valid link</string>
+    <string name="image_not_download">This image is not downloaded yet</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="select_tab">SELECTED_TAB</string>
+    <string name="likes">likes</string>
+    <string name="viewers">Viewers</string>
+    <string name="likes_txt">Likes</string>
+    <string name="removed_course">You have been removed from course</string>
+    <string name="add_schedule">Add Schedule</string>
+    <string name="cannot_select_past_time">You cannot select past time</string>
+    <string name="comment_sent">Comment is sent for approval.</string>
+    <string name="success">SUCCESS</string>
+    <string name="delete_poll">Delete Poll</string>
+    <string name="delete_post">Delete Post</string>
+    <string name="removed_from_course">You have been removed from course</string>
+    <string name="add_new_section">Add New Section</string>
+    <string name="edit_section">Edit Section</string>
+    <string name="section_name_validation">Use 2 character or more for section name</string>
+    <string name="add_section">Add Section</string>
+    <string name="add">ADD</string>
+    <string name="edit_txt">EDIT</string>
+    <string name="section">Section</string>
+    <string name="content">Content</string>
+    <string name="select_gender">Select gender</string>
+    <string name="password_change_successfully">Password changed successfully.</string>
+    <string name="profile_update">Profile has been updated</string>
+    <string name="uploading_image">Uploading Image...</string>
+    <string name="profile">Profile</string>
+    <string name="add_email">Add email</string>
+    <string name="add_mobile">Add mobile number</string>
+    <string name="date_birth">Add Date of Birth</string>
+    <string name="post_txt">post</string>
+    <string name="sent_for_approval">Comment is sent for approval.</string>
+    <string name="delete_comment">Delete Comment</string>
+    <string name="exist">exist</string>
+    <string name="not_exist">not exist</string>
+    <string name="poll_result_on">Poll result on:</string>
+    <string name="total_votes">Total Votes:</string>
+
+
+    <!-- by vijay 11-01-2019-->
+    <string name="qv_add">+</string>
+    <string name="qv_remove">-</string>
+    <string name="product_desc">Product description</string>
+    <string name="add_to_cart_button">Add to Cart</string>
+    <string name="cust_who_purchase_book">Customers who purchased this also purchased</string>
+    <string name="about_author">About the Author</string>
+
+
+</resources>

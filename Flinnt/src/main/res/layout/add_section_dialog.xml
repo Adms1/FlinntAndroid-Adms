@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_20dp"
+    android:paddingLeft="@dimen/margin_20dp"
+    android:paddingRight="@dimen/margin_20dp"
+    android:paddingTop="@dimen/margin_20dp">
+
+    <EditText
+        android:id="@+id/section_name_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:hint="Enter section title less than 80 characters"
+        android:inputType="textCapSentences"
+        android:maxLength="80"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:textSize="@dimen/text_size_15sp" />
+
+</LinearLayout>

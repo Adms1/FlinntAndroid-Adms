@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/commu_edit"
+        android:orderInCategory="100"
+        android:title="Edit Post"
+        style="@style/OverflowMenu"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/commu_bookmark"
+        android:orderInCategory="100"
+        android:title="Bookmark"
+        style="@style/OverflowMenu"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/commu_delete"
+        android:orderInCategory="100"
+        android:title="Delete"
+        style="@style/OverflowMenu"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BottomLib/BottomLib.iml" filepath="$PROJECT_DIR$/BottomLib/BottomLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CropLib/CropLib.iml" filepath="$PROJECT_DIR$/CropLib/CropLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Flinnt/Flinnt.iml" filepath="$PROJECT_DIR$/Flinnt/Flinnt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FlinntAndroid.iml" filepath="$PROJECT_DIR$/FlinntAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RTEditor/RTEditor.iml" filepath="$PROJECT_DIR$/RTEditor/RTEditor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RTEditor-Toolbar/RTEditor-Toolbar.iml" filepath="$PROJECT_DIR$/RTEditor-Toolbar/RTEditor-Toolbar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TokenAutoCompleteLib/TokenAutoCompleteLib.iml" filepath="$PROJECT_DIR$/TokenAutoCompleteLib/TokenAutoCompleteLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imagepicker/imagepicker.iml" filepath="$PROJECT_DIR$/imagepicker/imagepicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdp/sdp1.iml" filepath="$PROJECT_DIR$/sdp/sdp1.iml" />
+    </modules>
+  </component>
+</project>

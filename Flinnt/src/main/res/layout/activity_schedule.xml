@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_backgroung"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/publish_relative_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" android:paddingTop="20dp"
+            android:background="#ffffff"
+            android:paddingBottom="20dp">
+
+
+            <RadioGroup android:layout_marginLeft="20dp"
+                android:id="@+id/publish_post_radiogroup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/publish_post_now_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:onClick="onRadioButtonClicked"
+                    android:paddingLeft="14dp"
+                    android:text="Now"
+                    android:textColor="@drawable/radio_button_textcolor"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:text="OR"
+                    android:textColor="#878787"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/publish_post_schedule_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:paddingLeft="14dp"
+                    android:text="Schedule"
+                    android:textColor="@drawable/radio_button_textcolor"
+                    android:textSize="17sp" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/publish_date_time_select_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/publish_post_radiogroup"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <View
+                    android:id="@+id/publish_h_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/publish_post_radiogroup"
+                    android:layout_toRightOf="@+id/publish_icon_linear"
+                    android:background="#878787" />
+
+                <LinearLayout
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/schedule_date_relative"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/schedule_date_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@+id/imageView_down1"
+                            android:text="@string/select_date"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:id="@+id/imageView_down1"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:padding="1dp"
+                            android:src="@drawable/down_b" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/schedule_time_relative"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/schedule_time_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@+id/imageView_down2"
+                            android:text="@string/select_time"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:id="@+id/imageView_down2"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:padding="1dp"
+                            android:src="@drawable/down_b" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

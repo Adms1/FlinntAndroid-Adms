@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:background="@color/white"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textColor="#2c953c"
+        android:drawableLeft="@drawable/green_correct_big"
+        android:text="@string/selected_correct_answer"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/wrong_big"
+        android:textColor="#fd0000"
+        android:text="@string/selected_incorrect_answer"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/blue_correct_big"
+        android:textColor="#007dcd"
+        android:text="@string/actual_correct_answer"/>
+    <TextView
+        android:gravity="right"
+        android:id="@+id/text_view_got_it"
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@color/ColorPrimary"
+        android:text="@string/got_it"/>
+</LinearLayout>

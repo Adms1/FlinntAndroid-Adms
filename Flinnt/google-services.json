@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_number": "200667972425",
+    "firebase_url": "https://flinnt-15e8e.firebaseio.com",
+    "project_id": "flinnt-15e8e",
+    "storage_bucket": "flinnt-15e8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200667972425:android:f22ff453ca029516",
+        "android_client_info": {
+          "package_name": "com.edu.flinnt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200667972425-qbv2q5guogiaarm6ehd5eq9c5vs5fo8b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLhWZ5ROrtL8lAxp2uJG2MVo5pYenN6_o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-46829088-2"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

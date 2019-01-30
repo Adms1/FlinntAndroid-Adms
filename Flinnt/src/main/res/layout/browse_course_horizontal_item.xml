@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/category_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minWidth="@dimen/detail_backdrop_height"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/margin_5dp"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/category_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="@string/more_courses_from"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/more_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@color/transparent"
+            android:gravity="right"
+            android:layout_marginRight="@dimen/margin_5dp"
+            android:singleLine="true"
+            android:text="@string/more"
+            android:textColor="@color/ColorPrimary"
+            android:textSize="@dimen/text_size_13sp" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/category_courses_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_5dp"
+        android:orientation="horizontal" />
+
+</LinearLayout>
+
+

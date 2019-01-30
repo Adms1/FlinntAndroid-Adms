@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contentItemLinear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_5dp"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/deviderTxt"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/margin_15dp"
+        android:layout_marginRight="@dimen/margin_15dp"
+        android:background="#CCCCCC" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/cItemTitleTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
+            android:layout_toRightOf="@+id/content_unread_dot"
+            android:ellipsize="end"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="@dimen/margin_5dp"
+            android:text="Title"
+            android:textColor="#201D1E"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/statsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_5dp"
+        android:paddingLeft="@dimen/margin_15dp"
+        android:paddingTop="@dimen/margin_5dp"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/cItemLikesTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
+            android:layout_weight="0.30"
+            android:drawableLeft="@drawable/ic_post_card_like"
+            android:drawablePadding="@dimen/margin_10dp"
+            android:gravity="center_vertical"
+            android:text="Likes"
+            android:textColor="#878787"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/cItemCommentsTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:drawableLeft="@drawable/ic_post_card_comment"
+            android:drawablePadding="@dimen/margin_10dp"
+            android:gravity="center_vertical"
+            android:text="Comments"
+            android:textColor="#878787"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/content_type_image"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/margin_15dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <item
+        android:id="@+id/content_show_hide"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/content_delete"
+        android:orderInCategory="100"
+        android:title="@string/content_delete"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/send_notification"
+        android:orderInCategory="100"
+        android:title="@string/send_notification"
+        app:showAsAction="never"/>
+
+</menu>

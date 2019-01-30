@@ -1,0 +1,36 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_action_search"
+        android:orderInCategory="100"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always" />
+    <!--
+       <item
+           android:id="@+id/action_settings"
+           android:orderInCategory="100"
+           android:title="@string/settings"
+           app:showAsAction="never" /> -->
+
+    <item
+        android:id="@+id/action_add_banner"
+        android:orderInCategory="100"
+        android:title="Banner"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_notificationlist"
+        android:icon="@drawable/notification_toolbar"
+        android:orderInCategory="100"
+        android:title="Notification"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_scan_qr_code"
+        android:icon="@drawable/scan_qr_code"
+        android:orderInCategory="100"
+        android:title="Scan"
+        app:showAsAction="always" />
+</menu>

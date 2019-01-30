@@ -1,0 +1,75 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
+    >
+
+    <LinearLayout
+        android:id="@+id/drawar_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:minHeight="?attr/listPreferredItemHeightSmall"
+    >
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/radio_user_selection"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical"
+            android:focusable="false"
+            android:clickable="false"
+            android:focusableInTouchMode="false"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"/>
+
+        <ImageView
+            android:id="@+id/menu_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/add_post_tags" android:visibility="visible"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/menu_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="?attr/listPreferredItemHeightSmall"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:text="Add Account"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black" android:visibility="visible"
+            android:layout_gravity="center_vertical" android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/unread_count"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
+            android:text="99+"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="@android:color/darker_gray"
+        />
+
+</LinearLayout>

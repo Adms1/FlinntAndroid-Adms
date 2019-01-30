@@ -1,0 +1,4 @@
+p{line-height:20px; font-size:14px; }
+ul{padding:0px; margin:0px; background:#EEF2F5; }
+ul li{ padding:0px 0px 10px 20px; list-style:none; margin:0px; position:relative; line-height:20px; font-size:14px; }
+ul li:after{content:""; width:6px; height:6px; background:#1a1718; border-radius:500px; position:absolute; top:7px; left:1px; }

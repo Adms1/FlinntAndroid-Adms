@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#cecece"
+        android:paddingBottom="@dimen/margin_10dp"
+        android:paddingTop="@dimen/margin_10dp">
+
+        <TextView
+            android:id="@+id/course_name_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_18dp"
+            android:layout_weight="1"
+            android:focusableInTouchMode="true"
+
+            android:textColor="#525252"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/quiz_date_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_18dp"
+
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/analysis_nestedscroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_10dp"
+            android:descendantFocusability="blocksDescendants"
+            android:focusable="true"
+            android:orientation="vertical">
+
+        <LinearLayout android:background="@drawable/quiz_analysis_border"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:descendantFocusability="blocksDescendants"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_70dp"
+                android:background="@color/ColorPrimary"
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/quiz_que_no_txt"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+
+                <include layout="@layout/vertical_line_title_text" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="@string/quiz_topic_chapter_txt"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+
+                <include layout="@layout/vertical_line_title_text" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_weight="1.3"
+                    android:gravity="center"
+                    android:text="Your\nAnswer"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+
+                <include layout="@layout/vertical_line_title_text" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_weight="1.3"
+                    android:gravity="center"
+                    android:text="@string/quiz_currect_answer_txt"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+
+                <include layout="@layout/vertical_line_title_text" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_weight="2.1"
+                    android:gravity="center"
+                    android:text="@string/quiz_currect_answer_course_txt"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+
+                <include layout="@layout/vertical_line_title_text" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/quiz_mark_txt"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/chapter_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_50dp"
+                android:background="@color/ColorPrimary"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/grade_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_weight="1"
+
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/total_marks_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout android:background="@drawable/quiz_analysis_border"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:descendantFocusability="blocksDescendants"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_50dp"
+
+                android:background="@color/ColorPrimary"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/section_name_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_weight="4.0" android:textSize="17dp"
+                    android:text="@string/quiz_section_name_txt"
+                    android:textColor="@color/white" />
+
+                <include layout="@layout/vertical_line_title_text" />
+
+                <TextView
+                    android:id="@+id/total_que_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_weight="1.3"
+                    android:gravity="center"
+                    android:text="@string/quiz_total_que_txt"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+
+                <include layout="@layout/vertical_line_title_text" />
+
+                <TextView
+                    android:id="@+id/correct_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:text="@string/quiz_correct_txt"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+
+                <include layout="@layout/vertical_line_title_text" />
+
+                <TextView
+                    android:id="@+id/wrong_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_weight="1.2"
+                    android:gravity="center"
+                    android:text="@string/quiz_wrong_txt"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+
+                <include layout="@layout/vertical_line_title_text" />
+
+                <TextView
+                    android:id="@+id/unanswer_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2.1"
+                    android:gravity="center"
+                    android:text="Unanswered"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/summary_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false" />
+
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:background="#eaeaea"
+                android:gravity="center_horizontal"
+                android:paddingBottom="@dimen/margin_5dp"
+                android:paddingTop="@dimen/margin_5dp">
+
+                <ImageView
+                    android:id="@+id/grade_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/grade_text_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:textColor="@color/black"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/grades_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_10dp"
+                android:background="#dde1e4"
+                android:gravity="center"
+                android:paddingBottom="@dimen/margin_10dp"
+                android:paddingTop="@dimen/margin_10dp"
+                android:textColor="@color/ColorPrimaryDark"
+                android:textSize="13dp" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

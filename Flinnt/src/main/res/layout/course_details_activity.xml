@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_courses_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_backgroung"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/course_details_coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/course_details_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_behavior="com.edu.flinnt.util.FlingBehavior">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/course_details_collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
+
+                <!-- <include layout="@layout/tool_bar" /> -->
+
+                <ImageView
+                    android:id="@+id/course_details_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_course_image"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.7" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/courses_details_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/course_deatils_tabs"
+                style="@style/MyCustomTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlways" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/layout_backgroung"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/shadow" />
+            </FrameLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/course_deatils_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <!-- <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/toolbar_drop_shadow" /> -->
+
+        </FrameLayout>
+
+
+        <!--
+             <android.support.design.widget.FloatingActionButton
+            android:id="@+id/course_deatils_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_settings" />
+        -->
+
+        <RelativeLayout
+            android:id="@+id/fab_background"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/black_semi_transparent"
+            android:visibility="invisible" />
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/course_details_fab_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:fitsSystemWindows="true"
+            android:visibility="gone"
+            fab:fab_addButtonColorNormal="@color/ColorAccent"
+            fab:fab_addButtonColorPressed="@color/ColorAccent"
+            fab:fab_addButtonPlusIconColor="@android:color/white"
+            fab:fab_addButtonSize="normal"
+            fab:fab_addButtonStrokeVisible="false"
+            fab:fab_expandDirection="up"
+            fab:fab_labelStyle="@style/menu_labels_style">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/course_details_fab_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:src="@drawable/ic_fab_menu_alert"
+                fab:fab_colorNormal="@color/ColorPrimary"
+                fab:fab_colorPressed="@color/ColorPrimary"
+                fab:fab_labelStyle="@style/menu_labels_style"
+                fab:fab_size="mini"
+                fab:fab_title="@string/alert" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/course_details_fab_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fab_menu_message"
+                fab:fab_colorNormal="@color/ColorPrimary"
+                fab:fab_colorPressed="@color/ColorPrimary"
+                fab:fab_size="mini"
+                fab:fab_title="@string/message" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/course_details_fab_album"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fab_menu_album"
+                fab:fab_colorNormal="@color/ColorPrimary"
+                fab:fab_colorPressed="@color/ColorPrimary"
+                fab:fab_size="mini"
+                fab:fab_title="@string/album" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/course_details_fab_quiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fab_menu_quiz"
+                fab:fab_colorNormal="@color/ColorPrimary"
+                fab:fab_colorPressed="@color/ColorPrimary"
+                fab:fab_size="mini"
+                fab:fab_title="@string/quiz" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/course_details_fab_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fab_menu_post"
+                fab:fab_colorNormal="@color/ColorPrimary"
+                fab:fab_colorPressed="@color/ColorPrimary"
+                fab:fab_size="mini"
+                fab:fab_title="@string/post" />
+
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/course_details_fab_poll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fab_menu_poll"
+                fab:fab_colorNormal="@color/ColorPrimary"
+                fab:fab_colorPressed="@color/ColorPrimary"
+                fab:fab_size="mini"
+                fab:fab_title="@string/poll" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/course_details_fab_communication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fab_menu_post"
+                fab:fab_colorNormal="@color/ColorPrimary"
+                fab:fab_colorPressed="@color/ColorPrimary"
+                fab:fab_size="mini"
+                fab:fab_title="@string/post" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/course_details_fab_course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fab_menu_course"
+                fab:fab_colorNormal="@color/ColorPrimary"
+                fab:fab_colorPressed="@color/ColorPrimary"
+                fab:fab_size="mini"
+                fab:fab_title="@string/course" />
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+        <com.edu.flinnt.util.RippleBackground
+            android:id="@+id/fab_content_ripple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            app:rb_color="@color/ColorAccent"
+            app:rb_duration="3000"
+            app:rb_rippleAmount="4"
+            app:rb_scale="3.5">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/edit_content"
+                android:visibility="gone"
+                fab:fab_addButtonSize="normal"
+                fab:fab_colorNormal="@color/ColorAccent"
+                fab:fab_colorPressed="@color/ColorAccent"
+                fab:fab_title="@string/course" />
+
+        </com.edu.flinnt.util.RippleBackground>
+    </android.support.design.widget.CoordinatorLayout>
+</FrameLayout>

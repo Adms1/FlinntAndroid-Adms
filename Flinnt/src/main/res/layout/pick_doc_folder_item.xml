@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+    <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:src="@drawable/attachment_pdf"/>
+    <ImageView
+            android:id="@+id/imagefolder"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/imageView1"
+            android:src="@drawable/folder"/>
+    <TextView
+            android:id="@+id/foldername"
+            android:layout_width="80dip"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView1"
+            android:layout_marginLeft="5dip"
+            android:layout_toRightOf="@id/imagefolder"
+            android:paddingBottom="20dip"
+            android:text="abcde"
+            android:textColor="@color/black"/>
+</RelativeLayout>

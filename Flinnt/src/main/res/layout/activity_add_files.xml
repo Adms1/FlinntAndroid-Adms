@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_relative"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+    <include layout="@layout/tool_bar" />
+    <LinearLayout
+        android:id="@+id/preview_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/leaner_preview_bg"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_15dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/margin_5dp"
+            android:text="@string/learner_can_preview"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/text_size_16sp" />
+
+        <CheckBox
+            android:id="@+id/preview_chk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_vertical"
+            />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/titel_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/preview_linear"
+        android:layout_marginLeft="@dimen/margin_10dp"
+        android:layout_marginRight="@dimen/margin_10dp"
+        android:hint="Title"
+        android:maxLength="80"
+        android:singleLine="true" />
+
+    <!-- <EditText
+         android:id="@+id/description_edt"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/titel_edt"
+         android:layout_marginLeft="@dimen/margin_5dp"
+         android:layout_marginRight="@dimen/margin_5dp"
+         android:hint="Description" />-->
+
+
+    <com.onegravity.rteditor.RTEditText
+        android:id="@+id/description_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/attach_horizontalscroll"
+        android:layout_below="@+id/titel_edt"
+        android:layout_marginLeft="@dimen/margin_15dp"
+        android:layout_marginRight="@dimen/margin_10dp"
+        android:layout_weight="1"
+        android:gravity="top"
+        android:hint="Description"
+        android:background="@color/transparent"
+        android:imeOptions="actionDone|flagNoEnterAction"
+        android:inputType="textMultiLine|textAutoCorrect|textCapSentences" />
+
+    <HorizontalScrollView
+        android:id="@+id/attach_horizontalscroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/attachment_linear"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/margin_10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_18dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/attach_file_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <View
+        android:id="@+id/attachment_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/attachment_linear"
+        android:layout_marginTop="1dp"
+        android:background="#b5b5b5" />
+
+    <LinearLayout
+        android:id="@+id/attachment_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_5dp">
+
+        <ImageView
+            android:id="@+id/item_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10dp"
+            android:src="@drawable/post_attachment" />
+
+        <TextView
+            android:id="@+id/item_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_5dp"
+            android:text="Attachment"
+            android:textColor="@color/timeline_text_color"
+            android:textSize="@dimen/text_size_15sp" />
+        <include
+            android:id="@+id/rte_toolbar_container"
+            layout="@layout/rte_tool"
+            android:visibility="invisible" />
+    </LinearLayout>
+</RelativeLayout>

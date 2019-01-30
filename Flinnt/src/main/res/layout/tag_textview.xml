@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edtTxt1"
+    android:layout_width="wrap_content"
+    android:layout_height="25dp"
+    android:background="@drawable/rounded_edges"
+    android:drawablePadding="5dp"
+    android:drawableRight="@drawable/ic_close_25"
+    android:padding="5dp"
+    android:gravity="center_vertical"
+    android:textColor="#000000"
+    android:textSize="13sp"
+    android:text="world cup"
+    android:textStyle="bold" />
+<!-- android:shadowColor="#FFFFFF"
+    android:shadowDy="1"
+    android:shadowRadius="0.01" -->

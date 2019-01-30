@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/allow_comment" 
+        android:title="@string/allow_comment"
+        />
+    <item
+        android:id="@+id/disallow_comment"
+        android:title="@string/disallow_comment"/>
+    <item
+        android:id="@+id/allow_message"
+        android:title="@string/allow_message"/>
+    <item
+        android:id="@+id/disallow_message"
+        android:title="@string/disallow_messsage"/>
+    <item
+        android:id="@+id/remove_from_course"
+        android:title="@string/remove_from_course"/>
+
+</menu>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_backgroung"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar"/>
+   <!-- <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:fitsSystemWindows="true" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/filter_post_radiogroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/shadow" />
+
+            <RadioButton
+                android:id="@+id/filter_post_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="5dp"
+                android:onClick="onRadioButtonClicked"
+                android:padding="10dp"
+                android:text="Image"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/seprator_color" />
+
+            <RadioButton
+                android:id="@+id/filter_post_audio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="5dp"
+                android:onClick="onRadioButtonClicked"
+                android:padding="10dp"
+                android:text="Audio"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/seprator_color" />
+
+            <RadioButton
+                android:id="@+id/filter_post_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="5dp"
+                android:onClick="onRadioButtonClicked"
+                android:padding="10dp"
+                android:text="Video"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/seprator_color" />
+
+            <RadioButton
+                android:id="@+id/filter_post_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="5dp"
+                android:onClick="onRadioButtonClicked"
+                android:padding="10dp"
+                android:text="Link"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/seprator_color" />
+
+            <RadioButton
+                android:id="@+id/filter_post_document"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="5dp"
+                android:onClick="onRadioButtonClicked"
+                android:padding="10dp"
+                android:text="Document"
+                android:textSize="17sp" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/seprator_color" />
+    </LinearLayout>
+</LinearLayout>

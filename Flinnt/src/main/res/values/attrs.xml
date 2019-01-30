@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SelectableRoundedImageView">
+        <attr name="sriv_left_top_corner_radius" format="dimension" />
+        <attr name="sriv_right_top_corner_radius" format="dimension" />
+        <attr name="sriv_left_bottom_corner_radius" format="dimension" />
+        <attr name="sriv_right_bottom_corner_radius" format="dimension" />
+        <attr name="sriv_border_width" format="dimension" />
+        <attr name="sriv_border_color" format="color" />
+        <attr name="sriv_oval" format="boolean" />
+        <attr name="android:scaleType" />
+    </declare-styleable>
+
+    <declare-styleable name="FadedTextView">
+        <attr name="fadeWidth" format="dimension"/>
+    </declare-styleable>
+
+     <declare-styleable name="CirclePageIndicator">
+
+        <!-- Whether or not the indicators should be centered. -->
+        <attr name="centered" />
+        <!-- Color of the filled circle that represents the current page. -->
+        <attr name="fillColor" format="color" />
+        <!-- Color of the filled circles that represents pages. -->
+        <attr name="pageColor" format="color" />
+        <!-- Orientation of the indicator. -->
+        <attr name="android:orientation" />
+        <!-- Radius of the circles. This is also the spacing between circles. -->
+        <attr name="radius" format="dimension" />
+        <!-- Whether or not the selected indicator snaps to the circles. -->
+        <attr name="snap" format="boolean" />
+        <!-- Color of the open circles. -->
+        <attr name="strokeColor" format="color" />
+        <!-- Width of the stroke used to draw the circles. -->
+        <attr name="strokeWidth" />
+        <!-- View background -->
+        <attr name="android:background" />
+    </declare-styleable>
+    
+     <attr name="strokeWidth" format="dimension" />
+      <attr name="centered" format="boolean" />
+    
+    <declare-styleable name="ViewPagerIndicator">
+        <!-- Style of the circle indicator. -->
+        <attr name="vpiCirclePageIndicatorStyle" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="RippleBackground">
+        <attr name="rb_color" format="color" />
+        <attr name="rb_strokeWidth" format="dimension"/>
+        <attr name="rb_radius" format="dimension"/>
+        <attr name="rb_duration" format="integer"/>
+        <attr name="rb_rippleAmount" format="integer"/>
+        <attr name="rb_scale" format="float"/>
+        <attr name="rb_type" format="enum">
+            <enum name="fillRipple" value="0"/>
+            <enum name="strokeRipple" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ReadMoreTextView">
+        <attr name="trimExpandedText" format="string" />
+        <attr name="trimCollapsedText" format="string" />
+        <attr name="trimLength" format="integer" />
+        <attr name="showTrimExpandedText" format="boolean" />
+        <attr name="colorClickableText" format="color" />
+        <attr name="trimLines" format="integer" />
+        <attr name="trimMode">
+            <enum name="trimModeLine" value="0"/>
+            <enum name="trimModeLength" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="Theme">
+        <attr name="rte_ToolbarButton" format="reference"/>
+        <attr name="rte_ToolbarSpinner" format="reference"/>
+        <attr name="rte_ToolbarSpinnerItem" format="reference"/>
+        <attr name="rte_ToolbarSpinnerSelectedColor" format="color"/>
+
+        <attr name="rte_icToolbarBold" format="reference"/>
+        <attr name="rte_icToolbarItalic" format="reference"/>
+        <attr name="rte_icToolbarUnderline" format="reference"/>
+        <attr name="rte_icToolbarStrikethrough" format="reference"/>
+        <attr name="rte_icToolbarSuperscript" format="reference"/>
+        <attr name="rte_icToolbarSubscript" format="reference"/>
+        <attr name="rte_icToolbarAlignLeft" format="reference"/>
+        <attr name="rte_icToolbarAlignCenter" format="reference"/>
+        <attr name="rte_icToolbarAlignRight" format="reference"/>
+        <attr name="rte_icToolbarIncIndent" format="reference"/>
+        <attr name="rte_icToolbarDecIntent" format="reference"/>
+        <attr name="rte_icToolbarBullet" format="reference"/>
+        <attr name="rte_icToolbarNumber" format="reference"/>
+        <attr name="rte_icToolbarFont" format="reference"/>
+        <attr name="rte_icToolbarFontSize" format="reference"/>
+        <attr name="rte_icToolbarFontColor" format="reference"/>
+        <attr name="rte_icToolbarBGColor" format="reference"/>
+        <attr name="rte_icToolbarLink" format="reference"/>
+        <attr name="rte_icToolbarImage" format="reference"/>
+        <attr name="rte_icToolbarCapture" format="reference"/>
+        <attr name="rte_icToolbarUndo" format="reference"/>
+        <attr name="rte_icToolbarRedo" format="reference"/>
+        <attr name="rte_icToolbarClear" format="reference"/>
+
+        <attr name="rte_ToolbarVerticalDivider" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="ToolbarButton">
+        <attr name="checked" format="boolean"/>
+        <attr name="state_checked" format="boolean"/>
+    </declare-styleable>
+
+
+    <!-- by vijay -->
+
+    <declare-styleable name="ShadowLayout">
+        <attr name="sl_cornerRadius" format="dimension"/>
+        <attr name="sl_shadowRadius" format="dimension"/>
+        <attr name="sl_shadowColor" format="color"/>
+        <attr name="sl_dx" format="dimension"/>
+        <attr name="sl_dy" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="QuantityView">
+        <attr name="qv_addButtonText" format="string" />
+        <attr name="qv_addButtonBackground" format="color|reference" />
+        <attr name="qv_addButtonTextColor" format="color" />
+
+        <attr name="qv_removeButtonText" format="string" />
+        <attr name="qv_removeButtonBackground" format="color|reference" />
+        <attr name="qv_removeButtonTextColor" format="color" />
+
+        <attr name="qv_quantity" format="integer" />
+        <attr name="qv_quantityDialog" format="boolean" />
+        <attr name="qv_quantityBackground" format="color|reference" />
+        <attr name="qv_quantityTextColor" format="color" />
+        <attr name="qv_quantityPadding" format="dimension" />
+
+        <attr name="qv_maxQuantity" format="integer" />
+        <attr name="qv_minQuantity" format="integer" />
+    </declare-styleable>
+
+
+
+</resources>

@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_backgroung"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar"/>
+
+    <ScrollView
+        android:id="@+id/scroll_addpost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ffffff">
+
+                <LinearLayout
+                    android:id="@+id/linear_course_icon_addpost"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/add_post_course"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_course_title_addpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/linear_course_icon_addpost"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="9"
+                        android:text="@string/course"
+                        android:textColor="#1a1718"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:id="@+id/course_edit_addpost"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/add_post_edit"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_course_desc_addpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/linear_course_title_addpost"
+                    android:layout_toRightOf="@+id/linear_course_icon_addpost"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/course_desc_addpost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:text="Select a course"
+                        android:textColor="#1a1718"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/template_layout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <Button
+                    android:id="@+id/button_choose_template"
+                    android:layout_width="200dp"
+                    android:layout_height="34dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_account_blue_edges"
+                    android:text="@string/choose_template"
+                    android:textColor="@color/button_dark_text_color"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="#ffffff">
+
+                <LinearLayout
+                    android:id="@+id/linear_postdetail_icon_addpost"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/add_post_postdetails"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_postdetail_title_addpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/linear_postdetail_icon_addpost"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/post_details"
+                        android:textColor="#1a1718"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/post_title_addpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear_postdetail_title_addpost"
+                    android:layout_toRightOf="@+id/linear_postdetail_icon_addpost"
+                    android:hint="Post Title"
+                    android:inputType="textCapSentences"
+                    android:singleLine="true"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/post_decription_addpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/post_title_addpost"
+                    android:layout_toRightOf="@+id/linear_postdetail_icon_addpost"
+                    android:hint="Post Description"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:textSize="15sp"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_attach_file_addpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/post_decription_addpost"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/linear_postdetail_icon_addpost"
+                    android:gravity="top"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/attach_file"
+                        android:textColor="#4e4e4e"
+                        android:textSize="15sp"/>
+                    <HorizontalScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <RelativeLayout
+                                android:id="@+id/attached_file_layout"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginLeft="18dp"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:id="@+id/attached_file_image"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_gravity="center"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/youtube_video_fram_not_get"/>
+
+                                <ImageView
+                                    android:id="@+id/attached_file_remove"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_gravity="center"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_close"/>
+
+                                <ImageButton
+                                    android:id="@+id/imagebutton_preview_media"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginBottom="15dp"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginTop="25dp"
+                                    android:alpha="0.50"
+                                    android:background="@drawable/round_button_black_transparent"
+                                    android:src="@drawable/ic_play_arrow_white"
+                                    android:visibility="gone"/>
+
+                            </RelativeLayout>
+
+                            <ImageButton
+                                android:id="@+id/attach_file_addpost"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/add_post_attach"/>
+
+
+                            <!-- <HorizontalScrollView
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="18dp" >
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal" >
+                                    <LinearLayout
+                                        android:id="@+id/attach_file_horizontalscroll_addpost"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal" >
+                                    </LinearLayout>
+                                    <ImageButton
+                                        android:id="@+id/attach_file_addpost"
+                                        android:layout_width="80dp"
+                                        android:layout_height="80dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="7dp"
+                                        android:src="@drawable/add_post_attach" />
+                                </LinearLayout>
+                            </HorizontalScrollView> -->
+                        </LinearLayout>
+                    </HorizontalScrollView>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff">
+
+                <LinearLayout
+                    android:id="@+id/linear_tags_icon_addpost"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/add_post_tags"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_tags_title_addpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/linear_tags_icon_addpost"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tags"
+                        android:textColor="#1a1718"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <com.edu.flinnt.util.TagsCompletionView
+                    android:id="@+id/add_tags_addpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear_tags_title_addpost"
+                    android:layout_toRightOf="@+id/linear_tags_icon_addpost"
+                    android:hint="@string/add_tag_comma"
+                    android:singleLine="false"
+                    android:textSize="15sp"/>
+
+                <!-- <EditText  android:inputType="textCapSentences"
+                    android:id="@+id/add_tags_addpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/linear_tags_title_addpost"
+                    android:layout_toRightOf="@+id/linear_tags_icon_addpost"
+                    android:hint="@string/add_tag_comma"
+                    android:textSize="15sp" /> -->
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/publish_relative_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:id="@+id/linear_publish_icon_addpost"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/add_post_publish"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_publish_title_addpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/linear_publish_icon_addpost"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/publish"
+                        android:textColor="#1a1718"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/publish_post_radiogroup_addpost"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear_publish_title_addpost"
+                    android:layout_toRightOf="@+id/linear_publish_icon_addpost"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/publish_post_now_addpost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:onClick="onRadioButtonClicked"
+                        android:paddingLeft="14dp"
+                        android:text="Now"
+                        android:textColor="@drawable/radio_button_textcolor"
+                        android:textSize="17sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:text="OR"
+                        android:textColor="#878787"
+                        android:textSize="15sp"/>
+
+                    <RadioButton
+                        android:id="@+id/publish_post_schedule_addpost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:paddingLeft="14dp"
+                        android:text="Schedule"
+                        android:textColor="@drawable/radio_button_textcolor"
+                        android:textSize="17sp"/>
+                </RadioGroup>
+
+                <LinearLayout
+                    android:id="@+id/publish_linear_date_time_select_addpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/publish_post_radiogroup_addpost"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/linear_publish_icon_addpost"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <View
+                        android:id="@+id/publish_h_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_below="@+id/publish_post_radiogroup_addpost"
+                        android:layout_toRightOf="@+id/linear_publish_icon_addpost"
+                        android:background="#878787"/>
+
+                    <LinearLayout
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/schedule_date_relative_addpost"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/schedule_date_text_addpost"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp"
+                                android:layout_toLeftOf="@+id/imageView_down1"
+                                android:text="@string/select_date"
+                                android:textSize="15sp"/>
+
+                            <ImageView
+                                android:id="@+id/imageView_down1"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp"
+                                android:padding="1dp"
+                                android:src="@drawable/down_b"/>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/schedule_time_relative_addpost"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/schedule_time_text_addpost"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp"
+                                android:layout_toLeftOf="@+id/imageView_down2"
+                                android:text="@string/select_time"
+                                android:textSize="15sp"/>
+
+                            <ImageView
+                                android:id="@+id/imageView_down2"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp"
+                                android:padding="1dp"
+                                android:src="@drawable/down_b"/>
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

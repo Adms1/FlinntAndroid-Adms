@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.edu.flinnt"
+    android:versionCode="2004201"
+    android:versionName="2.0.42.01">
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="27" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- For get location -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" /> <!-- @Chirag:22/08/2018 For dynamicaly download -->
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" /> <!-- 22/08/2018 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
+
+    <application
+        android:name=".FlinntApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme"
+        android:vmSafeMode="true">
+        <activity
+            android:name=".gui.SplashScreenActivity"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".gui.DeeplinkingActivity"
+            android:configChanges="orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter android:label="@string/app_name">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- in android:host= we have to assign URL, for release mode we have to assign live URL and for development mode, we have to assign devtest url..., Accepts URIs that begin with "http://recipe-app.com/recipe" -->
+                <!--
+                    <data
+                    android:host="www.flinnt.net"
+                    android:scheme="https" /> Testing  @Chriag:30/08/2018 commented
+                -->
+
+                <data
+                    android:host="www.flinnt.com"
+                    android:scheme="https" /> <!-- Testing  @Chriag:30/08/2018 commented -->
+
+
+                <!--
+                    <data
+                    android:host="devtest.flinnt.com"
+                    android:scheme="https" />
+                -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".gui.MyCoursesActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".gui.NotificationListActivity"
+            android:configChanges="orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".gui.CourseDetailsActivity"
+            android:configChanges="orientation"
+            android:launchMode="singleTop"
+            android:parentActivityName=".gui.MyCoursesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.edu.flinnt.gui.MyCoursesActivity" />
+        </activity>
+        <activity
+            android:name=".gui.LoginActivity"
+            android:configChanges="orientation"
+            android:label="@string/login"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.SignUpActivity"
+            android:configChanges="orientation"
+            android:label="@string/sign_up"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.TermsAndConditionsActivity"
+            android:configChanges="orientation"
+            android:label="@string/terms_and_condition"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gui.ForgotPasswordActivity"
+            android:configChanges="orientation"
+            android:label="@string/forgot_password"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.VerifyMobileActivity"
+            android:configChanges="orientation"
+            android:label="@string/verify_mobile"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.VerifyEmailActivity"
+            android:configChanges="orientation"
+            android:label="@string/verify_email"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.ProfileActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/verify_email"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.BrowseCourseDetailActivity"
+            android:configChanges="orientation|screenSize"
+            android:label=""
+            android:parentActivityName=".gui.MyCoursesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.edu.flinnt.gui.MyCoursesActivity" />
+        </activity>
+        <activity
+            android:name=".gui.store.BrowseCourseDetailActivityNew"
+            android:configChanges="orientation|screenSize"
+            android:label=""
+            android:parentActivityName=".gui.MyCoursesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.edu.flinnt.gui.MyCoursesActivity" />
+        </activity>
+        <activity
+            android:name=".gui.AddAlertActivity"
+            android:configChanges="orientation"
+            android:label="@string/add_alert"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.AddCourseActivity"
+            android:configChanges="orientation"
+            android:label="@string/add_course"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.AddMessageActivity"
+            android:configChanges="orientation"
+            android:label="@string/add_message"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.AddPostActivity"
+            android:configChanges="orientation"
+            android:label="@string/add_post"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.AddBannerActivity"
+            android:configChanges="orientation"
+            android:label="@string/add_banner"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.AddPollActivity"
+            android:configChanges="orientation"
+            android:label="@string/add_poll"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustUnspecified" />
+        <activity
+            android:name=".gui.JoinCommunityActivity"
+            android:configChanges="orientation"
+            android:label="@string/join_community"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.BookmarkPostActivity"
+            android:configChanges="orientation"
+            android:label="@string/bookmarks"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.FilterByPostActivity"
+            android:configChanges="orientation"
+            android:label="@string/filter_by"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.BrowseCourseDescriptionActivity"
+            android:configChanges="orientation"
+            android:hardwareAccelerated="false"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.CourseDescriptionActivity"
+            android:configChanges="orientation"
+            android:hardwareAccelerated="false"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.CourseInvitesActivity"
+            android:configChanges="orientation"
+            android:label="@string/user_requests"
+            android:parentActivityName=".gui.MyCoursesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.edu.flinnt.gui.MyCoursesActivity" />
+        </activity>
+        <activity
+            android:name=".gui.BrowseCoursesActivity"
+            android:configChanges="orientation"
+            android:label="Browse Courses"
+            android:parentActivityName=".gui.MyCoursesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.edu.flinnt.gui.MyCoursesActivity" />
+        </activity>
+        <activity
+            android:name=".gui.AlertListActivity"
+            android:configChanges="orientation"
+            android:label="@string/alerts"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.AlertDetailActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.SelectCourseActivity"
+            android:configChanges="orientation"
+            android:label="Select a Course"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.SelectUsersActivity"
+            android:configChanges="orientation"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.AccountSettingsActivity"
+            android:configChanges="orientation"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.ProfileVerifyMobileActivity"
+            android:configChanges="orientation"
+            android:label="@string/verify_mobile"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.ProfileVerifyEmailActivity"
+            android:configChanges="orientation"
+            android:label="@string/verify_email"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.ProfileVerifyMobileAndEmailActivity"
+            android:configChanges="orientation"
+            android:label="@string/verify_mobile_and_email"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.UsersActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.CourseSettingsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.WishlistActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".util.Recorder"
+            android:allowTaskReparenting="false"
+            android:label="@string/audio_recorder"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MyDialog" />
+        <activity
+            android:name=".gui.SelectTempleteActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.HelpActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.PickDocFolderActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.PickDocFileActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.FaqActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.InAppPreviewActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.ContactUsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.CourseReviewsActivity"
+            android:configChanges="orientation"
+            android:label="Viewers"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.ContentsDetailActivity"
+            android:configChanges="orientation|screenSize"
+            android:label=""
+            android:parentActivityName=".gui.CourseDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="com.soundcloud.android.crop.CropImageActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gui.ContentViewersActivity"
+            android:configChanges="orientation"
+            android:label="Viewers"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gui.CheckoutActivity"
+            android:label=""
+            android:parentActivityName=".gui.MyCoursesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.edu.flinnt.gui.MyCoursesActivity" />
+        </activity>
+        <activity
+            android:name=".ccavenue.WebViewActivity"
+            android:configChanges="orientation"
+            android:parentActivityName=".gui.MyCoursesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gui.PostViewersSendMessageActivity"
+            android:configChanges="orientation"
+            android:label="Users who reacted"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.InstituteCourseListActivity"
+            android:configChanges="orientation"
+            android:label="InstituteCourse"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.InstitutesActivity"
+            android:configChanges="orientation"
+            android:parentActivityName=".gui.MyCoursesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gui.ContentEditActivity"
+            android:configChanges="orientation|screenSize"
+            android:label=""
+            android:parentActivityName=".gui.CourseDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.PersonalInformationActivity"
+            android:configChanges="orientation|screenSize"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.PersonalInformationContactActivity"
+            android:configChanges="orientation|screenSize"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.VideoViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.ScheduleActivity"
+            android:configChanges="orientation"
+            android:label="Schedule"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.QuizResultAnalysisActivity"
+            android:configChanges="orientation"
+            android:label="Quiz Result Analysis"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.QuizQuestionsActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Quiz"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.QuizResultActivity"
+            android:label="@string/title_activity_quiz_result"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".gui.QuizHelpActivty"
+            android:label="QuizHelpActivty"
+            android:parentActivityName=".gui.CourseDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".gui.QuizViewResultActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="QuizHelpActivty"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".gui.CommunicationCommentActivity"
+            android:configChanges="orientation"
+            android:label="Comments"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.YoutubeCustomLightboxActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme.Translucent" />
+        <activity
+            android:name=".gui.PostDetailActivity"
+            android:configChanges="orientation|screenSize"
+            android:label=""
+            android:parentActivityName=".gui.CourseDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.edu.flinnt.gui.CourseDetailsActivity" />
+        </activity>
+        <activity
+            android:name=".gui.QRCodeScannerActivity"
+            android:configChanges="orientation"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.BuyerListActivity"
+            android:configChanges="orientation"
+            android:label="Users who purchased"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.RefundActivity"
+            android:configChanges="orientation"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.AddCommunicationActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Add Post"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".gui.AddFileActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Add Files"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.BrowseCourseCategoryMoreActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Category"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.CategorylistActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Category"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.BrowseCourseSearchActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Category"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".gui.store.ShoppingCartActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Category"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <service android:name=".services.LocationService" />
+
+        <!-- [END FlinntNotificationReceiver] -->
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!-- start Custom Notification action receiver -->
+        <receiver android:name=".firebase.notification.FlinntNotificationReceiver">
+            <intent-filter>
+                <action android:name="com.edu.flinnt.action.ACCEPT" />
+                <action android:name="com.edu.flinnt.action.REJECT" />
+            </intent-filter>
+        </receiver>
+        <!-- end Custom Notification action receiver -->
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="40aa4572bb8eb09ab9eb4621d064a72489c634e6" />
+
+        <!-- Enable background dispatching to improve delivery on non-Google Play devices -->
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- Enable Google Play Store Campaign reports -->
+        <receiver
+            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.analytics.CampaignTrackingService"
+            android:enabled="true" />
+        <service android:name=".downloads.DownloadService" />
+        <!--
+                <meta-data
+                    android:name="com.google.android.gms.analytics.globalConfigResource"
+                    android:resource="@xml/analytics_global_config" />
+        -->
+
+        <receiver android:name=".services.AppUpgradeReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Defining Firebase Services -->
+
+        <service
+            android:name=".firebase.notification.FlinntFirebaseMessagingService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".firebase.notification.FlinntFirebaseInstanceIDService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- To get firebase notification icon -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification_icon" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/transparent" />
+
+        <!-- Below meta-data is for video encription library(libmedia) -->
+        <meta-data
+            android:name="fr.maxcom.libmedia.apiKey"
+            android:value="QUY0ZR4Xnvn90R5YkoHdMSMuMHWWWkUajZWRoSqW6LOi99n0cN9lrDFjTwpFicUOFlmkHZRI0Iuyl4IjmAmJaVhCrAsAAAAAaDcvgm48N4JtNCvCZSw=" />
+        <meta-data
+            android:name="com.edu.flinnt.util.GlideConfiguration"
+            android:value="GlideModule" />
+
+        <!-- @Chirag : 09/08/2018 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity android:name=".gui.store.StoreBookSetActivity" />
+        <activity android:name=".gui.store.BrowseBookSetDetailAcivity"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="15dp">
+
+        <com.edu.flinnt.util.SelectableRoundedCourseImageView
+            android:id="@+id/iv_review_user"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/post_detail_placeholder" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_review_username"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1.1"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        tools:text="Mannndeepp Vachhaani" />
+
+                    <TextView
+                        android:id="@+id/tv_youtax"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.57"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        tools:text="(You)" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_edit_review"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.80"
+                        android:paddingBottom="3dp"
+                        android:paddingEnd="1dp"
+                        android:paddingLeft="1dp"
+                        android:paddingRight="1dp"
+                        android:paddingStart="1dp"
+                        android:paddingTop="3dp"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="2dp"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:padding="2dp"
+                            android:src="@drawable/add_post_edit" />
+
+                        <TextView
+                            android:id="@+id/tv_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:singleLine="true"
+                            android:text="EDIT"
+                            android:textColor="@color/ColorPrimary"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_review_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="2dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:singleLine="true"
+                        android:textColor="#4D000000"
+                        android:textSize="11sp"
+                        tools:text="02 JUL" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.AppCompatRatingBar
+                    android:id="@+id/rb_review"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:numStars="5"
+                    android:progressTint="@color/black"
+                    android:theme="@style/RatingBarBlack"
+                    tools:rating="3" />
+
+            </LinearLayout>
+
+            <TextView android:ellipsize="end"
+                android:id="@+id/tv_review_0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                tools:maxLines="3"
+                tools:text="@string/lorem_ipsum" />
+
+            <!--tools:ellipsize="none"
+            tools:fadingEdgeLength="30dp"
+            android:fadingEdge="horizontal"
+            android:requiresFadingEdge="horizontal"-->
+
+            <TextView
+                android:id="@+id/tv_review_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:ellipsize="marquee"
+                android:fadingEdgeLength="27dp"
+                android:includeFontPadding="false"
+                android:marqueeRepeatLimit="@integer/no_limit"
+                android:requiresFadingEdge="horizontal"
+                android:singleLine="true"
+                android:text="@string/lorem_ipsum"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <!--android:scrollHorizontally="true"
+            android:fadingEdgeLength="10dp"
+            android:requiresFadingEdge="horizontal"
+            android:fadingEdge="horizontal"
+            android:focusable="false" android:focusableInTouchMode="false"
+            android:marqueeRepeatLimit="@integer/no_limit"-->
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

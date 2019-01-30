@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_backgroung"
+    android:orientation="vertical" >
+
+    <include layout="@layout/tool_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/profile_mobileverify_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="visible" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginRight="33dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/sent_verification_code_txt_verifymobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:gravity="start"
+                        android:text="@string/sent_verification_code_on_mobile"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/text_color"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="12dp"
+                        android:gravity="start"
+                        android:text="@string/enter_code_and_verify"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/text_color"
+                        android:textSize="13sp" />
+
+                    <EditText  android:inputType="textCapSentences"
+                        android:id="@+id/varification_code_verifymobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/edittext_height"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_account_white_edges"
+                        android:hint="@string/enter_verification_code"
+                        android:paddingLeft="24dp"
+                        android:paddingRight="24dp"
+                        android:textCursorDrawable="@drawable/cursor_color"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/verify_button_verifymobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginTop="18dp"
+                        android:background="@drawable/bg_account_blue_edges"
+                        android:capitalize="characters"
+                        android:text="@string/verify"
+                        android:textColor="@color/button_dark_text_color"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="start"
+                        android:text="@string/sms_delivery_take_time"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/text_color"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginRight="33dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/sms_not_received_txt_verifymobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:paddingTop="10dp"
+                        android:gravity="start"
+                        android:text="@string/sms_not_received"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/button_holo_text_color"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/profile_emailverify_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible" >
+
+                <View
+                    android:id="@+id/devider_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/darker_gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginRight="33dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/sent_verification_link_txt_verifyemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:gravity="start"
+                        android:text="@string/sent_verification_link_on_email"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/text_color"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="12dp"
+                        android:gravity="start"
+                        android:text="@string/click_link_and_verify"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/text_color"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginRight="33dp"
+                    android:layout_marginTop="26dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/email_not_received_txt_verifyemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp"
+                        android:gravity="start"
+                        android:text="@string/email_not_received"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/button_holo_text_color"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="start"
+                        android:text="@string/call_for_help"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/text_color"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

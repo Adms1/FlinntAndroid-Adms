@@ -1,0 +1,138 @@
+package com.edu.flinnt.protocol;
+
+import com.edu.flinnt.util.LogWriter;
+
+import org.json.JSONObject;
+
+/**
+ * Created by flinnt-android-3 on 4/2/17.
+ */
+public class UpdateAnswerRequest {
+
+    private final String USER_ID_KEY = "user_id";
+    private final String COURSE_ID_KEY = "course_id";
+    private final String QUIZ_ID_KEY = "quiz_id";
+    private final String CONTENT_ID_KEY = "content_id";
+    private final String QUIZ_QUE_ID_KEY = "quiz_que_id";
+    private final String ANSWER_ID_KEY = "answer_id";
+    private final String REACTION_TIME_KEY = "reaction_time";
+    private final String MARK_FOR_REVIEW_KEY = "mark_for_review";
+    private final String TERMINATE_KEY = "terminate";
+    private String userID = "";
+    private String courseId = "";
+    private String quizId = "";
+    private String contentId = "";
+    private String quizQueId = "";
+    private String answerId = "";
+    private String reactionTime = "";
+    private String markForReview = "";
+    private String terminate = "0";
+    /**
+     * Converts the json object to string
+     *
+     * @return converted json string
+     */
+    public synchronized String getJSONString() {
+
+        return getJSONObject().toString();
+    }
+
+    /**
+     * creates json object
+     *
+     * @return created json object
+     */
+    public synchronized JSONObject getJSONObject() {
+
+        JSONObject returnedJObject = new JSONObject();
+        try {
+            returnedJObject.put(USER_ID_KEY, userID);
+            returnedJObject.put(COURSE_ID_KEY, courseId);
+            returnedJObject.put(QUIZ_ID_KEY, quizId);
+            returnedJObject.put(CONTENT_ID_KEY, contentId);
+            returnedJObject.put(QUIZ_QUE_ID_KEY, quizQueId);
+            returnedJObject.put(ANSWER_ID_KEY, answerId);
+            returnedJObject.put(REACTION_TIME_KEY, reactionTime);
+            returnedJObject.put(MARK_FOR_REVIEW_KEY, markForReview);
+            returnedJObject.put(TERMINATE_KEY, terminate);
+        } catch (Exception e) {
+            LogWriter.err(e);
+        }
+        return returnedJObject;
+
+    }
+
+    public String getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(String contentId) {
+        this.contentId = contentId;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
+    public String getQuizId() {
+        return quizId;
+    }
+
+    public void setQuizId(String quizId) {
+        this.quizId = quizId;
+    }
+
+
+    public String getQuizQueId() {
+        return quizQueId;
+    }
+
+    public void setQuizQueId(String quizQueId) {
+        this.quizQueId = quizQueId;
+    }
+
+    public String getAnswerId() {
+        return answerId;
+    }
+
+    public void setAnswerId(String answerId) {
+        this.answerId = answerId;
+    }
+
+    public String getReactionTime() {
+        return reactionTime;
+    }
+
+    public void setReactionTime(String reactionTime) {
+        this.reactionTime = reactionTime;
+    }
+
+    public String getMarkForReview() {
+        return markForReview;
+    }
+
+    public void setMarkForReview(String markForReview) {
+        this.markForReview = markForReview;
+    }
+
+
+    public String getTerminate() {
+        return terminate;
+    }
+
+    public void setTerminate(String terminate) {
+        this.terminate = terminate;
+    }
+}

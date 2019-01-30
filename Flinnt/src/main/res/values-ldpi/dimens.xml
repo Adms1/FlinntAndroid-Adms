@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cardview_toolbar_width">32dp</dimen>
+
+    <dimen name="cardview_suggested_width">115dp</dimen>
+    <dimen name="cardview_suggested_height">168dp</dimen>
+
+    <dimen name="coupon_button_space">15dp</dimen>
+</resources>

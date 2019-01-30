@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ColorPrimary">#007DCD</color>
+    <color name="ColorPrimaryDark">#0568A9</color>
+    <color name="ColorAccent">#FF4081</color>
+
+    <color name="black_semi_transparent">#CC000000</color>
+
+    <color name="course_image_transperent_bg">#CC0568A9</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <color name="layout_backgroung">#EEF2F5</color>
+    <color name="text_color">#4E4E4E</color>
+
+    <color name="button_dark">#0C67C2</color>
+    <color name="button_dark_text_color">#FFFFFF</color>
+    <color name="button_holo">#FFFFFF</color>
+    <color name="button_holo_text_color">#0C67C2</color>
+
+    <color name="rating_color">#ffc000</color>
+
+    <color name="button_click_color">#FF4081</color>
+
+    <color name="gray">#A4A4A4</color>
+    <color name="unread_blue_background">#0066ff</color>
+    <color name="red">#ff0000</color>
+    <color name="green">#00ff00</color>
+    <color name="rating_green">#689F38</color>
+    <color name="tabsScrollColor">#FFFFFF</color>
+    <color name="selected_pink">#ED008C</color>
+
+    <bool name="default_circle_indicator_centered">true</bool>
+    <color name="default_circle_indicator_fill_color">#007DCF</color>
+    <color name="default_circle_indicator_page_color">#999999</color>
+    <integer name="default_circle_indicator_orientation">0</integer>
+    <dimen name="default_circle_indicator_radius">3dp</dimen>
+    <bool name="default_circle_indicator_snap">false</bool>
+    <color name="default_circle_indicator_stroke_color">#FFDDDDDD</color>
+    <dimen name="default_circle_indicator_stroke_width">0dp</dimen>
+
+    <color name="snackblue">#007dcd</color>
+    <color name="snackbackground">#323232</color>
+    <color name="rippelColor">#6BB3D3</color>
+
+    <color name="Color_notification">#FF57BBFC</color>
+
+    <color name="date_color">#a2a2a2</color>
+    <color name="seprator_color">#dddddd</color>
+    <color name="title_color">#1a1718</color>
+    <color name="unanswered_background_color">#f34235</color>
+    <color name="pending_review_background_color">#f0a901</color>
+    <color name="attempted_background_color">#8fb836</color>
+    <color name="unattempted_background_color">#568b9d</color>
+
+
+    <item name="color1" type="color">#faedc4</item>
+    <item name="color2" type="color">#c0d5e5</item>
+    <item name="color3" type="color">#f4d3dc</item>
+    <item name="color4" type="color">#e2eac9</item>
+    <item name="color5" type="color">#c1b1c7</item>
+    <item name="color6" type="color">#d0edf4</item>
+    <item name="color7" type="color">#b9cdda</item>
+    <item name="color8" type="color">#afd1c5</item>
+    <item name="color9" type="color">#b5aaa2</item>
+
+    <integer-array name="androidcolors">
+        <item>@color/color1</item>
+        <item>@color/color2</item>
+        <item>@color/color3</item>
+        <item>@color/color4</item>
+        <item>@color/color5</item>
+        <item>@color/color6</item>
+        <item>@color/color7</item>
+        <item>@color/color8</item>
+        <item>@color/color9</item>
+    </integer-array>
+
+ <!--New communication colors-->
+    <color name="new_text_color">#303030</color>
+    <color name="new_like_color">#616161</color>
+    <color name="view_like_color">#999999</color>
+    <color name="new_date_color">#b1b1b1</color>
+    <color name="comment_color">#5e5e5e</color>
+    <color name="comment_date">#4D000000</color>
+    <color name="image_boder">#757575</color>
+    <color name="comment_layout_background">#f6f7f9</color>
+    <color name="poll_background_blue">#41b5ff</color>
+    <color name="poll_background_grey">#e5e5e5</color>
+    <color name="timeline_text_color">#a4a4a4</color>
+    <color name="userpic_border_color">#dcdee3</color>
+    <color name="username_text_color">#9197a3</color>
+    <color name="like_comment_text_color">#70757e</color>
+    <color name="browse_bg">#F1F5F7</color>
+
+    <!--Add Files-->
+    <color name="leaner_preview_bg">#F1F5F7</color>
+
+
+    <color name="default_shadow_color">#88757575</color>
+    <color name="default_fill_color">#ffffff</color>
+</resources>

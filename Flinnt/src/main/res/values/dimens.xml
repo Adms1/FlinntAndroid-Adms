@@ -1,0 +1,50 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="detail_backdrop_height">256dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="logo_height">70dp</dimen>
+    <dimen name="edittext_height">54dp</dimen>
+    <dimen name="button_height">54dp</dimen>
+
+    <dimen name="cardview_corner_radius">4dp</dimen>
+    <dimen name="cardview_toolbar_width">40dp</dimen>
+
+    <dimen name="cardview_suggested_width">120dp</dimen>
+    <dimen name="cardview_suggested_height">170dp</dimen>
+
+    <dimen name="rippleStrokeWidth">2dp</dimen>
+    <dimen name="rippleRadius">15dp</dimen>
+
+    <dimen name="coupon_width_minus">45dp</dimen>
+    <dimen name="coupon_dialog_height">180dp</dimen>
+
+    <dimen name="snackbarHeight">40dp</dimen>
+    <dimen name="bottomSheetDialogHeight">350dp</dimen>
+
+
+    <dimen name="coupon_button_space">15dp</dimen>
+
+    <dimen name="users_layout_width">150dp</dimen>
+    <dimen name="users_layout_height">80dp</dimen>
+    <dimen name="item_offset">6px</dimen>
+    <dimen name="margin_3dp">3dp</dimen>
+
+
+    <dimen name="text_size_10sp">10sp</dimen>
+    <dimen name="text_size_11sp">11sp</dimen>
+    <dimen name="text_size_12sp">12sp</dimen>
+    <dimen name="text_size_13sp">13sp</dimen>
+    <dimen name="text_size_14sp">14sp</dimen>
+    <dimen name="text_size_15sp">15sp</dimen>
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="text_size_17sp">17sp</dimen>
+
+    <dimen name="communication_relative_height">156dp</dimen>
+    <dimen name="communication_frame_height">154dp</dimen>
+    <dimen name="communication_thumb_height">148dp</dimen>
+    <dimen name="tap_target_menu_max_width">350dp</dimen>
+</resources>

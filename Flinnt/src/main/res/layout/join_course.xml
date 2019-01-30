@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="2dp"
+        android:text="@string/join_course_title"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/title_color"
+        />
+
+    <EditText
+        android:id="@+id/course_code_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/course_code"
+        android:inputType="textCapSentences"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:textSize="18sp" />
+
+</LinearLayout>

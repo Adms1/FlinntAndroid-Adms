@@ -43,6 +43,10 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme"
         android:vmSafeMode="true">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBX8JuR6tqcKsq5wqvPEUJRiYhUCyvvhLo" />
+
         <activity
             android:name=".gui.SplashScreenActivity"
             android:configChanges="orientation"
@@ -676,7 +680,9 @@
         </provider>
 
         <activity android:name=".gui.store.StoreBookSetActivity" />
-        <activity android:name=".gui.store.BrowseBookSetDetailAcivity"></activity>
+        <activity android:name=".gui.store.BrowseBookSetDetailAcivity" />
+        <activity android:name=".gui.store.ShippingAddressActivity" />
+        <activity android:name=".gui.store.ShippingAdreessListActivity"></activity>
     </application>
 
 </manifest>

@@ -102,7 +102,7 @@ public class CourseReviews {
      */
     private void sendJsonObjectRequest(String url, JSONObject jsonObject) {
 
-        CustomJsonObjectRequest jsonObjReq = new CustomJsonObjectRequest(Method.POST, url,
+        CustomJsonObjectRequest jsonObjReq = new CustomJsonObjectRequest(Method.POST,url,
                 jsonObject, new Response.Listener<JSONObject>() {
 
             @Override

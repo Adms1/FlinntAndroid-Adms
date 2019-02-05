@@ -187,4 +187,13 @@
         <item name="android:minHeight">10dip</item>
         <item name="android:maxHeight">20dip</item>
     </style>
+
+    <style name="ms9_DefaultShadowStyleBase">
+        <item name="ms9_ambientShadowDrawablesList">@null</item>
+        <item name="ms9_spotShadowDrawablesList">@null</item>
+        <item name="ms9_forceUseCompatShadow">false</item>
+        <item name="ms9_affectsDisplayedPosition">true</item>
+        <item name="ms9_useAmbientShadow">true</item>
+        <item name="ms9_useSpotShadow">true</item>
+    </style>
 </resources>

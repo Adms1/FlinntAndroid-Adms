@@ -13,34 +13,29 @@ import com.android.volley.toolbox.ImageLoader;
 import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.R;
 import com.edu.flinnt.core.Requester;
-import com.edu.flinnt.models.store.RelatedBookResponse;
-import com.edu.flinnt.models.store.RelatedVendorsResponse;
 import com.edu.flinnt.protocol.BrowsableCourse;
 import com.edu.flinnt.util.Config;
 import com.edu.flinnt.util.SelectableRoundedCourseImageView;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.edu.flinnt.FlinntApplication.mContext;
 
 /**
  * mContentsAdapter for course list t browse
  */
-public class SuggestedCoursesAdapter<T> extends RecyclerView.Adapter<SuggestedCoursesAdapter.ViewHolder> {
+public class SuggestedCoursesAdapter extends RecyclerView.Adapter<SuggestedCoursesAdapter.ViewHolder> {
 
     private final ImageLoader mImageLoader;
-    private ArrayList<T> mDataset;
+    private ArrayList<BrowsableCourse> mDataset;
     private OnItemClickListener mItemClickListener = null;
     private String coursPictureUrl = Config.getStringValue(Config.COURSE_PICTURE_URL);
-    private int type;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public SuggestedCoursesAdapter(ArrayList<T> myDataset,int type) {
+    public SuggestedCoursesAdapter(ArrayList<BrowsableCourse> myDataset) {
         mImageLoader = Requester.getInstance().getImageLoader();
         mDataset = myDataset;
-        this.type = type;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -83,8 +78,7 @@ public class SuggestedCoursesAdapter<T> extends RecyclerView.Adapter<SuggestedCo
 
     // Create new views (invoked by the layout manager)
     @Override
-    public SuggestedCoursesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                 int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
         View v;
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.suggested_course_list_item, parent, false);
         return new ViewHolder(v);
@@ -92,91 +86,39 @@ public class SuggestedCoursesAdapter<T> extends RecyclerView.Adapter<SuggestedCo
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final SuggestedCoursesAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        final BrowsableCourse course = mDataset.get(position);
 
-        if(type  == 0){
-            final RelatedBookResponse.Datum course =(RelatedBookResponse.Datum) mDataset.get(position);
+        if (null != course) {
 
-            if (null != course) {
+            String url = coursPictureUrl + Flinnt.COURSE_MEDIUM + File.separator + course.getPicture();
 
-                //String url = coursPictureUrl + Flinnt.COURSE_MEDIUM + File.separator + course.getPicture();
-                String url =  course.getOriginalPath();
+            holder.courseImage.setImageUrl(url, mImageLoader);
 
-                holder.courseImage.setImageUrl(url,mImageLoader);
-
-                holder.courseName.setText(course.getBookName());
-                holder.instituteName.setVisibility(View.GONE);
-                // holder.instituteName.setText("by "+course.getVe);
+            holder.courseName.setText(course.getName());
+            holder.instituteName.setText("by "+course.getInstituteName());
 
 
-//            if(course.getIs_free().equalsIgnoreCase(Flinnt.DISABLED)){
-                holder.oldPriceTxt.setText(mContext.getResources().getString(R.string.currency)+course.getListPrice());
-                holder.newPriceTxt.setText(mContext.getResources().getString(R.string.currency)+course.getSalePrice());
-
-
-//
-//            if(course.getDiscountApplicable().equalsIgnoreCase(Flinnt.ENABLED)){
-//                holder.oldPriceTxt.setVisibility(View.VISIBLE);
-//            }else {
-//                holder.oldPriceTxt.setVisibility(View.INVISIBLE);
-//            }
-
-//            if (Float.parseFloat(course.getRatings()) > 0) {
-//                holder.ratingsLayout.setVisibility(View.VISIBLE);
-//                holder.ratings.setText(course.getRatings());
-//            } else {
-//                holder.ratingsLayout.setVisibility(View.INVISIBLE);
-//            }
-
-                holder.ratingsLayout.setVisibility(View.VISIBLE);
-                holder.ratings.setText("3.5");
-
-
+            if(course.getIs_free().equalsIgnoreCase(Flinnt.DISABLED)){
+                holder.oldPriceTxt.setText(mContext.getResources().getString(R.string.currency)+course.getPriceBrowse());
+                holder.newPriceTxt.setText(mContext.getResources().getString(R.string.currency)+course.getPriceBuy());
+            }else {
+                holder.oldPriceTxt.setText("");
+                holder.newPriceTxt.setText(mContext.getResources().getString(R.string.free_course));
             }
-        }else if(type  == 1){
+            if(course.getDiscountApplicable().equalsIgnoreCase(Flinnt.ENABLED)){
+                holder.oldPriceTxt.setVisibility(View.VISIBLE);
+            }else {
+                holder.oldPriceTxt.setVisibility(View.INVISIBLE);
+            }
 
-            final RelatedVendorsResponse.Datum course =(RelatedVendorsResponse.Datum) mDataset.get(position);
-
-            if (null != course) {
-
-//                //String url = coursPictureUrl + Flinnt.COURSE_MEDIUM + File.separator + course.getPicture();
-//                String url =  course.getOriginalPath();
-//
-//                holder.courseImage.setImageUrl(url,mImageLoader);
-//
-//                holder.courseName.setText(course.getBookName());
-//                holder.instituteName.setVisibility(View.GONE);
-//                // holder.instituteName.setText("by "+course.getVe);
-//
-//
-////            if(course.getIs_free().equalsIgnoreCase(Flinnt.DISABLED)){
-//                holder.oldPriceTxt.setText(mContext.getResources().getString(R.string.currency)+course.getListPrice());
-//                holder.newPriceTxt.setText(mContext.getResources().getString(R.string.currency)+course.getSalePrice());
-//
-//
-////
-////            if(course.getDiscountApplicable().equalsIgnoreCase(Flinnt.ENABLED)){
-////                holder.oldPriceTxt.setVisibility(View.VISIBLE);
-////            }else {
-////                holder.oldPriceTxt.setVisibility(View.INVISIBLE);
-////            }
-//
-////            if (Float.parseFloat(course.getRatings()) > 0) {
-////                holder.ratingsLayout.setVisibility(View.VISIBLE);
-////                holder.ratings.setText(course.getRatings());
-////            } else {
-////                holder.ratingsLayout.setVisibility(View.INVISIBLE);
-////            }
-//
-//                holder.ratingsLayout.setVisibility(View.VISIBLE);
-//                holder.ratings.setText("3.5");
-
-
+            if (Float.parseFloat(course.getRatings()) > 0) {
+                holder.ratingsLayout.setVisibility(View.VISIBLE);
+                holder.ratings.setText(course.getRatings());
+            } else {
+                holder.ratingsLayout.setVisibility(View.INVISIBLE);
             }
         }
-
-
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -185,11 +127,11 @@ public class SuggestedCoursesAdapter<T> extends RecyclerView.Adapter<SuggestedCo
         return mDataset.size();
     }
 
-//    public ArrayList<T> getItem(int position) {
-//        return mDataset.get(position);
-//    }
+    public BrowsableCourse getItem(int position) {
+        return mDataset.get(position);
+    }
 
-    public void addItems(ArrayList<T> items) {
+    public void addItems(ArrayList<BrowsableCourse> items) {
         mDataset = new ArrayList<>();
         mDataset.addAll(items);
         notifyDataSetChanged();

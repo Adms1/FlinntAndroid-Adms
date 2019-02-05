@@ -1,4 +1,4 @@
-package com.edu.flinnt.gui.store;
+package com.edu.flinnt.core.store;
 
 import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.util.LogWriter;

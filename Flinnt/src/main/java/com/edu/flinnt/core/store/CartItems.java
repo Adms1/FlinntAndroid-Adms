@@ -1,4 +1,4 @@
-package com.edu.flinnt.gui.store;
+package com.edu.flinnt.core.store;
 
 import android.os.Handler;
 import android.os.Message;

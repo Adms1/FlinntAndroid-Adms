@@ -1,4 +1,4 @@
-package com.edu.flinnt.core;
+package com.edu.flinnt.core.store;
 
 import android.os.Handler;
 import android.os.Message;
@@ -9,22 +9,29 @@ import com.android.volley.Request.Priority;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.edu.flinnt.Flinnt;
+import com.edu.flinnt.core.CustomJsonObjectRequest;
+import com.edu.flinnt.core.Requester;
+import com.edu.flinnt.models.store.StoreModelResponse;
 import com.edu.flinnt.protocol.BrowsableCourse;
 import com.edu.flinnt.protocol.BrowseCoursesRequest;
 import com.edu.flinnt.protocol.BrowseCoursesResponse;
 import com.edu.flinnt.util.Config;
 import com.edu.flinnt.util.Helper;
 import com.edu.flinnt.util.LogWriter;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
 /**
  * Send request and get response and pass it to GUI
  */
-public class BrowseCourses {
+public class BrowseCoursesNew {
 
-    public static final String TAG = BrowseCourses.class.getSimpleName();
+    public static final String TAG = BrowseCoursesNew.class.getSimpleName();
     public BrowseCoursesResponse mBrowseCoursesResponse = null;
+
+    public StoreModelResponse storeModelResponse = null;
+
     public BrowseCoursesRequest mBrowseCoursesRequest = null;
     public Handler mHandler = null;
     String searchString = "";
@@ -40,9 +47,10 @@ public class BrowseCourses {
         this.offset = offset;
     }
 
-    public BrowseCourses(Handler handler) {
+    public BrowseCoursesNew(Handler handler) {
         mHandler = handler;
         getLastBrowseCoursesResponse();
+        getLastStoreCoursesResponse();
     }
 
     public BrowseCoursesResponse getLastBrowseCoursesResponse() {
@@ -52,6 +60,12 @@ public class BrowseCourses {
         return mBrowseCoursesResponse;
     }
 
+    public StoreModelResponse getLastStoreCoursesResponse() {
+        if (storeModelResponse == null) {
+            storeModelResponse = new StoreModelResponse();
+        }
+        return storeModelResponse;
+    }
     /**
      * Generates appropriate URL string to make request
      *
@@ -78,6 +92,17 @@ public class BrowseCourses {
 
     }
 
+
+    //08-01-2019 by vijay
+    public String buildURLStringNew() {
+       // return Flinnt.LOCAL_API_URL_NEW +Flinnt.STORE_BOOK_LIST_API;
+        return Flinnt.LOCAL_API_URL_NEW +Flinnt.STORE_BOOK_LIST_API;
+
+
+
+    }
+
+
     public void sendBrowseCoursesRequest() {
         new Thread() {
             @Override
@@ -99,11 +124,28 @@ public class BrowseCourses {
      * sends request along with parameters
      */
     public void sendRequest() {
-        synchronized (BrowseCourses.class) {
+        synchronized (BrowseCoursesNew.class) {
             try {
 
-                String url = buildURLString();
+               // String url = buildURLString();
+
+                //08-01-2019 by vijay
+
+                String url  = buildURLStringNew();
                 //Log.d("Brr", "sendRequest() in try - url : " + url);
+
+//                if (null == mBrowseCoursesRequest) {
+//                    mBrowseCoursesRequest = getBrowseCoursesRequest();
+//                } else {
+//                    offset = offset + max_count;
+//                    mBrowseCoursesRequest.setOffset(offset);
+//                    mBrowseCoursesRequest.setMax(max_count);
+//                }
+//                if (LogWriter.isValidLevel(Log.DEBUG)) {
+//                    LogWriter.write("mBrowseCourses Request :\nUrl : " + url + "\nData : " + mBrowseCoursesRequest.getJSONString());
+//                    //Log.d("Brr","mBrowseCourses Request :\nUrl : " + url + "\nData : " + mBrowseCoursesRequest.getJSONString());
+//                }
+
 
                 if (null == mBrowseCoursesRequest) {
                     mBrowseCoursesRequest = getBrowseCoursesRequest();
@@ -118,8 +160,10 @@ public class BrowseCourses {
                 }
 
                 JSONObject jsonObject = mBrowseCoursesRequest.getJSONObject();
+                jsonObject.put("user_id",Config.getStringValue(Config.USER_ID));
 
-                sendJsonObjectRequest(url, jsonObject);
+               // sendJsonObjectRequest(url, jsonObject);
+                sendJsonObjectRequestNew(url,jsonObject);
             } catch (Exception e) {
                 //.d("Brr", "sendRequest() Failuar catch - msg : " + e.getMessage());
                 LogWriter.err(e);
@@ -181,10 +225,74 @@ public class BrowseCourses {
         jsonObjReq.setPriority(Priority.HIGH);
         jsonObjReq.setShouldCache(false);
 
-        Requester.getInstance().addToRequestQueue(jsonObjReq, TAG);
+        Requester.getInstance().addToRequestQueue(jsonObjReq,TAG);
     }
 
+    private void sendJsonObjectRequestNew(String url, JSONObject jsonObject) {
 
+        CustomJsonObjectRequest jsonObjReq = new CustomJsonObjectRequest(Method.POST, url,jsonObject,new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                if (LogWriter.isValidLevel(Log.DEBUG))
+                    LogWriter.write("mBrowseCourses Response new--- :\n" + response.toString());
+                //Log.d("Brr", "mBrowseCourses Response new--- : " + response.toString());
+                if (mBrowseCoursesResponse.isSuccessResponse(response)) {
+
+                    //Log.d("Brr", "onResuponse() response suceess: " + response.toString());
+
+                    JSONObject jsonData = mBrowseCoursesResponse.getJSONData(response);
+//                    if (null != jsonData) {
+
+                        //Log.d("Brr", "onresp() jsonData : " + jsonData.toString());
+
+
+                       // mBrowseCoursesResponse.parseJSONObject(jsonData);
+                        try {
+                            Gson gsonData = new Gson();
+                            storeModelResponse = gsonData.fromJson(String.valueOf(response),StoreModelResponse.class);
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+
+
+                        //Config.setStringValue(Config.LAST_MY_COURSES_RESPONSE, jsonData.toString());
+                        sendMesssageToGUI(Flinnt.SUCCESS);
+
+                        try {
+                            if (mBrowseCoursesResponse.getHasMore() > 0) {
+                                sendRequest();
+                            }
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+
+//                    } else {
+//                        sendMesssageToGUI(Flinnt.FAILURE);
+//                    }
+                } else {
+                    //Log.d("Brr", "onresp() not success : ");
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (LogWriter.isValidLevel(Log.ERROR))
+                    LogWriter.write("mBrowseCourses Error : " + error.getMessage());
+
+                //Log.d("Brr", "onErrorResuponse() msg : " + error.getMessage());
+
+                mBrowseCoursesResponse.parseErrorResponse(error);
+                sendMesssageToGUI(Flinnt.FAILURE);
+            }
+        });
+        jsonObjReq.setPriority(Priority.HIGH);
+        jsonObjReq.setShouldCache(false);
+
+        Requester.getInstance().addToRequestQueue(jsonObjReq, TAG);
+    }
     /**
      * Sends response to handlers
      *
@@ -195,7 +303,7 @@ public class BrowseCourses {
             //Log.d("Brr", "sendMesgToGUI() msgID : " + String.valueOf(messageID));
             Message msg = new Message();
             msg.what = messageID;
-            msg.obj = mBrowseCoursesResponse;
+            msg.obj = storeModelResponse;
             mHandler.sendMessage(msg);
         } else {
             //Log.d("Brr", "sendMesgToGUI() handler is null : " + String.valueOf(messageID));

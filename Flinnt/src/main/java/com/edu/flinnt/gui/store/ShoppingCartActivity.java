@@ -23,7 +23,10 @@ import android.widget.TextView;
 import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.R;
 import com.edu.flinnt.adapter.store.CartListItemAdapter;
-import com.edu.flinnt.gui.MyCoursesActivity;
+import com.edu.flinnt.core.store.AddressResponse;
+import com.edu.flinnt.core.store.CartItems;
+import com.edu.flinnt.core.store.CartListItemResponse;
+import com.edu.flinnt.models.store.ShippingAdressModel;
 import com.edu.flinnt.models.store.StoreBookDetailResponse;
 import com.edu.flinnt.util.Config;
 import com.edu.flinnt.util.Helper;
@@ -44,8 +47,9 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartListI
    private Handler mHandler = null;
    private CartListItemResponse cartListItemResponse;
    private FrameLayout flEmptyView;
-   private Button btnContinue,btnContinue1;
+   private Button btnContinue,btnContinue1,btnCheckout;
    private CartListItemAdapter.onCartEmptyListner onCartEmptyListnerRef;
+   private ShippingAdressModel shippingAdressModel;
 
 
 
@@ -74,6 +78,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartListI
         flEmptyView = (FrameLayout)findViewById(R.id.fl_emptyview);
         btnContinue = (Button)findViewById(R.id.btn_contine);
         btnContinue1 = (Button)findViewById(R.id.btn_continue_shopping);
+        btnCheckout = (Button)findViewById(R.id.btn_checkout);
         Bundle bundle = getIntent().getExtras();
 
         btnContinue.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +94,14 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartListI
             @Override
             public void onClick(View view) {
                 btnContinue.performClick();
+            }
+        });
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startProgressDialog();
+                AddressResponse shippingAddressRequest = new AddressResponse(mHandler,Config.getStringValue(Config.USER_ID));
+                shippingAddressRequest.getAddressListRequest();
             }
         });
 
@@ -187,6 +200,31 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartListI
                             rvCartItems.setVisibility(View.GONE);
                             findViewById(R.id.ll_total).setVisibility(View.GONE);
                             findViewById(R.id.LL_cart_option_btn).setVisibility(View.GONE);
+
+                        }else if(msg.obj instanceof ShippingAdressModel){
+                            stopProgressDialog();
+                            try {
+                                shippingAdressModel = (ShippingAdressModel) msg.obj;
+                                if(shippingAdressModel != null){
+
+                                    if(shippingAdressModel.getData() != null){
+                                        if(shippingAdressModel.getData().size() > 0){
+                                            Intent intentAddressList = new Intent(ShoppingCartActivity.this,ShippingAdreessListActivity.class);
+                                            startActivityForResult(intentAddressList,107);
+                                        }else{
+                                            Intent intentAddressList = new Intent(ShoppingCartActivity.this,ShippingAddressActivity.class);
+                                            startActivityForResult(intentAddressList,107);
+                                        }
+                                    }else{
+                                        Intent intentAddressList = new Intent(ShoppingCartActivity.this,ShippingAddressActivity.class);
+                                        startActivityForResult(intentAddressList,107);
+                                    }
+                                }
+
+                            }catch (Exception ex){
+                                ex.printStackTrace();
+                            }
+
                         }
                         break;
 

@@ -1,23 +1,16 @@
 package com.edu.flinnt.adapter.store;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.edu.flinnt.R;
 import com.edu.flinnt.core.Requester;
-import com.edu.flinnt.customviews.store.QuantityView;
-import com.edu.flinnt.gui.store.CartListItemResponse;
-import com.edu.flinnt.gui.store.ShoppingCartActivity;
 import com.edu.flinnt.models.store.StoreBookSetDetailModel;
-import com.edu.flinnt.util.SelectableRoundedCourseImageView;
 
 import java.util.ArrayList;
 import java.util.List;

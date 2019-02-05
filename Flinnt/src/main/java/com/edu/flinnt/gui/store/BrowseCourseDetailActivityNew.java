@@ -18,7 +18,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +26,6 @@ import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.TextUtils;
@@ -35,7 +33,6 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -59,27 +56,25 @@ import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.R;
 import com.edu.flinnt.adapter.store.AuthorListAdapter;
 import com.edu.flinnt.adapter.store.ProductDetailListAdapter;
-import com.edu.flinnt.core.BrowseCourses;
+import com.edu.flinnt.core.store.CourseDescriptionNew;
+import com.edu.flinnt.core.store.BrowseCoursesNew;
 import com.edu.flinnt.core.BuyerList;
 import com.edu.flinnt.core.CheckoutCourse;
 import com.edu.flinnt.core.ContentsList;
-import com.edu.flinnt.core.CourseDescription;
 import com.edu.flinnt.core.CourseRequest;
 import com.edu.flinnt.core.CourseReviewWrite;
 import com.edu.flinnt.core.ErrorCodes;
 import com.edu.flinnt.core.Requester;
+import com.edu.flinnt.core.store.CartItems;
 import com.edu.flinnt.gui.AddCommunicationActivity;
-import com.edu.flinnt.gui.BrowseCoursesFragment;
 import com.edu.flinnt.gui.BuyerListActivity;
 import com.edu.flinnt.gui.ContentsDisplayAdapter;
 import com.edu.flinnt.gui.CourseBuyerAdapter;
 import com.edu.flinnt.gui.MyCoursesActivity;
 import com.edu.flinnt.gui.ProfileActivity;
-import com.edu.flinnt.gui.SuggestedCoursesAdapter;
 import com.edu.flinnt.models.store.RelatedBookResponse;
 import com.edu.flinnt.models.store.RelatedVendorsResponse;
 import com.edu.flinnt.models.store.StoreBookDetailResponse;
-import com.edu.flinnt.models.store.StoreBookSetDetailModel;
 import com.edu.flinnt.models.store.StoreModelResponse;
 import com.edu.flinnt.protocol.BrowsableCourse;
 import com.edu.flinnt.protocol.BuyerListRequest;
@@ -144,7 +139,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
     ArrayList<RelatedVendorsResponse.Datum> mRelatedVendorList;
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
-    private SuggestedCoursesAdapter mJoinedCoursesAdapter, mInstituteCoursesAdapter;
+    private SuggestedCoursesAdapterNew mJoinedCoursesAdapter, mInstituteCoursesAdapter;
     private HashMap<Course, Boolean> addedAndRemovedCourses = new HashMap<>();  // true if added course, false if removed course
    // private BrowsableCourse mBrowsableCourse;
     private StoreBookDetailResponse.Data mBrowsableCourse2;
@@ -204,7 +199,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
     private String cartCount;
     private FrameLayout fl_badge_containers;
     private TextView tv_title;
-    private BrowseCourses mBrowseCourses;
+    private BrowseCoursesNew mBrowseCourses;
     private StoreModelResponse storeModelResponse;
 
 
@@ -353,7 +348,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
                             }
 
 
-                            mBrowseCourses = new BrowseCourses(mHandler);
+                            mBrowseCourses = new BrowseCoursesNew(mHandler);
                             mBrowseCourses.setSearchString("");
                             mBrowseCourses.sendBrowseCoursesRequest();
                         }
@@ -436,7 +431,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
             }
         };
 
-        CourseDescription mCourseDescription = new CourseDescription(mHandler, courseId, couserHash);
+        CourseDescriptionNew mCourseDescription = new CourseDescriptionNew(mHandler, courseId, couserHash);
         mCourseDescription.sendCourseDescriptionRequest();
 //        if (TextUtils.isEmpty(couserHash)) {
 //            CourseReviews mCourseReviews = new CourseReviews(mHandler, courseId, 2); // needs two reviews only
@@ -447,13 +442,13 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
 
         resetListsAndAdapters();
 
-//        mJoinedCoursesAdapter.setOnItemClickListener(new SuggestedCoursesAdapter.OnItemClickListener() {
+//        mJoinedCoursesAdapter.setOnItemClickListener(new SuggestedCoursesAdapterNew.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(View view, int position) {
 //                startNewActivity(mJoinedCoursesAdapter.getItem(position));
 //            }
 //        });
-//        mInstituteCoursesAdapter.setOnItemClickListener(new SuggestedCoursesAdapter.OnItemClickListener() {
+//        mInstituteCoursesAdapter.setOnItemClickListener(new SuggestedCoursesAdapterNew.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(View view, int position) {
 //                startNewActivity(mInstituteCoursesAdapter.getItem(position));
@@ -499,7 +494,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
     private void setupBadge() {
         try {
 
-            mCartItemCount = BrowseCoursesFragment.cart_count;
+            mCartItemCount = BrowseCoursesFragmentNew.cart_count;
             if (textCartItemCount != null) {
                 if (mCartItemCount <= 0) {
                     textCartItemCount.setVisibility(View.GONE);
@@ -852,7 +847,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
                         break;
 
                     case BrowseCourseDetailActivityNew.CHECKOUT_CALLBACK:
-                        CourseDescription mCourseDescription = new CourseDescription(mHandler, courseId);
+                        CourseDescriptionNew mCourseDescription = new CourseDescriptionNew(mHandler, courseId);
                         mCourseDescription.sendCourseDescriptionRequest();
                         startProgressDialog();
                         break;
@@ -880,7 +875,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
                             }
                             addedAndRemovedCourses.put(joinedCourse, false);
                         }
-                        CourseDescription mCourseDesc = new CourseDescription(mHandler, courseId);
+                        CourseDescriptionNew mCourseDesc = new CourseDescriptionNew(mHandler, courseId);
                         mCourseDesc.sendCourseDescriptionRequest();
 //                        mReviewsBaseLinear.removeAllViews();
 
@@ -898,7 +893,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
                         break;
                 }
             } else {
-                CourseDescription mCourseDescription = new CourseDescription(mHandler, courseId);
+                CourseDescriptionNew mCourseDescription = new CourseDescriptionNew(mHandler, courseId);
                 mCourseDescription.sendCourseDescriptionRequest();
                 startProgressDialog();
             }
@@ -1081,7 +1076,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
         }*/
 
         if (Helper.isConnected()) {
-            CourseDescription mCourseDesc = new CourseDescription(mHandler, courseId);
+            CourseDescriptionNew mCourseDesc = new CourseDescriptionNew(mHandler, courseId);
             mCourseDesc.sendCourseDescriptionRequest();
             startProgressDialog();
         } else {
@@ -1465,7 +1460,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
 
             mCourseNameTxt.setText(browsableCourse.getBookName());
             mInstituteNameTxt.setText(browsableCourse.getVendorName());
-            //BrowseCoursesFragment.cart_count = browsableCourse.getCart_total();
+            //BrowseCoursesFragmentNew.cart_count = browsableCourse.getCart_total();
 
             authorListAdapter = new AuthorListAdapter(BrowseCourseDetailActivityNew.this,browsableCourse.getAuthors());
             mAuthorRvList.setLayoutManager(new LinearLayoutManager(BrowseCourseDetailActivityNew.this));
@@ -1962,12 +1957,12 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
         textCartItemCount = (TextView)findViewById(R.id.totalBadgeTxt1);
 
 
-        if(BrowseCoursesFragment.cart_count > 0){
+        if(BrowseCoursesFragmentNew.cart_count > 0){
             textCartItemCount.setVisibility(View.VISIBLE);
-            textCartItemCount.setText(String.valueOf(BrowseCoursesFragment.cart_count));
+            textCartItemCount.setText(String.valueOf(BrowseCoursesFragmentNew.cart_count));
         }else{
             textCartItemCount.setVisibility(View.GONE);
-            textCartItemCount.setText(String.valueOf(BrowseCoursesFragment.cart_count));
+            textCartItemCount.setText(String.valueOf(BrowseCoursesFragmentNew.cart_count));
         }
 
         findViewById(R.id.cart_view).setOnClickListener(new View.OnClickListener() {
@@ -2005,13 +2000,13 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
     private void resetListsAndAdapters() {
        // mJoinedCoursesList = new ArrayList<>();
         mRelatedBookList = new ArrayList<>();
-        mJoinedCoursesAdapter = new SuggestedCoursesAdapter(mRelatedBookList,0);
+        mJoinedCoursesAdapter = new SuggestedCoursesAdapterNew(mRelatedBookList,0);
 
         mJoinedCoursesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mJoinedCoursesRecycler.setAdapter(mJoinedCoursesAdapter);
 
         mRelatedVendorList = new ArrayList<>();
-        mInstituteCoursesAdapter = new SuggestedCoursesAdapter(mInstituteCourseList,1);
+        mInstituteCoursesAdapter = new SuggestedCoursesAdapterNew(mInstituteCourseList,1);
         mInstituteCoursesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mInstituteCoursesRecycler.setAdapter(mInstituteCoursesAdapter);
     }
@@ -2371,7 +2366,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
         }
 
 
-        mBrowseCourses = new BrowseCourses(mHandler);
+        mBrowseCourses = new BrowseCoursesNew(mHandler);
         mBrowseCourses.setSearchString("");
         mBrowseCourses.sendBrowseCoursesRequest();
 
@@ -2396,7 +2391,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
     public void updateCartCount(StoreModelResponse mBrowseCoursesResponse) {
         try {
             //coursePictureURLstatic = mBrowseCoursesResponse.getPictureUrl();
-            BrowseCoursesFragment.cart_count = mBrowseCoursesResponse.getData().get(0).getCartTotal();
+            BrowseCoursesFragmentNew.cart_count = mBrowseCoursesResponse.getData().get(0).getCartTotal();
             setupBadge();
         } catch (Exception e) {
             LogWriter.err(e);

@@ -102,8 +102,7 @@ public class WebViewActivity extends Activity {
 			LogWriter.write("vResponse : "+vResponse+"\n"+mCheckoutResponse.getData().getPayload().getAccessCode()+"\n"+mCheckoutResponse.getData().getTransactionId());
 			System.out.println(vResponse);
 
-			if(!ServiceUtility.chkNull(vResponse).equals("")
-					&& ServiceUtility.chkNull(vResponse).toString().indexOf("ERROR")==-1){
+			if(!ServiceUtility.chkNull(vResponse).equals("") && ServiceUtility.chkNull(vResponse).toString().indexOf("ERROR")==-1){
 				StringBuffer vEncVal = new StringBuffer("");
 				LogWriter.write("Price INR : "+totalAmount);
 				vEncVal.append(ServiceUtility.addToPostParams(AvenuesParams.AMOUNT,totalAmount));
@@ -132,7 +131,6 @@ public class WebViewActivity extends Activity {
 					if(html.indexOf("TRAN::STATUS::CANCELLED")!=-1){
 						status = "Transaction Cancelled!";
 					}else if(html.indexOf("TRAN::STATUS::SUCCESS")!=-1){
-
 						try {
 							MyCommFun.sendTracker(WebViewActivity.this, "BuyNow/End/"+courseID);
 							GoogleAnalytics.getInstance(WebViewActivity.this).reportActivityStart(WebViewActivity.this);
@@ -146,7 +144,7 @@ public class WebViewActivity extends Activity {
 						intent.putExtra(Course.COURSE_ID_KEY,courseID);
 						intent.putExtra(Course.COURSE_NAME_KEY,courseName);
 						intent.putExtra(MyCoursesActivity.IS_JOIN, true);
-						startActivityForResult(intent, MyCoursesActivity.BROWSE_COURSE_SUBSCRIBE_CALLBACK);
+						startActivityForResult(intent,MyCoursesActivity.BROWSE_COURSE_SUBSCRIBE_CALLBACK);
 
 					}else if(html.indexOf("TRAN::STATUS::FAILED")!=-1){
 						status = "Transaction Failed!";
@@ -212,7 +210,7 @@ public class WebViewActivity extends Activity {
 			
 			String vPostParams = params.substring(0,params.length()-1);
 			try {
-				mWebView.postUrl(mCheckoutResponse.getData().getGatewayTransUrl(), EncodingUtils.getBytes(vPostParams, "UTF-8"));
+				mWebView.postUrl(mCheckoutResponse.getData().getGatewayTransUrl(),EncodingUtils.getBytes(vPostParams, "UTF-8"));
 			} catch (Exception e) {
 				showToast("Exception occured while opening webview.");
 			}

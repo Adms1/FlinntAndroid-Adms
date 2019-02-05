@@ -2,46 +2,31 @@ package com.edu.flinnt.adapter.store;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.R;
-import com.edu.flinnt.core.BrowseCourses;
+import com.edu.flinnt.core.store.BrowseCoursesNew;
 import com.edu.flinnt.core.Requester;
 import com.edu.flinnt.customviews.store.QuantityView;
-import com.edu.flinnt.gui.BrowseCoursesFragment;
-import com.edu.flinnt.gui.store.BrowseBookSetDetailAcivity;
-import com.edu.flinnt.gui.store.CartItems;
-import com.edu.flinnt.gui.store.CartListItemResponse;
+import com.edu.flinnt.gui.store.BrowseCoursesFragmentNew;
+import com.edu.flinnt.core.store.CartItems;
+import com.edu.flinnt.core.store.CartListItemResponse;
 import com.edu.flinnt.gui.store.ShoppingCartActivity;
-import com.edu.flinnt.models.store.StoreBookDetailResponse;
 import com.edu.flinnt.models.store.StoreModelResponse;
 import com.edu.flinnt.util.Config;
-import com.edu.flinnt.util.Helper;
 import com.edu.flinnt.util.LogWriter;
 import com.edu.flinnt.util.SelectableRoundedCourseImageView;
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -64,7 +49,7 @@ public class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapte
     private Handler mHandler;
     private int cart_empty = 200;
     private onCartEmptyListner onCartEmptyListner;
-    private BrowseCourses mBrowseCourses;
+    private BrowseCoursesNew mBrowseCourses;
     private StoreModelResponse storeModelResponse;
     private MaterialSpinner qtySpinner;
     private HashMap<Integer,String> qtyItems = new HashMap<>();
@@ -88,9 +73,9 @@ public class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapte
                 switch (msg.what) {
                     case Flinnt.SUCCESS:
                         if(msg.arg1 == 1){
-                            //BrowseCoursesFragment.cart_count--;
+                            //BrowseCoursesFragmentNew.cart_count--;
 //                            startProgressDialog();
-//                            mBrowseCourses = new BrowseCourses(mHandler);
+//                            mBrowseCourses = new BrowseCoursesNew(mHandler);
 //                            mBrowseCourses.setSearchString("");
 //                            mBrowseCourses.sendBrowseCoursesRequest();
 
@@ -98,7 +83,7 @@ public class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapte
                         }else if(msg.arg1 == 2){
                             //update success
                             startProgressDialog();
-                            mBrowseCourses = new BrowseCourses(mHandler);
+                            mBrowseCourses = new BrowseCoursesNew(mHandler);
                             mBrowseCourses.setSearchString("");
                             mBrowseCourses.sendBrowseCoursesRequest();
 
@@ -161,7 +146,7 @@ public class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapte
             public void onQuantityChanged(int oldQuantity,int newQuantity,boolean programmatically) {
                 startProgressDialog();
                 valueList.get(i).setQty(String.valueOf(newQuantity));
-                BrowseCoursesFragment.cart_count = newQuantity;
+                BrowseCoursesFragmentNew.cart_count = newQuantity;
                 refreshTotalPrice();
                 cartItems = new CartItems(mHandler,Config.getStringValue(Config.USER_ID),String.valueOf(item.getRowId()),String.valueOf(newQuantity));
                 cartItems.updateCartItemRequest();
@@ -208,7 +193,7 @@ public class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapte
                 if(valueList.size() <= 0){
                     onCartEmptyListner.onCartEmpty();
 
-                    BrowseCoursesFragment.cart_count = 0;
+                    BrowseCoursesFragmentNew.cart_count = 0;
 
                     Message message = new Message();
                     message.what = Flinnt.SUCCESS;
@@ -254,7 +239,7 @@ public class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapte
     public void updateCartCount(StoreModelResponse mBrowseCoursesResponse) {
         try {
             //coursePictureURLstatic = mBrowseCoursesResponse.getPictureUrl();
-            BrowseCoursesFragment.cart_count = mBrowseCoursesResponse.getData().get(0).getCartTotal();
+            BrowseCoursesFragmentNew.cart_count = mBrowseCoursesResponse.getData().get(0).getCartTotal();
         } catch (Exception e) {
             LogWriter.err(e);
         }
@@ -313,7 +298,7 @@ public class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapte
 ////                                            customViewHolder.qtySpinner.setSelectedIndex(qtyItems.size() - 2);
 ////                                            startProgressDialog();
 ////                                            valueList.get(i).setQty(String.valueOf(qty));
-////                                            BrowseCoursesFragment.cart_count = qty;
+////                                            BrowseCoursesFragmentNew.cart_count = qty;
 ////                                            refreshTotalPrice();
 ////                                            cartItems = new CartItems(mHandler, Config.getStringValue(Config.USER_ID), String.valueOf(item.getRowId()), String.valueOf(qty));
 ////                                            cartItems.updateCartItemRequest();
@@ -341,7 +326,7 @@ public class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapte
                         qtySpinner.setSelectedIndex(position);
                         int qty = position + 1;
                         valueList.get(getAdapterPosition()).setQty(String.valueOf(qty));
-                        BrowseCoursesFragment.cart_count = qty;
+                        BrowseCoursesFragmentNew.cart_count = qty;
                         refreshTotalPrice();
                         cartItems = new CartItems(mHandler, Config.getStringValue(Config.USER_ID),String.valueOf(item.getRowId()),String.valueOf(qty));
                         cartItems.updateCartItemRequest();

@@ -31,7 +31,7 @@ import android.widget.Toast;
 import com.android.volley.toolbox.ImageLoader;
 import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.R;
-import com.edu.flinnt.core.BrowseCourses;
+import com.edu.flinnt.core.store.BrowseCoursesNew;
 import com.edu.flinnt.core.Requester;
 import com.edu.flinnt.core.WishCourses;
 import com.edu.flinnt.core.WishList;
@@ -231,7 +231,7 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
      */
     private void refreshList() {
 
-        Requester.getInstance().cancelPendingRequests(BrowseCourses.TAG);
+        Requester.getInstance().cancelPendingRequests(BrowseCoursesNew.TAG);
         mWishListAdapter.clearData();
 
         refreshView();

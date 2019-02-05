@@ -120,7 +120,6 @@ public class CheckoutCourse {
 
 			}
 		}, new Response.ErrorListener() {
-
 			@Override
 			public void onErrorResponse(VolleyError error) {
 				if(LogWriter.isValidLevel(Log.ERROR)) LogWriter.write("CheckoutCourseError : " + error.getMessage());

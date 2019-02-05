@@ -1,5 +1,5 @@
 
-package com.edu.flinnt.gui;
+package com.edu.flinnt.gui.store;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -24,12 +24,13 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.R;
-import com.edu.flinnt.adapter.BrowseCourseCategoryAdapter;
-import com.edu.flinnt.core.BrowseCourses;
+import com.edu.flinnt.adapter.store.BrowseCourseCategoryAdapterNew;
 import com.edu.flinnt.core.store.BrowseCoursesNew;
 import com.edu.flinnt.core.Requester;
+import com.edu.flinnt.gui.BrowseCourseSearchActivity;
+import com.edu.flinnt.gui.MyCoursesActivity;
+import com.edu.flinnt.models.store.StoreModelResponse;
 import com.edu.flinnt.protocol.BrowsableCourse;
-import com.edu.flinnt.protocol.BrowseCoursesResponse;
 import com.edu.flinnt.protocol.CategoryDataModel;
 import com.edu.flinnt.util.Config;
 import com.edu.flinnt.util.Helper;
@@ -40,45 +41,50 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import java.util.ArrayList;
 
 
-public class BrowseCoursesFragment extends Fragment implements MyCoursesActivity.OnSearchListener, MyCoursesActivity.AppBarLayoutSwitchListener {
+public class BrowseCoursesFragmentNew extends Fragment implements MyCoursesActivity.OnSearchListener, MyCoursesActivity.AppBarLayoutSwitchListener {
 
-    Runnable runnable;
+    private Runnable runnable;
     public Handler mHandler = null;
-    String TAGS = "Brr";
-    RecyclerView mRecyclerView;
-    BrowseCourseCategoryAdapter mBrowseCourseCategoryAdapter;
-    ArrayList<CategoryDataModel> mCategoryDataModel = new ArrayList<>();
-    TextView mEmptyTextView;
+    private String TAGS = "Brr";
+    private RecyclerView mRecyclerView;
+    private  BrowseCourseCategoryAdapterNew mBrowseCourseCategoryAdapter;
+    private ArrayList<CategoryDataModel> mCategoryDataModel = new ArrayList<>();
+    private ArrayList<StoreModelResponse.Datum> storeDataList = new ArrayList<StoreModelResponse.Datum>();
+
+    private TextView mEmptyTextView;
     private Button retryBtn;
-    BrowseCourses mBrowseCourses;
-    ProgressDialog mProgressDialog = null;
-    ImageLoader mImageLoader;
+    private BrowseCoursesNew mBrowseCourses;
+    private ProgressDialog mProgressDialog = null;
+    private ImageLoader mImageLoader;
     public static String coursePictureURLstatic = "https://flinnt1.s3.amazonaws.com/courses/";
-    SwipeRefreshLayout swipeRefreshLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private String queryTextChange = "";
     private boolean isLoading = false;
     private boolean isCourseLoading = false;
     public static final int WEBVIEW_CALL_API_THEN_LOAD_URL = 1;
     public static final int WEBVIEW_REFRESH_RECEIVED_URL = 2;
+    public static int cart_count ;
 
 
 
-    public static BrowseCoursesFragment newInstance(/*String userId*/) {
-        BrowseCoursesFragment fragment = new BrowseCoursesFragment();
+
+    public static BrowseCoursesFragmentNew newInstance(/*String userId*/) {
+        BrowseCoursesFragmentNew fragment = new BrowseCoursesFragmentNew();
         return fragment;
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         mImageLoader = Requester.getInstance().getImageLoader();
-        View rootView = inflater.inflate(R.layout.browse_courses_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.browse_courses_fragment,container,false);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
         mEmptyTextView = (TextView) rootView.findViewById(R.id.empty_text_browse_courses);
         retryBtn = (Button) rootView.findViewById(R.id.retry_btn);
+
         retryBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
                 if (!Helper.isConnected()) {
                     Helper.showNetworkAlertMessage(getActivity());
                 } else {
@@ -95,7 +101,6 @@ public class BrowseCoursesFragment extends Fragment implements MyCoursesActivity
         }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-
             @Override
             public void onRefresh() {
                 if (!Helper.isConnected()) {
@@ -115,7 +120,7 @@ public class BrowseCoursesFragment extends Fragment implements MyCoursesActivity
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
-        mBrowseCourseCategoryAdapter = new BrowseCourseCategoryAdapter(getActivity(),mCategoryDataModel);
+        mBrowseCourseCategoryAdapter = new BrowseCourseCategoryAdapterNew(getActivity(),storeDataList,1);
         mRecyclerView.setAdapter(mBrowseCourseCategoryAdapter);
     }
 
@@ -158,11 +163,13 @@ public class BrowseCoursesFragment extends Fragment implements MyCoursesActivity
                     case Flinnt.SUCCESS:
                         try {
                             //Log.d("Brr", "onSucccess(). ");
-
                             if (LogWriter.isValidLevel(Log.INFO))
-                                LogWriter.write("SUCCESS_RESPONSE : " + message.obj.toString());
-                            if (message.obj instanceof BrowseCoursesResponse) {
-                                updateCourseList((BrowseCoursesResponse) message.obj);
+                                LogWriter.write("SUCCESS_RESPONSE : " +message.obj.toString());
+                            if (message.obj instanceof StoreModelResponse) {
+                               // updateCourseList((StoreModelResponse) message.obj);
+                                //08-01-19 by vijay
+                                updateCourseListNew((StoreModelResponse) message.obj);
+
                             }
                         } catch (Exception e) {
                             LogWriter.err(e);
@@ -170,6 +177,7 @@ public class BrowseCoursesFragment extends Fragment implements MyCoursesActivity
                         }
 
                         break;
+
                     case Flinnt.FAILURE:
                         //Log.d("Brr", "onFailure(). : " + message.obj.toString());
                         try {
@@ -178,8 +186,8 @@ public class BrowseCoursesFragment extends Fragment implements MyCoursesActivity
                         } catch (Exception e) {
                             LogWriter.err(e);
                         }
-
                         break;
+
                     default:
                         super.handleMessage(message);
                 }
@@ -220,7 +228,7 @@ public class BrowseCoursesFragment extends Fragment implements MyCoursesActivity
 
             //Log.d(TAGS, "sendCourseBrowseRequest..");
 
-            mBrowseCourses = new BrowseCourses(mHandler);
+            mBrowseCourses = new BrowseCoursesNew(mHandler);
             mBrowseCourses.setSearchString("");
             mBrowseCourses.sendBrowseCoursesRequest();
             isLoading = true;
@@ -233,7 +241,7 @@ public class BrowseCoursesFragment extends Fragment implements MyCoursesActivity
             mCategoryDataModel.clear();
 
             refreshView();
-            mBrowseCourses = new BrowseCourses(mHandler);
+            mBrowseCourses = new BrowseCoursesNew(mHandler);
             mBrowseCourses.setSearchString("");
             mBrowseCourses.sendBrowseCoursesRequest();
             isLoading = true;
@@ -249,15 +257,44 @@ public class BrowseCoursesFragment extends Fragment implements MyCoursesActivity
      */
 
 
-    public void updateCourseList(BrowseCoursesResponse mBrowseCoursesResponse) {
+//    public void updateCourseList(StoreModelResponse mBrowseCoursesResponse) {
+//        try {
+//            coursePictureURLstatic = mBrowseCoursesResponse.getPictureUrl();
+//            if (!mBrowseCourses.getSearchString().isEmpty()) {
+//                mEmptyTextView.setText(getResources().getString(R.string.no_course_found));
+//            } else {
+//                mCategoryDataModel = new ArrayList<>();
+//                createCategoryData(mBrowseCoursesResponse.get);
+//                mBrowseCourseCategoryAdapter.addItems(mCategoryDataModel);
+//                if (Helper.isConnected()) {
+//                    mEmptyTextView.setText(getResources().getString(R.string.no_course_found_message));
+//                } else {
+//                    mEmptyTextView.setText(getResources().getString(R.string.no_internet_msg));
+//                }
+//            }
+//            if (LogWriter.isValidLevel(Log.INFO))
+//                LogWriter.write("ItemCount : " + mBrowseCourseCategoryAdapter.getItemCount());
+//
+//            mEmptyTextView.setVisibility((mBrowseCourseCategoryAdapter.getItemCount() == 0) ? View.VISIBLE : View.GONE);
+//
+//            showRetryButton();
+//        } catch (Exception e) {
+//            LogWriter.err(e);
+//        }
+//    }
+
+    //08-01-2019 by vijay
+    public void updateCourseListNew(StoreModelResponse mBrowseCoursesResponse) {
         try {
-            coursePictureURLstatic = mBrowseCoursesResponse.getPictureUrl();
+            //coursePictureURLstatic = mBrowseCoursesResponse.getPictureUrl();
             if (!mBrowseCourses.getSearchString().isEmpty()) {
                 mEmptyTextView.setText(getResources().getString(R.string.no_course_found));
             } else {
-                mCategoryDataModel = new ArrayList<>();
-                createCategoryData(mBrowseCoursesResponse.getCourseList());
-                mBrowseCourseCategoryAdapter.addItems(mCategoryDataModel);
+                storeDataList = new ArrayList<>();
+                storeDataList.addAll(mBrowseCoursesResponse.getData());
+                cart_count = mBrowseCoursesResponse.getData().get(0).getCartTotal();
+                mBrowseCourseCategoryAdapter.clearData();
+                mBrowseCourseCategoryAdapter.addItems(storeDataList);
                 if (Helper.isConnected()) {
                     mEmptyTextView.setText(getResources().getString(R.string.no_course_found_message));
                 } else {
@@ -265,34 +302,28 @@ public class BrowseCoursesFragment extends Fragment implements MyCoursesActivity
                 }
             }
             if (LogWriter.isValidLevel(Log.INFO))
-                LogWriter.write("ItemCount : " + mBrowseCourseCategoryAdapter.getItemCount());
-
+                LogWriter.write("ItemCount : " +mBrowseCourseCategoryAdapter.getItemCount());
             mEmptyTextView.setVisibility((mBrowseCourseCategoryAdapter.getItemCount() == 0) ? View.VISIBLE : View.GONE);
-
             showRetryButton();
         } catch (Exception e) {
             LogWriter.err(e);
         }
     }
 
-    /**
-     * Clears the data and make new request
-     */
     private void refreshList() {
 
         if (TextUtils.isEmpty(queryTextChange)) {
-
             Requester.getInstance().cancelPendingRequests(BrowseCoursesNew.TAG);
             mBrowseCourseCategoryAdapter.clearData();
             mCategoryDataModel.clear();
 
             refreshView();
-            mBrowseCourses = new BrowseCourses(mHandler);
+            mBrowseCourses = new BrowseCoursesNew(mHandler);
             mBrowseCourses.setSearchString("");
             mBrowseCourses.sendBrowseCoursesRequest();
         } else {
             if (null == mBrowseCourses) {
-                mBrowseCourses = new BrowseCourses(mHandler);
+                mBrowseCourses = new BrowseCoursesNew(mHandler);
             }
             mBrowseCourseCategoryAdapter.clearData();
             mBrowseCourses.mBrowseCoursesRequest = null;
@@ -349,8 +380,7 @@ public class BrowseCoursesFragment extends Fragment implements MyCoursesActivity
                 if (isSubmit) {
                     if (Helper.isConnected()) {
                         Requester.getInstance().cancelPendingRequests(BrowseCoursesNew.TAG);
-
-                        Intent searchIntent = new Intent(getActivity(), BrowseCourseSearchActivity.class);
+                        Intent searchIntent = new Intent(getActivity(),BrowseCourseSearchActivity.class);
                         searchIntent.putExtra("searchText", query);
                         startActivity(searchIntent);
                     }

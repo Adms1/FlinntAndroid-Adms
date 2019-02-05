@@ -26,7 +26,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CoordinatorLayout;
@@ -55,7 +54,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -105,6 +103,7 @@ import com.edu.flinnt.database.NotificationInterface;
 import com.edu.flinnt.database.UserInterface;
 import com.edu.flinnt.expandableRecylerview.model.FilterModel;
 import com.edu.flinnt.fragments.MyERPFragment;
+import com.edu.flinnt.gui.store.BrowseCoursesFragmentNew;
 import com.edu.flinnt.gui.store.StoreBookSetActivity;
 import com.edu.flinnt.helper.AskPermition;
 import com.edu.flinnt.helper.listner.AppBarStateChangeListener;
@@ -243,7 +242,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
     private boolean isDeleteDialogShowing;
     private MyCoursesFragment myCoursesFragment = null;
     private MyStoriesFragment myStoryFragment = null;
-    private BrowseCoursesFragment browseCoursesFragment = null;
+    private BrowseCoursesFragmentNew browseCoursesFragment = null;
     private MyERPFragment myERPFragment = null;
     private boolean canShowFab;
     private LinearLayout mHighlightLayout, mTooltipBrowseCourseLinear, mTooltipMultipleAccLinear;
@@ -815,7 +814,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
 
 
 //                    Fragment fragment = coursesViewPagerAdapter.getItem(mViewPager.getCurrentItem()); //@Chirag:23/08/2018
-//                    ((BrowseCoursesFragment) fragment).onOffsetChanged(BrowseCoursesFragment.WEBVIEW_CALL_API_THEN_LOAD_URL); //@Chirag:23/08/2018
+//                    ((BrowseCoursesFragmentNew) fragment).onOffsetChanged(BrowseCoursesFragmentNew.WEBVIEW_CALL_API_THEN_LOAD_URL); //@Chirag:23/08/2018
 
                 }
 
@@ -874,7 +873,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
 //////                if (tab.getPosition() == 2) {
 //////
 ////////                    Fragment fragment = coursesViewPagerAdapter.getItem(mViewPager.getCurrentItem());
-////////                    ((BrowseCoursesFragment) fragment).onOffsetChanged(BrowseCoursesFragment.WEBVIEW_REFRESH_RECEIVED_URL);
+////////                    ((BrowseCoursesFragmentNew) fragment).onOffsetChanged(BrowseCoursesFragmentNew.WEBVIEW_REFRESH_RECEIVED_URL);
 //////                    storeSearchBox.setVisibility(View.VISIBLE);
 //////
 //////                }else{
@@ -925,7 +924,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
 
 
 //                    Fragment fragment = coursesViewPagerAdapter.getItem(mViewPager.getCurrentItem()); //@Chirag:23/08/2018
-//                    ((BrowseCoursesFragment) fragment).onOffsetChanged(BrowseCoursesFragment.WEBVIEW_CALL_API_THEN_LOAD_URL); //@Chirag:23/08/2018
+//                    ((BrowseCoursesFragmentNew) fragment).onOffsetChanged(BrowseCoursesFragmentNew.WEBVIEW_CALL_API_THEN_LOAD_URL); //@Chirag:23/08/2018
 
                 }
 
@@ -1307,8 +1306,8 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
         Fragment fragment = coursesViewPagerAdapter.getItem(mViewPager.getCurrentItem());
         if (fragment instanceof MyCoursesFragment) {
             ((MyCoursesFragment) fragment).onSearch(query, isSubmit);
-        } else if (fragment instanceof BrowseCoursesFragment) {
-            ((BrowseCoursesFragment) fragment).onSearch(query, isSubmit);
+        } else if (fragment instanceof BrowseCoursesFragmentNew) {
+            ((BrowseCoursesFragmentNew) fragment).onSearch(query, isSubmit);
         } else if (fragment instanceof MyStoriesFragment) {
             ((MyStoriesFragment) fragment).onSearch(query, isSubmit);
         }
@@ -1321,10 +1320,10 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
 //        Fragment fragment = coursesViewPagerAdapter.getItem(mViewPager.getCurrentItem());
 //        if (fragment instanceof MyCoursesFragment) {
 //            ((MyCoursesFragment) fragment).onOffsetChanged(i);
-//        } else if (fragment instanceof BrowseCoursesFragment) {
+//        } else if (fragment instanceof BrowseCoursesFragmentNew) {
 //            mTooltipBrowseCourseLinear.setVisibility(View.GONE);
 //            Config.setToolTipValue(Config.FLINNT_TOOLTIP_BCOURSE_STATS + Config.getStringValue(Config.USER_ID), "1");
-//            ((BrowseCoursesFragment) fragment).onOffsetChanged(i);
+//            ((BrowseCoursesFragmentNew) fragment).onOffsetChanged(i);
 //        }
     }
 
@@ -1377,7 +1376,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
                 return myCoursesFragment;
             } else if (position == 2) {
                 if (null == browseCoursesFragment) {
-                    browseCoursesFragment = BrowseCoursesFragment.newInstance();
+                    browseCoursesFragment = BrowseCoursesFragmentNew.newInstance();
                 }
                 return browseCoursesFragment;
             } else if (position == 3) {

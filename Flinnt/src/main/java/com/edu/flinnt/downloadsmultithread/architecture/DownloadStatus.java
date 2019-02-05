@@ -8,6 +8,9 @@ import com.edu.flinnt.downloadsmultithread.DownloadException;
  * Created by Aspsine on 2015/7/15.
  */
 public class DownloadStatus {
+
+
+    private CallBack callBack;
     public static final int STATUS_STARTED = 101;
     public static final int STATUS_CONNECTING = 102;
     public static final int STATUS_CONNECTED = 103;
@@ -24,9 +27,6 @@ public class DownloadStatus {
     private int percent;
     private boolean acceptRanges;
     private DownloadException exception;
-
-    private CallBack callBack;
-
     public int getStatus() {
         return status;
     }

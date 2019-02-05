@@ -29,9 +29,10 @@ public class Flinnt {
     //08-01-2019 by vijay
 
     //public static final String LOCAL_API_URL_NEW =  "http://103.204.192.187:8080/flinnt/public/api/"; //LOCAL URL
-    public static final String LOCAL_API_URL_NEW =  "http://flinnt.admsonline.com/api/"; //LIVE URL
+   // public static final String LOCAL_API_URL_NEW =  "http://flinnt.admsonline.com/api/"; //LIVE URL
+   //Local URL
+    public static final String LOCAL_API_URL_NEW =  "http://192.168.1.20:8080/flinnt/public/api/";
 
-    //public static final String LOCAL_API_URL_NEW =  "http://192.168.1.20:8080/flinnt/public/api/"; //Local URL
     public static final String STORE_BOOK_LIST_API = "getBookList"; //Local URL
     public static final String STORE_BOOK_DETAIL_API = "getBookDetail"; //Local URL
     public static final String STORE_RELATED_BOOKS_API = "getBookListRelatedToBook"; //Local URL
@@ -42,6 +43,11 @@ public class Flinnt {
     public static final String BOOKSET_LIST = "getBooksetList"; //Local URL
     public static final String BOOKSET_LIST_DETAIL = "getBooksetDetail"; //Local URL
     public static final String UPDATE_CART_ITEM = "cartUpdate"; //Local URL
+    public static final String STATE_DATA_API = "getStateList"; //Local URL
+    public static final String ADD_USER_DATA_API = "addUserAddress"; //Local URL
+    public static final String GET_USER_ADDRESS_LIST_API = "getUserAddressList"; //Local URL
+
+
 
 
      //Web API KEY Fields

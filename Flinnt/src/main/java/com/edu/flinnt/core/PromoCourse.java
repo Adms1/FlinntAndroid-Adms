@@ -8,9 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.edu.flinnt.Flinnt;
-import com.edu.flinnt.protocol.BrowsableCourse;
-import com.edu.flinnt.protocol.BrowseCoursesRequest;
-import com.edu.flinnt.protocol.BrowseCoursesResponse;
+import com.edu.flinnt.core.store.BrowseCoursesNew;
 import com.edu.flinnt.protocol.PromoCourseRequest;
 import com.edu.flinnt.protocol.PromoCourseResponse;
 import com.edu.flinnt.util.Config;
@@ -82,7 +80,7 @@ public class PromoCourse {
      * sends request along with parameters
      */
     public void sendRequest() {
-        synchronized (BrowseCourses.class) {
+        synchronized (BrowseCoursesNew.class) {
             try {
                 String url = buildURLString();
 

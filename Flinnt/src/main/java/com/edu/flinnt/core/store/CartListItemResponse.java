@@ -1,4 +1,4 @@
-package com.edu.flinnt.gui.store;
+package com.edu.flinnt.core.store;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

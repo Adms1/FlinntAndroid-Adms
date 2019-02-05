@@ -18,12 +18,9 @@ import android.widget.TextView;
 
 import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.R;
-import com.edu.flinnt.adapter.BrowseCourseCategoryAdapter;
-import com.edu.flinnt.adapter.BrowseCourseCategoryMoreAdapter;
-import com.edu.flinnt.adapter.store.StoreBookSetListAdapter;
+import com.edu.flinnt.adapter.store.BrowseCourseCategoryAdapterNew;
 import com.edu.flinnt.core.BrowseCourseCategory;
-import com.edu.flinnt.core.CourseDescription;
-import com.edu.flinnt.gui.BrowseCourseCategoryMoreActivity;
+import com.edu.flinnt.core.store.CourseDescriptionNew;
 import com.edu.flinnt.models.store.StoreBookSetResponse;
 import com.edu.flinnt.models.store.StoreModelResponse;
 import com.edu.flinnt.protocol.BrowsableCourse;
@@ -33,7 +30,6 @@ import com.edu.flinnt.util.Helper;
 import com.edu.flinnt.util.LogWriter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.edu.flinnt.protocol.BrowsableCourse.BUNDLE_LIST_KEY;
 
@@ -44,7 +40,7 @@ public class StoreBookSetActivity extends AppCompatActivity {
     private Handler mHandler;
     private RecyclerView mRecyclerView;
     private ProgressDialog mProgressDialog;
-    private BrowseCourseCategoryAdapter storeBookSetListAdapter;
+    private BrowseCourseCategoryAdapterNew storeBookSetListAdapter;
     private ArrayList<BrowsableCourse> mCourseList = new ArrayList<>();
     private String categoryId = "";
     private String categoryName = "";
@@ -137,7 +133,7 @@ public class StoreBookSetActivity extends AppCompatActivity {
         };
 
 
-        CourseDescription mCourseDescription = new CourseDescription(mHandler,Config.getStringValue(Config.USER_ID));
+        CourseDescriptionNew mCourseDescription = new CourseDescriptionNew(mHandler,Config.getStringValue(Config.USER_ID));
         mCourseDescription.sendBookSetListRequest();
         startProgressDialog();
 
@@ -163,7 +159,7 @@ public class StoreBookSetActivity extends AppCompatActivity {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        storeBookSetListAdapter = new BrowseCourseCategoryAdapter(StoreBookSetActivity.this,storeData.getData(),2);
+        storeBookSetListAdapter = new BrowseCourseCategoryAdapterNew(StoreBookSetActivity.this,storeData.getData(),2);
         mRecyclerView.setAdapter(storeBookSetListAdapter);
     }
 

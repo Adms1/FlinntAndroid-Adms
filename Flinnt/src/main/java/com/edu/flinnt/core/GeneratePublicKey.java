@@ -97,8 +97,7 @@ public class GeneratePublicKey {
 	 */
 	private void sendJsonObjectRequest(String url, JSONObject jsonObject) {
 
-		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST, url,
-				jsonObject, new Response.Listener<JSONObject>() {
+		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST,url, jsonObject, new Response.Listener<JSONObject>() {
 
 			@Override
 			public void onResponse(JSONObject response) {
@@ -109,7 +108,7 @@ public class GeneratePublicKey {
 					JSONObject jsonData = mGeneratePublicKeyResponse.getJSONData(response);
 					if (null != jsonData) {
 						Gson gson = new Gson();
-						mGeneratePublicKeyResponse = gson.fromJson(generatePublicKeyResponse, GeneratePublicKeyResponse.class);
+						mGeneratePublicKeyResponse = gson.fromJson(generatePublicKeyResponse,GeneratePublicKeyResponse.class);
 						sendMesssageToGUI(Flinnt.SUCCESS);
 					} else {
 						sendMesssageToGUI(Flinnt.FAILURE);

@@ -17,8 +17,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +61,7 @@ import com.edu.flinnt.core.BuyerList;
 import com.edu.flinnt.core.CheckoutCourse;
 import com.edu.flinnt.core.ContentsList;
 import com.edu.flinnt.core.CourseDescription;
+import com.edu.flinnt.core.store.CourseDescriptionNew;
 import com.edu.flinnt.core.CourseRequest;
 import com.edu.flinnt.core.CourseReviewWrite;
 import com.edu.flinnt.core.CourseReviews;
@@ -72,8 +71,6 @@ import com.edu.flinnt.core.Requester;
 import com.edu.flinnt.core.SuggestedCourses;
 import com.edu.flinnt.core.UnsubsribeCourse;
 import com.edu.flinnt.core.WishList;
-import com.edu.flinnt.models.store.StoreBookDetailResponse;
-import com.edu.flinnt.models.store.StoreModelResponse;
 import com.edu.flinnt.protocol.BrowsableCourse;
 import com.edu.flinnt.protocol.BuyerListRequest;
 import com.edu.flinnt.protocol.BuyerListResponse;
@@ -137,8 +134,6 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
     private SuggestedCoursesAdapter mJoinedCoursesAdapter, mInstituteCoursesAdapter;
     private HashMap<Course, Boolean> addedAndRemovedCourses = new HashMap<>();  // true if added course, false if removed course
     private BrowsableCourse mBrowsableCourse;
-    private StoreBookDetailResponse.Data mBrowsableCourse2;
-
     private Course joinedCourse;
     private CustomNestedScrollView mCustomNestedScrollView;
     private View mDeviderView;
@@ -203,18 +198,17 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
 
         findAndInitializeViews();
 
-        final String baseCoursePictureUrl, coursePictureName;
+        final String baseCoursePictureUrl,coursePictureName;
         baseCoursePictureUrl = Config.getStringValue(Config.COURSE_PICTURE_URL) + Flinnt.COURSE_LARGE + File.separator;
         baseUserPictureUrl = Config.getStringValue(Config.USER_PICTURE_URL) + Flinnt.PROFILE_MEDIUM + File.separator;
 
         Bundle bundle = getIntent().getExtras();
-
         if (null != bundle) {
             if (bundle.containsKey("couserHash"))
                 couserHash = bundle.getString("couserHash");
 
             if (bundle.containsKey(BrowsableCourse.ID_KEY))
-                courseId = bundle.getString(BrowsableCourse.ID_KEY);
+                courseId = bundle.getString(BrowsableCourse.ID_KEY);        // courseId = "709"; //
 
             if (bundle.containsKey(BrowsableCourse.PICTURE_KEY)) {
                 coursePictureName = bundle.getString(BrowsableCourse.PICTURE_KEY);
@@ -223,7 +217,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
             }
             if (bundle.containsKey(BrowsableCourse.NAME_KEY))
                 courseName = bundle.getString(BrowsableCourse.NAME_KEY);
-                mCourseNameTxt.setText(courseName);
+            mCourseNameTxt.setText(courseName);
 
             if (bundle.containsKey(BrowsableCourse.INSTITUTE_NAME_KEY))
                 mInstituteNameTxt.setText(bundle.getString(BrowsableCourse.INSTITUTE_NAME_KEY));
@@ -231,6 +225,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                 mCourseRatingBar.setRating(Float.parseFloat(bundle.getString(BrowsableCourse.RATINGS_KEY)));
             if (bundle.containsKey(JoinCourseResponse.JOINED_KEY))
                 addedAndRemovedCourses = (HashMap<Course, Boolean>) bundle.getSerializable(JoinCourseResponse.JOINED_KEY);
+
 
             if (bundle.containsKey(Flinnt.BROWSECOURSE_NOTIFICATION_TYPE))
                 isFromNotification = bundle.getInt(Flinnt.BROWSECOURSE_NOTIFICATION_TYPE);
@@ -252,7 +247,6 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                     case Flinnt.SUCCESS:
                         if (LogWriter.isValidLevel(Log.INFO))
                             LogWriter.write("SUCCESS_RESPONSE : " + msg.obj.toString());
-
                         if (msg.obj instanceof CourseViewResponse) {
                             CourseViewResponse mCourseViewResponse = (CourseViewResponse) msg.obj;
                             mBrowsableCourse = mCourseViewResponse.getBrowsableCourse();
@@ -273,34 +267,8 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                                 coursePictureUrl = baseCoursePictureUrl + mBrowsableCourse.getPicture();
                             }
                             // Requests for suggested courses list
-                            new SuggestedCourses(mHandler,courseId,SuggestedCourses.USERS_JOINED_COURSES).sendSuggestedCoursesRequest();
-                            new SuggestedCourses(mHandler, courseId,SuggestedCourses.COURSES_FROM_INSTITUTE).sendSuggestedCoursesRequest();
-
-                        }
-
-                        if (msg.obj instanceof StoreBookDetailResponse) {
-                            StoreBookDetailResponse mCourseViewResponse = (StoreBookDetailResponse) msg.obj;
-                            mBrowsableCourse2 = mCourseViewResponse.getData();
-                            courseId = String.valueOf(mBrowsableCourse2.getBookId());
-//                            refreshView();
-//                            if (mBrowsableCourse.getIsPublic().equals("0")) {
-//                                mReviewsBaseLinear.setVisibility(View.GONE);
-//                                mDescriptionLinear.setVisibility(View.GONE);
-//                            } else {
-//                                mReviewsBaseLinear.setVisibility(View.VISIBLE);
-//                            }
-                            mReviewsBaseLinear.setVisibility(View.GONE);
-                            showHideReviewSection();
-                            updateCourseDetailsNew(mBrowsableCourse2);
-//                            if (!TextUtils.isEmpty(couserHash) || coursePictureUrl.equalsIgnoreCase("")) {
-//                                CourseReviews mCourseReviews = new CourseReviews(mHandler, courseId, 2); // needs two reviews only
-//                                mCourseReviews.sendCourseReviewListRequest();
-//                                mCoursePictureImg.setImageUrl(baseCoursePictureUrl + mBrowsableCourse.getPicture(), mImageLoader);
-//                                coursePictureUrl = baseCoursePictureUrl + mBrowsableCourse.getPicture();
-//                            }
-                            // Requests for suggested courses list
-//                            new SuggestedCourses(mHandler,courseId,SuggestedCourses.USERS_JOINED_COURSES).sendSuggestedCoursesRequest();
-//                            new SuggestedCourses(mHandler, courseId,SuggestedCourses.COURSES_FROM_INSTITUTE).sendSuggestedCoursesRequest();
+                            new SuggestedCourses(mHandler, courseId, SuggestedCourses.USERS_JOINED_COURSES).sendSuggestedCoursesRequest();
+                            new SuggestedCourses(mHandler, courseId, SuggestedCourses.COURSES_FROM_INSTITUTE).sendSuggestedCoursesRequest();
 
                         }
                         if (msg.obj instanceof JoinCourseResponse) {
@@ -317,15 +285,13 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                                         break;
                                     }
                                 }
-
                                 Helper.showToast("Successfully joined " + "'" + joinedCourse.getCourseName() + "'", Toast.LENGTH_LONG);
-
                                 if (!isCourseRemovedAndAddedInCurrentSession) {
                                     addedAndRemovedCourses.put(joinedCourse, true);
 
                                 }
 //                                onBackPressed(); // for navigate to MyCourse screen
-                                Intent intent = new Intent(getApplicationContext(),CourseDetailsActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), CourseDetailsActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(Course.COURSE_ID_KEY, courseId);
                                 intent.putExtra(Course.COURSE_NAME_KEY, mCourseNameTxt.getText().toString());
@@ -405,7 +371,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                             CheckoutResponse mCheckoutResponse = (CheckoutResponse) msg.obj;
                             if (mCheckoutResponse.getData().getTransactionId() != 0) {
                                 BrowsableCourse.Price price = mBrowsableCourse.getPrice();
-                                Intent intent = new Intent(BrowseCourseDetailActivity.this, CheckoutActivity.class);
+                                Intent intent = new Intent(BrowseCourseDetailActivity.this,CheckoutActivity.class);
                                 intent.putExtra(BrowsableCourse.NAME_KEY, mBrowsableCourse.getName());
                                 intent.putExtra(CHECKOUT_RESPONSE, mCheckoutResponse);
                                 intent.putExtra(BrowsableCourse.PRICE_KEY, price);
@@ -495,10 +461,10 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
 
         CourseDescription mCourseDescription = new CourseDescription(mHandler, courseId, couserHash);
         mCourseDescription.sendCourseDescriptionRequest();
-//        if (TextUtils.isEmpty(couserHash)) {
-//            CourseReviews mCourseReviews = new CourseReviews(mHandler, courseId, 2); // needs two reviews only
-//            mCourseReviews.sendCourseReviewListRequest();
-//        }
+        if (TextUtils.isEmpty(couserHash)) {
+            CourseReviews mCourseReviews = new CourseReviews(mHandler,courseId, 2); // needs two reviews only
+            mCourseReviews.sendCourseReviewListRequest();
+        }
 
         startProgressDialog();
 
@@ -507,13 +473,13 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
         mJoinedCoursesAdapter.setOnItemClickListener(new SuggestedCoursesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-               // startNewActivity(mJoinedCoursesAdapter.getItem(position));
+                startNewActivity(mJoinedCoursesAdapter.getItem(position));
             }
         });
         mInstituteCoursesAdapter.setOnItemClickListener(new SuggestedCoursesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                //startNewActivity(mInstituteCoursesAdapter.getItem(position));
+                startNewActivity(mInstituteCoursesAdapter.getItem(position));
             }
         });
         refreshView();
@@ -651,7 +617,6 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                             if (mBrowsableCourse != null) {
 //                                    mSubscriptionBtn.setEnabled(false);
                                 if (mBrowsableCourse.getIsSubscribed() == Flinnt.TRUE && mBrowsableCourse.getCanSubscribe() == Flinnt.FALSE) {
-
                                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BrowseCourseDetailActivity.this);
                                     TextView titleText = new TextView(BrowseCourseDetailActivity.this);
                                     titleText.setText(getResources().getString(R.string.un_subscribe));
@@ -661,6 +626,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                                     titleText.setTextSize(20);
                                     titleText.setTypeface(Typeface.DEFAULT_BOLD);
                                     alertDialogBuilder.setCustomTitle(titleText);
+
                                     alertDialogBuilder.setMessage("Are you sure?");
                                     alertDialogBuilder.setPositiveButton(getResources().getString(R.string.unsubscribe_button), new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
@@ -819,7 +785,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                         break;
 
                     case BrowseCourseDetailActivity.CHECKOUT_CALLBACK:
-                        CourseDescription mCourseDescription = new CourseDescription(mHandler, courseId);
+                        CourseDescriptionNew mCourseDescription = new CourseDescriptionNew(mHandler, courseId);
                         mCourseDescription.sendCourseDescriptionRequest();
                         startProgressDialog();
                         break;
@@ -847,7 +813,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                             }
                             addedAndRemovedCourses.put(joinedCourse, false);
                         }
-                        CourseDescription mCourseDesc = new CourseDescription(mHandler, courseId);
+                        CourseDescriptionNew mCourseDesc = new CourseDescriptionNew(mHandler, courseId);
                         mCourseDesc.sendCourseDescriptionRequest();
 //                        mReviewsBaseLinear.removeAllViews();
 
@@ -858,7 +824,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                         break;
                 }
             } else {
-                CourseDescription mCourseDescription = new CourseDescription(mHandler, courseId);
+                CourseDescriptionNew mCourseDescription = new CourseDescriptionNew(mHandler, courseId);
                 mCourseDescription.sendCourseDescriptionRequest();
                 startProgressDialog();
             }
@@ -880,7 +846,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
             //NavUtils.navigateUpTo(this, upIntent);
             Intent resultIntent = new Intent(this, MyCoursesActivity.class);
             resultIntent.putExtra(JoinCourseResponse.JOINED_KEY, addedAndRemovedCourses);
-            resultIntent.putExtra("isFromNotification",Flinnt.TRUE);//@chirag: 14/08/2018 for course tab
+            resultIntent.putExtra("isFromNotification", Flinnt.TRUE);//@chirag: 14/08/2018 for course tab
             resultIntent.putExtra(Config.USER_ID, userId);////@chirag: 14/08/2018
             resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); //@Chirag:16/08/2018 added
             if (isDeleteCourse) {
@@ -1041,7 +1007,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
         }*/
 
         if (Helper.isConnected()) {
-            CourseDescription mCourseDesc = new CourseDescription(mHandler, courseId);
+            CourseDescriptionNew mCourseDesc = new CourseDescriptionNew(mHandler, courseId);
             mCourseDesc.sendCourseDescriptionRequest();
             startProgressDialog();
         } else {
@@ -1070,7 +1036,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                 mJoinedCoursesList = mSuggestedCoursesResponse.getBrowsableCourses();
                 if (null != mJoinedCoursesList && mJoinedCoursesList.size() > 0) {
                     mJoinedCoursesLinear.setVisibility(View.VISIBLE);
-                    //mJoinedCoursesAdapter.addItems(mJoinedCoursesList);
+                    mJoinedCoursesAdapter.addItems(mJoinedCoursesList);
                 } else {
                     mJoinedCoursesLinear.setVisibility(View.GONE);
                 }
@@ -1078,7 +1044,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                 mInstituteCourseList = mSuggestedCoursesResponse.getBrowsableCourses();
                 if (null != mInstituteCourseList && mInstituteCourseList.size() > 0) {
                     mInstituteCoursesLinear.setVisibility(View.VISIBLE);
-                   //mInstituteCoursesAdapter.addItems(mInstituteCourseList);
+                    mInstituteCoursesAdapter.addItems(mInstituteCourseList);
                 } else {
                     mInstituteCoursesLinear.setVisibility(View.GONE);
                 }
@@ -1376,258 +1342,6 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
         }
     }
 
-    //09-01-2019 by  vijay
-    private void updateCourseDetailsNew(StoreBookDetailResponse.Data browsableCourse) {
-        if (null != browsableCourse) {
-//            if (null == mContentsList && browsableCourse.getIsPublic().equals(Flinnt.ENABLED)) {
-//                mContentsList = new ContentsList(mHandler, courseId);
-//                mContentsList.setSearchString("");
-//                mContentsList.sendContentsListRequest();
-//                startProgressDialog();
-//            }
-            //mTotalRattingsTxt.setText(browsableCourse.getTotalNoRating() + " " + getResources().getString(R.string.ratting_total_text));
-//            if (!browsableCourse.getVideoUrl().equalsIgnoreCase("")) {
-//                // start for youtube video
-//                mPostMediaRelative.setVisibility(View.VISIBLE);
-//                mCoursePictureImg.setVisibility(View.GONE);
-//                postYoutubeVedioID = null;
-//                String youtubeUrl = browsableCourse.getVideoUrl();//"https://www.youtube.com/watch?v=4HRC6c5-2lQ&list=PLcm_sbf1ZgNkYF1fIF-pJB7MSWgX_ygnD";//mPost.getAttachments();
-//
-//                String packageName = "com.google.android.youtube";
-//                boolean isYoutubeInstalled = isAppInstalled(packageName);
-//
-//                String pattern = "https?:\\/\\/(?:[0-9A-Z-]+\\.)?(?:youtu\\.be\\/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)(?![?=&+%\\w]*(?:['\"][^<>]*>|<\\/a>))[?=&+%\\w]*";
-//                Pattern compiledPattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
-//                Matcher matcher = compiledPattern.matcher(youtubeUrl);
-//                while (matcher.find()) {
-//                    System.out.println(matcher.group());
-//                    postYoutubeVedioID = matcher.group(1);
-//                }
-//
-//                if (isYoutubeInstalled) {
-//                    postYouTubePlayerFragment.initialize(Flinnt.DEVELOPER_KEY, BrowseCourseDetailActivityNew.this);
-//                    mMediaOpenImgbtn.setVisibility(View.GONE);
-//                    mYoutubeFrame.setVisibility(View.VISIBLE);
-//                } else {
-//                    isAppNotInstalled();
-//                }
-//                // end for youtube
-//            } else {
-//                mCoursePictureImg.setVisibility(View.VISIBLE);
-//                mPostMediaRelative.setVisibility(View.GONE);
-//            }
-            mCoursePictureImg.setVisibility(View.VISIBLE);
-            mPostMediaRelative.setVisibility(View.GONE);
-
-
-            mCourseNameTxt.setText(browsableCourse.getBookName());
-            //mInstituteNameTxt.setText(browsableCourse.getInstituteName());
-            //mMoreCoursesFromInstituteTxt.setText(String.format("%s %s", getString(R.string.more_courses_from), browsableCourse.getInstituteName()));
-            //*****change 32
-            //&& mBrowsableCourse.getIsPublic().equals("1")
-            if (!browsableCourse.getDescriptions().get(1).getDescription().equalsIgnoreCase("")) {
-                mCourseDescriptionTxt.setText(Html.fromHtml(browsableCourse.getDescriptions().get(1).getDescription(), null, new MyTagHandler()));
-//                mCourseDescriptionTxt.setText(getStrippedString(browsableCourse.getDescription()));
-                mDescriptionLinear.setVisibility(View.VISIBLE);
-            } else {
-                mDescriptionLinear.setVisibility(View.GONE);
-            }
-            mCourseDescriptionTxt.setMovementMethod(LinkMovementMethod.getInstance());
-
-            mCourseDescriptionTxt.post(new Runnable() {
-                @Override
-                public void run() {
-                    lineCount = mCourseDescriptionTxt.getLineCount();
-                    if (LogWriter.isValidLevel(Log.DEBUG))
-                        LogWriter.write("lineCount : " + lineCount);
-                    mReadMoreLinear.setVisibility(lineCount >= 10 ? View.VISIBLE : View.GONE);
-                }
-            });
-//            if (browsableCourse.getPublicType().equalsIgnoreCase(Flinnt.COURSE_TYPE_TIMEBOUND)) {
-//                mDateTimeAddressLinear.setVisibility(View.VISIBLE);
-//                mDatetimeTxt.setText(getStrippedString(browsableCourse.getEventDatetime()));
-//                mAddressTxt.setText(getStrippedString(browsableCourse.getEventLocation()));
-//                mDatetimeTxt.setVisibility(!getStrippedString(browsableCourse.getEventDatetime()).equalsIgnoreCase("") ? View.VISIBLE : View.GONE);
-//                mAddressTxt.setVisibility(!getStrippedString(browsableCourse.getEventLocation()).equalsIgnoreCase("") ? View.VISIBLE : View.GONE);
-//            } else {
-//                mDateTimeAddressLinear.setVisibility(View.GONE);
-//            }
-            //mCourseRatingBar.setRating(Float.parseFloat(browsableCourse.getRatings()));
-            mCourseRatingBar.setRating(Float.parseFloat("3.5"));
-
-            //shareUrl = browsableCourse.getShareUrl();
-            mSubscriptionBtn.setVisibility(View.VISIBLE);
-            //LogWriter.write("Is free : " + browsableCourse.getIs_free() + " , unsubscribe : " + browsableCourse.getCanSubscribe());
-
-//            if (browsableCourse.getCanSubscribe() != Flinnt.TRUE && browsableCourse.getCan_unsubscribe() != Flinnt.TRUE) {
-            mSubscriptionBtn.setVisibility(View.GONE);
-            mUnableToJoinTxt.setVisibility(View.VISIBLE);
-            mUnableToJoinTxt.setText(mBrowsableCourse.getMessage_text());
-
-            mUnableToJoinTxt.setText("Unable to Join");
-
-            if (mBrowsableCourse.getIs_free().equalsIgnoreCase(Flinnt.DISABLED)) {
-                mFinalPriceTxt.setVisibility(View.VISIBLE);
-//                mFinalPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getPrice().getBuy());
-//                mFPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getPrice().getBuy());
-
-                mFinalPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getSalePrice());
-                mFPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getSalePrice());
-
-//                    if (browsableCourse.getPrice().getDiscount_applicable() >= Flinnt.TRUE) {
-//                        mOldPriceTxt.setVisibility(View.VISIBLE);
-//                        mOPriceTxt.setVisibility(View.VISIBLE);
-//                        mOldPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getPrice().getBase());
-//                        mOldPriceTxt.setPaintFlags(mOldPriceTxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//
-//                        mOPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getPrice().getBase());
-//                        mOPriceTxt.setPaintFlags(mOPriceTxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//                    }
-//
-//                    else {
-//                        mOldPriceTxt.setVisibility(View.GONE);
-//                        mOPriceTxt.setVisibility(View.GONE);
-//                    }
-
-                mOldPriceTxt.setVisibility(View.VISIBLE);
-                mOPriceTxt.setVisibility(View.VISIBLE);
-                mOldPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getListPrice());
-                mOldPriceTxt.setPaintFlags(mOldPriceTxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
-            } else {
-                mTempTxt.setVisibility(View.GONE);
-            }
-        }
-//            } else if (browsableCourse.getCanSubscribe() == Flinnt.TRUE && browsableCourse.getIsPublic().equalsIgnoreCase(Flinnt.DISABLED)) {
-//                mSubscriptionBtn.setText(R.string.send_request);
-//            } else if (browsableCourse.getCanSubscribe() == Flinnt.TRUE && browsableCourse.getIs_free().equalsIgnoreCase(Flinnt.ENABLED)) {
-//                mSubscriptionBtn.setText(R.string.join_now);
-//            } else if (browsableCourse.getCan_unsubscribe() == Flinnt.TRUE) {
-//                mSubscriptionBtn.setText(R.string.un_subscribe);
-//                mFinalPriceTxt.setVisibility(View.GONE);
-//                mFPriceTxt.setVisibility(View.GONE);
-//                mOldPriceTxt.setVisibility(View.GONE);
-//                mOPriceTxt.setVisibility(View.GONE);
-//        }
-//            } else if (browsableCourse.getCan_unsubscribe() != Flinnt.TRUE && browsableCourse.getIs_free().equalsIgnoreCase(Flinnt.DISABLED)) {
-//                mSubscriptionBtn.setText(R.string.buy_now_button);
-
-//                if (mBrowsableCourse.getIs_free().equalsIgnoreCase(Flinnt.DISABLED)) {
-//                    mCustomNestedScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-//
-//                        @Override
-//                        public void onScrollChanged() {
-//                            Rect scrollBounds = new Rect();
-//                            mCustomNestedScrollView.getDrawingRect(scrollBounds);
-//
-//                            float top = mDeviderView.getY() + getResources().getDimension(R.dimen.margin_100dp);
-//                            float bottom = top + mDeviderView.getHeight();
-//
-//                            if (scrollBounds.top < top && scrollBounds.bottom > bottom) {
-//                                if (mBottomSheetLinear.isShown()) {
-//                                    mSpaceTxt.setVisibility(View.GONE);
-//                                    mBottomSheetLinear.setVisibility(View.GONE);
-//                                    mBottomSheetLinear.startAnimation(animFadeOut);
-//                                }
-//                            } else {
-//                                if (!mBottomSheetLinear.isShown()) {
-//                                    mSpaceTxt.setVisibility(View.VISIBLE);
-//                                    mBottomSheetLinear.setVisibility(View.VISIBLE);
-//                                    mBottomSheetLinear.startAnimation(animFadein);
-//                                }
-//                            }
-//                        }
-//                    });
-//                }
-
-
-//            if (browsableCourse.getIs_free().equalsIgnoreCase(Flinnt.DISABLED)) {
-//                mFinalPriceTxt.setVisibility(View.VISIBLE);
-//                mFPriceTxt.setVisibility(View.VISIBLE);
-//                mFinalPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getPrice().getBuy());
-//                mFPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getPrice().getBuy());
-//                if (browsableCourse.getPrice().getDiscount_applicable() >= Flinnt.TRUE) {
-//                    mOldPriceTxt.setVisibility(View.VISIBLE);
-//                    mOldPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getPrice().getBase());
-//                    mOldPriceTxt.setPaintFlags(mOldPriceTxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//                    mOPriceTxt.setVisibility(View.VISIBLE);
-//                    mOPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getPrice().getBase());
-//                    mOPriceTxt.setPaintFlags(mOPriceTxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//
-//                } else {
-//                    mOldPriceTxt.setVisibility(View.GONE);
-//                    mOPriceTxt.setVisibility(View.GONE);
-//                }
-//            }
-
-//            if (mBrowsableCourse.getIs_free().equalsIgnoreCase(Flinnt.DISABLED)) {
-//                if (courseBuyerAdapter != null) {
-//                    if (courseBuyerAdapter.getItemCount() < Flinnt.TRUE) {
-//                        mUsersCourseLinear.setVisibility(View.GONE);
-//                    } else {
-//                        mUsersCourseLinear.setVisibility(View.VISIBLE);
-//                    }
-//                }
-//
-//                if (null == mBuyerList) {
-//                    if (Helper.isConnected()) {
-//                        mBuyerListRequest = new BuyerListRequest();
-//                        mBuyerList = new BuyerList(mHandler, courseId);
-//                        mBuyerList.sendBuyerListRequest(mBuyerListRequest);
-//                    } else {
-//                        Helper.showNetworkAlertMessage(BrowseCourseDetailActivityNew.this);
-//                    }
-//                }
-//            }
-
-//            if (browsableCourse.getIsSubscribed() == Flinnt.TRUE) {
-//                isWishlist = false;
-//                mReviewCourseLinear.setVisibility(View.VISIBLE);
-//                showHideReviewSection(browsableCourse);
-//            }
-
-//            if (browsableCourse.getShowWishlist() == Flinnt.TRUE) {
-//                isWishlist = true;
-//            } else {
-//                isWishlist = false;
-//            }
-
-//            if (null != browsableCourse.getUserReview()) {
-//                fillReviewAtPosition(0, browsableCourse.getUserReview());
-//            }
-            invalidateOptionsMenu();
-            if (isFromNotification == Flinnt.BROWSECOURSE_SHARE_HEIGHLIGHT) {
-                mShareAnimationBtn.performClick();
-            }
-            if (isFromNotification == Flinnt.BROWSECOURSE_RATTING_HEIGHLIGHT) {
-                showRateReviewDialog("SUBMIT");
-            }
-
-
-            // To dosplay refund policty message/link.
-//            if (mBrowsableCourse.getRefundApplicable() == Flinnt.TRUE) {
-//                if (mBrowsableCourse.getCanRefund() == Flinnt.TRUE) {
-//                    if (mBrowsableCourse.getRefundMessage().equalsIgnoreCase("")) {
-//                        mRefunPolicyTxt.setTextColor(Color.parseColor("#3b6d95"));
-//                        SpannableString content = new SpannableString(getResources().getString(R.string.refund_course_txt));
-//                        content.setSpan(new UnderlineSpan(), 0, getResources().getString(R.string.refund_course_txt).length(), 0);
-//                        mRefunPolicyTxt.setText(content);
-//                    } else {
-//                        mRefunPolicyTxt.setText(Html.fromHtml(mBrowsableCourse.getRefundMessage()));
-//                    }
-//                } else {
-//                    if (!mBrowsableCourse.getRefundMessage().equalsIgnoreCase("")) {
-//                        mRefunPolicyTxt.setText(Html.fromHtml(mBrowsableCourse.getRefundMessage()));
-//                    } else {
-//                        mRefunPolicyTxt.setVisibility(View.GONE);
-//                    }
-//                }
-//            } else {
-//                mRefunPolicyTxt.setVisibility(View.GONE);
-//            }
-
-
-    }
 
     /**
      * Update and display course list
@@ -1871,14 +1585,14 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
      * Initialize lists and their adapters
      */
     private void resetListsAndAdapters() {
-//        mJoinedCoursesList = new ArrayList<>();
-//        mJoinedCoursesAdapter = new SuggestedCoursesAdapter(mJoinedCoursesList);
-//        mJoinedCoursesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//        mJoinedCoursesRecycler.setAdapter(mJoinedCoursesAdapter);
-//        mInstituteCourseList = new ArrayList<>();
-//        mInstituteCoursesAdapter = new SuggestedCoursesAdapter(mInstituteCourseList);
-//        mInstituteCoursesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//        mInstituteCoursesRecycler.setAdapter(mInstituteCoursesAdapter);
+        mJoinedCoursesList = new ArrayList<>();
+        mJoinedCoursesAdapter = new SuggestedCoursesAdapter(mJoinedCoursesList);
+        mJoinedCoursesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mJoinedCoursesRecycler.setAdapter(mJoinedCoursesAdapter);
+        mInstituteCourseList = new ArrayList<>();
+        mInstituteCoursesAdapter = new SuggestedCoursesAdapter(mInstituteCourseList);
+        mInstituteCoursesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mInstituteCoursesRecycler.setAdapter(mInstituteCoursesAdapter);
     }
 
     @Override
@@ -2026,8 +1740,8 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
                 public void onClick(View v) {
                     alertDialog.dismiss();
                     Intent profileIntent = new Intent(BrowseCourseDetailActivity.this, ProfileActivity.class)
-                            .putExtra(LoginResponse.USER_PICTURE_URL_KEY,Config.getStringValue(Config.PROFILE_URL))
-                            .putExtra(LoginResponse.USER_PICTURE_KEY,Config.getStringValue(Config.PROFILE_NAME));
+                            .putExtra(LoginResponse.USER_PICTURE_URL_KEY, Config.getStringValue(Config.PROFILE_URL))
+                            .putExtra(LoginResponse.USER_PICTURE_KEY, Config.getStringValue(Config.PROFILE_NAME));
                     startActivityForResult(profileIntent, AddCommunicationActivity.EDIT_SUCCESSFULL_CALL_BACK);
                 }
             });
@@ -2085,7 +1799,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
         alertDialogBuilder.setCustomTitle(mTitleTxt);
         // set dialog message
         alertDialogBuilder.setMessage(errorMsg);
-        alertDialogBuilder.setPositiveButton("Close",new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 finish();
             }
@@ -2116,7 +1830,7 @@ public class BrowseCourseDetailActivity extends AppCompatActivity implements Vie
         int defaultDrawable = R.drawable.youtube_video_fram_not_get;
         mMediaOpenImgbtn.setVisibility(View.VISIBLE);
         String url = "http://img.youtube.com/vi/" + postYoutubeVedioID + "/0.jpg";
-        mImageLoader.get(url,ImageLoader.getImageListener(mMediaThumnailImg, defaultDrawable, defaultDrawable));
+        mImageLoader.get(url, ImageLoader.getImageListener(mMediaThumnailImg, defaultDrawable, defaultDrawable));
     }
 
     @Override

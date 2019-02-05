@@ -193,7 +193,6 @@
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="@dimen/margin_10dp"
                                             android:textSize="@dimen/text_size_13sp" />
-
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -584,7 +583,7 @@
                         android:layout_marginTop="10dp"
                         android:orientation="vertical"
                         android:visibility="gone"
-                        tools:visibility="gone">
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -601,7 +600,7 @@
                             android:id="@+id/rv_recommended_courses"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            tools:layout_height="@dimen/_70sdp" />
+                            tools:layout_height="70dp" />
                     </LinearLayout>
 
                     <LinearLayout

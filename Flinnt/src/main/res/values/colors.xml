@@ -103,4 +103,10 @@
 
     <color name="default_shadow_color">#88757575</color>
     <color name="default_fill_color">#ffffff</color>
+
+    <!--vijay-->
+    <color name="rsbColorSeekBarDefault">#c3c3c3</color>
+    <color name="rsbColorThumbPressed">#FFE7E7E7</color>
+    <color name="rsbColorThumbDefault">#FFFFFF</color>
+    <color name="rsbColorThumbBorder">#FFD7D7D7</color>
 </resources>

@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.core.CustomJsonObjectRequest;
 import com.edu.flinnt.core.Requester;
+import com.edu.flinnt.models.store.CartResponseModel;
 import com.edu.flinnt.util.Config;
 import com.edu.flinnt.util.LogWriter;
 import com.google.gson.Gson;
@@ -32,6 +33,7 @@ public class CartItems {
     private String Strtype;
     private String rowId;
 
+    private CartResponseModel cartResponseModel = new CartResponseModel();
 
     private CartListItemResponse cartListItemResponse;
 
@@ -236,9 +238,12 @@ public class CartItems {
                 try {
                     int status = response.optInt("status");
 
+
+                    Gson gson = new Gson();
+
+                    cartResponseModel = gson.fromJson(String.valueOf(response),CartResponseModel.class);
+
                     serverReponseMsg = response.optString("message").replace("_"," ");
-
-
 
                     if (status == 1) {
                         // sendListCartItemsRequest();
@@ -321,6 +326,9 @@ public class CartItems {
 
                     if (status == 1) {
                         // sendListCartItemsRequest();
+                        Gson gson = new Gson();
+                        cartResponseModel = gson.fromJson(String.valueOf(response),CartResponseModel.class);
+
                         sendMesssageToGUIForUpdate(Flinnt.SUCCESS);
                     }else {
                         sendMesssageToGUI(Flinnt.FAILURE);
@@ -403,8 +411,7 @@ public class CartItems {
         if (null != mHandler) {
             Message msg = new Message();
             msg.what = messageID;
-            msg.obj = serverReponseMsg;
-            msg.arg1 = 1;
+            msg.obj = cartResponseModel;
             mHandler.sendMessage(msg);
         } else {
             if (LogWriter.isValidLevel(Log.INFO)) LogWriter.write("mHandler is null");
@@ -415,6 +422,7 @@ public class CartItems {
             Message msg = new Message();
             msg.what = messageID;
             msg.arg1 = 2;
+            msg.obj = cartResponseModel;
             mHandler.sendMessage(msg);
         } else {
             if (LogWriter.isValidLevel(Log.INFO)) LogWriter.write("mHandler is null");

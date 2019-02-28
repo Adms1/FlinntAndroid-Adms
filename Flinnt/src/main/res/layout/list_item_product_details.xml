@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/key_txt"
-        android:layout_width="0dp"
-        android:layout_weight="0.3"
+        android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lineSpacingExtra="1.3dp"
@@ -23,8 +23,7 @@
 
     <TextView
         android:id="@+id/value_txt"
-        android:layout_width="0dp"
-        android:layout_weight="0.7"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lineSpacingExtra="1.3dp"

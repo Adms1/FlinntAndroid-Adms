@@ -67,6 +67,7 @@ import com.edu.flinnt.core.CourseReviewWrite;
 import com.edu.flinnt.core.ErrorCodes;
 import com.edu.flinnt.core.Requester;
 import com.edu.flinnt.core.store.CartItems;
+import com.edu.flinnt.fragments.store.BrowseCoursesFragmentNew;
 import com.edu.flinnt.gui.AddCommunicationActivity;
 import com.edu.flinnt.gui.BuyerListActivity;
 import com.edu.flinnt.gui.ContentsDisplayAdapter;

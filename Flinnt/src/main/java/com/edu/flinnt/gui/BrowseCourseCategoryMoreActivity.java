@@ -275,7 +275,7 @@ public class BrowseCourseCategoryMoreActivity extends AppCompatActivity {
      */
     public void startProgressDialog() {
         if (!Helper.isFinishingOrIsDestroyed(BrowseCourseCategoryMoreActivity.this)) {
-            mProgressDialog = Helper.getProgressDialog(BrowseCourseCategoryMoreActivity.this,  getString(R.string.login), getString(R.string.please_wait), Helper.PROGRESS_DIALOG_TRANSPERENT);
+            mProgressDialog = Helper.getProgressDialog(BrowseCourseCategoryMoreActivity.this,getString(R.string.login),getString(R.string.please_wait), Helper.PROGRESS_DIALOG_TRANSPERENT);
             if (mProgressDialog != null) mProgressDialog.show();
         }
     }

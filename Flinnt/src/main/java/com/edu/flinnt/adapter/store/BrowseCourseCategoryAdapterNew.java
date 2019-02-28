@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.edu.flinnt.R;
@@ -28,19 +31,22 @@ import static com.edu.flinnt.protocol.BrowsableCourse.BUNDLE_LIST_KEY;
  * Adapter to display course category wise contains Recycler view, Category Text and more button.
  */
 
-public class BrowseCourseCategoryAdapterNew<T> extends RecyclerView.Adapter<BrowseCourseCategoryAdapterNew.ItemRowHolder> {
+public class BrowseCourseCategoryAdapterNew<T> extends RecyclerView.Adapter<BrowseCourseCategoryAdapterNew.ItemRowHolder>  implements Filterable {
 
    // private ArrayList<CategoryDataModel> dataList;
 
     //08-01-2019 by vijay.
-    private ArrayList<T> dataList;
+    private ArrayList<T> dataList  = new ArrayList<>();;
     private Context mContext;
     private int type;
+    private ArrayList<T> filteredDataset;
+    private BrowseCoursesListAdapterNew itemListDataAdapter;
 
     public BrowseCourseCategoryAdapterNew(Context context, ArrayList<T> data, int type) {
         this.mContext = context;
-        dataList = new ArrayList<>();
-        dataList.addAll(data);
+        dataList = data;
+        filteredDataset = new ArrayList<T>();
+        filteredDataset = dataList;
         this.type = type;
     }
 
@@ -55,114 +61,215 @@ public class BrowseCourseCategoryAdapterNew<T> extends RecyclerView.Adapter<Brow
     public void onBindViewHolder(BrowseCourseCategoryAdapterNew.ItemRowHolder itemRowHolder, final int i) {
         //08-01-2019 by vijay
 
-        if(type == 1){
+        try {
+            if (filteredDataset.size() > 0) {
+                if (type == 1) {
 
-            StoreModelResponse.Datum course  = (StoreModelResponse.Datum) dataList.get(i);
-            final String categotyName = course.getStandardName();
-            final String categoryId = String.valueOf(course.getStandardId());
-            final List<StoreModelResponse.Course>courses = course.getCourses();
-            itemRowHolder.titleTxt.setText(categotyName);
+                    StoreModelResponse.Datum course = (StoreModelResponse.Datum) filteredDataset.get(i);
+                    final String categotyName = course.getStandardName();
+                    final String categoryId = String.valueOf(course.getStandardId());
+                    final List<StoreModelResponse.Course> courses = course.getCourses();
+                    itemRowHolder.titleTxt.setText(categotyName);
 
-            // BrowseCoursesListAdapter itemListDataAdapter = new BrowseCoursesListAdapter(mContext, singleSectionItems);
+                    // BrowseCoursesListAdapter itemListDataAdapter = new BrowseCoursesListAdapter(mContext, singleSectionItems);
 
-            //08-01-2019 by vijay
+                    //08-01-2019 by vijay
 
-            if(courses.size() > 4) {
-                ArrayList<StoreModelResponse.Course> innerDataList = new ArrayList<>();
+                    if (courses.size() > 4) {
+                        ArrayList<StoreModelResponse.Course> innerDataList = new ArrayList<>();
 
-                for (int count = 0; count < 4; count++) {
-                    innerDataList.add(courses.get(count));
-                }
-                BrowseCoursesListAdapterNew itemListDataAdapter = new BrowseCoursesListAdapterNew(mContext,innerDataList,type);
-                itemRowHolder.categoryRecycler.setHasFixedSize(true);
-                itemRowHolder.categoryRecycler.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
-                itemRowHolder.categoryRecycler.setAdapter(itemListDataAdapter);
-                itemRowHolder.categoryRecycler.setNestedScrollingEnabled(false);
-            }else{
-                BrowseCoursesListAdapterNew itemListDataAdapter = new BrowseCoursesListAdapterNew(mContext,courses,type);
-                itemRowHolder.categoryRecycler.setHasFixedSize(true);
-                itemRowHolder.categoryRecycler.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
-                itemRowHolder.categoryRecycler.setAdapter(itemListDataAdapter);
-                itemRowHolder.categoryRecycler.setNestedScrollingEnabled(false);
-            }
-
-            if (courses.size() > 2) {
-                itemRowHolder.moreTxt.setVisibility(View.VISIBLE);
-            } else {
-                itemRowHolder.moreTxt.setVisibility(View.GONE);
-            }
-
-            itemRowHolder.moreTxt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (Helper.isConnected()) {
-                        Intent categoryIntent = new Intent(mContext,BrowseCourseCategoryMoreActivity.class);
-                        categoryIntent.putExtra(BrowsableCourse.CATEGORY_ID_KEY,categoryId);
-                        categoryIntent.putExtra(BrowsableCourse.CATEGORY_NAME_KEY,categotyName);
-                        categoryIntent.putExtra("type",type);
-                        categoryIntent.putParcelableArrayListExtra(BUNDLE_LIST_KEY,(ArrayList<? extends Parcelable>) courses);
-                        mContext.startActivity(categoryIntent);
+                        for (int count = 0; count < 4; count++) {
+                            innerDataList.add(courses.get(count));
+                        }
+                        itemListDataAdapter = new BrowseCoursesListAdapterNew(mContext,innerDataList, type);
+                        itemRowHolder.categoryRecycler.setHasFixedSize(true);
+                        itemRowHolder.categoryRecycler.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                        itemRowHolder.categoryRecycler.setAdapter(itemListDataAdapter);
+                        itemRowHolder.categoryRecycler.setNestedScrollingEnabled(false);
                     } else {
-                        Helper.showNetworkAlertMessage(mContext);
+                        itemListDataAdapter = new BrowseCoursesListAdapterNew(mContext,courses,type);
+                        itemRowHolder.categoryRecycler.setHasFixedSize(true);
+                        itemRowHolder.categoryRecycler.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                        itemRowHolder.categoryRecycler.setAdapter(itemListDataAdapter);
+                        itemRowHolder.categoryRecycler.setNestedScrollingEnabled(false);
                     }
-                }
-            });
-        }else if(type == 2){
 
-            StoreBookSetResponse.Datum course  = (StoreBookSetResponse.Datum) dataList.get(i);
-            final String categotyName = course.getStandardName();
-            final String categoryId = String.valueOf(course.getStandardId());
-            final List<StoreBookSetResponse.Course>courses = course.getCourses();
-            itemRowHolder.titleTxt.setText(categotyName);
-
-            // BrowseCoursesListAdapter itemListDataAdapter = new BrowseCoursesListAdapter(mContext, singleSectionItems);
-
-            //08-01-2019 by vijay
-
-            if(courses.size() > 4) {
-                ArrayList<StoreBookSetResponse.Course> innerDataList = new ArrayList<>();
-
-                for (int count = 0; count < 4; count++) {
-                    innerDataList.add(courses.get(count));
-                }
-                BrowseCoursesListAdapterNew itemListDataAdapter = new BrowseCoursesListAdapterNew(mContext,innerDataList,type);
-                itemRowHolder.categoryRecycler.setHasFixedSize(true);
-                itemRowHolder.categoryRecycler.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
-                itemRowHolder.categoryRecycler.setAdapter(itemListDataAdapter);
-                itemRowHolder.categoryRecycler.setNestedScrollingEnabled(false);
-            }else{
-                BrowseCoursesListAdapterNew itemListDataAdapter = new BrowseCoursesListAdapterNew(mContext,courses,type);
-                itemRowHolder.categoryRecycler.setHasFixedSize(true);
-                itemRowHolder.categoryRecycler.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
-                itemRowHolder.categoryRecycler.setAdapter(itemListDataAdapter);
-                itemRowHolder.categoryRecycler.setNestedScrollingEnabled(false);
-            }
-
-            if (courses.size() > 2) {
-                itemRowHolder.moreTxt.setVisibility(View.VISIBLE);
-            } else {
-                itemRowHolder.moreTxt.setVisibility(View.GONE);
-            }
-
-            itemRowHolder.moreTxt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (Helper.isConnected()) {
-                        Intent categoryIntent = new Intent(mContext,BrowseCourseCategoryMoreActivity.class);
-                        categoryIntent.putExtra(BrowsableCourse.CATEGORY_ID_KEY,categoryId);
-                        categoryIntent.putExtra(BrowsableCourse.CATEGORY_NAME_KEY,categotyName);
-                        categoryIntent.putExtra("type",type);
-                        categoryIntent.putParcelableArrayListExtra(BUNDLE_LIST_KEY,(ArrayList<? extends Parcelable>) courses);
-                        mContext.startActivity(categoryIntent);
+                    if (courses.size() > 4) {
+                        itemRowHolder.moreTxt.setVisibility(View.VISIBLE);
                     } else {
-                        Helper.showNetworkAlertMessage(mContext);
+                        itemRowHolder.moreTxt.setVisibility(View.GONE);
                     }
+                    //itemRowHolder.moreTxt.setText("More");
+                    itemRowHolder.moreTxt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (Helper.isConnected()) {
+                                Intent categoryIntent = new Intent(mContext, BrowseCourseCategoryMoreActivity.class);
+                                categoryIntent.putExtra(BrowsableCourse.CATEGORY_ID_KEY,categoryId);
+                                categoryIntent.putExtra(BrowsableCourse.CATEGORY_NAME_KEY,categotyName);
+                                categoryIntent.putExtra("type",type);
+                                categoryIntent.putParcelableArrayListExtra(BUNDLE_LIST_KEY, (ArrayList<? extends Parcelable>) courses);
+                                mContext.startActivity(categoryIntent);
+                            } else {
+                                Helper.showNetworkAlertMessage(mContext);
+                            }
+                        }
+                    });
+                } else if (type == 2) {
+
+                    StoreBookSetResponse.Datum course = (StoreBookSetResponse.Datum) filteredDataset.get(i);
+                    final String categotyName = course.getStandardName();
+                    final String categoryId = String.valueOf(course.getStandardId());
+                    final List<StoreBookSetResponse.Course> courses = course.getCourses();
+                    itemRowHolder.titleTxt.setText(categotyName);
+
+                    // BrowseCoursesListAdapter itemListDataAdapter = new BrowseCoursesListAdapter(mContext, singleSectionItems);
+
+                    //08-01-2019 by vijay
+
+                    if (courses.size() > 4) {
+                        ArrayList<StoreBookSetResponse.Course> innerDataList = new ArrayList<>();
+
+                        for (int count = 0; count < 4; count++) {
+                            innerDataList.add(courses.get(count));
+                        }
+                        itemListDataAdapter = new BrowseCoursesListAdapterNew(mContext, innerDataList, type);
+                        itemRowHolder.categoryRecycler.setHasFixedSize(true);
+                        itemRowHolder.categoryRecycler.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                        itemRowHolder.categoryRecycler.setAdapter(itemListDataAdapter);
+                        itemRowHolder.categoryRecycler.setNestedScrollingEnabled(false);
+                    } else {
+                        itemListDataAdapter = new BrowseCoursesListAdapterNew(mContext,courses,type);
+                        itemRowHolder.categoryRecycler.setHasFixedSize(true);
+                        itemRowHolder.categoryRecycler.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                        itemRowHolder.categoryRecycler.setAdapter(itemListDataAdapter);
+                        itemRowHolder.categoryRecycler.setNestedScrollingEnabled(false);
+                    }
+
+                    if (courses.size() > 4) {
+                        itemRowHolder.moreTxt.setVisibility(View.VISIBLE);
+                    } else {
+                        itemRowHolder.moreTxt.setVisibility(View.GONE);
+                    }
+                    //itemRowHolder.moreTxt.setText("More");
+                    itemRowHolder.moreTxt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (Helper.isConnected()) {
+                                Intent categoryIntent = new Intent(mContext,BrowseCourseCategoryMoreActivity.class);
+                                categoryIntent.putExtra(BrowsableCourse.CATEGORY_ID_KEY, categoryId);
+                                categoryIntent.putExtra(BrowsableCourse.CATEGORY_NAME_KEY, categotyName);
+                                categoryIntent.putExtra("type",type);
+                                categoryIntent.putParcelableArrayListExtra(BUNDLE_LIST_KEY,(ArrayList<? extends Parcelable>) courses);
+                                mContext.startActivity(categoryIntent);
+                            } else {
+                                Helper.showNetworkAlertMessage(mContext);
+                            }
+                        }
+                    });
                 }
-            });
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
+    }
+
+
+    public void setFilter(String searchQuery) {
+        ArrayList<T> filteredList;
+        if (searchQuery.isEmpty()) {
+            filteredDataset = dataList;
+        }else {
+            filteredList = new ArrayList<T>();
+            if(type == 1) {
+                for (int count = 0; count < dataList.size(); count++) {
+                    StoreModelResponse.Datum data = (StoreModelResponse.Datum) dataList.get(count);
+                    List<StoreModelResponse.Course> courseData = new ArrayList<StoreModelResponse.Course>();
+                    courseData = data.getCourses();
+                    List<StoreModelResponse.Course> tempData = new ArrayList<StoreModelResponse.Course>();
+
+                    for (int subcount = 0; subcount < courseData.size(); subcount++) {
+                        if (courseData.get(subcount).getBookName().equalsIgnoreCase(searchQuery)) {
+                            tempData.add(courseData.get(subcount));
+                            data.setCourses(tempData);
+                            filteredList.add((T) data);
+                        }
+                    }
+                }
+                filteredDataset = filteredList;
+                notifyDataSetChanged();
+            }
+        }
+    }
 
 
 
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            ArrayList<T> filteredList;
+
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    filteredDataset = dataList;
+                } else {
+                    filteredList = new ArrayList<T>();
+                    if(type == 1) {
+                        for(int count = 0;count<dataList.size();count++){
+                            StoreModelResponse.Datum data  = (StoreModelResponse.Datum)dataList.get(count);
+                            List<StoreModelResponse.Course> courseData = new ArrayList<StoreModelResponse.Course>();
+                            courseData = data.getCourses();
+                            List<StoreModelResponse.Course> tempData  = new ArrayList<StoreModelResponse.Course>();
+                            for(int subcount = 0;subcount<courseData.size();subcount++){
+                                if(courseData.get(subcount).getBookName().equalsIgnoreCase(charString) || courseData.get(subcount).getBookName().contains(charString)){
+                                    tempData.add(courseData.get(subcount));
+                                    data.setCourses(tempData);
+                                    filteredList.add((T)data);
+                                }
+                            }
+                        }
+
+
+                    }else if(type == 2){
+
+                        for(int count = 0;count<dataList.size();count++){
+
+                            StoreBookSetResponse.Course data  = (StoreBookSetResponse.Course)dataList.get(count);
+                            if(data.getBookSetName().contains(charSequence)) {
+                               //filteredList.add(dataList.get(count));
+                            }
+                        }
+                    }
+                    filteredDataset = filteredList;
+
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredDataset;
+                filterResults.count = filteredDataset.size();
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+//                filteredDataset = filteredList;
+//                notifyDataSetChanged();
+
+                if(!TextUtils.isEmpty(charSequence)) {
+                    filteredDataset = (ArrayList<T>) filterResults.values;
+                    notifyDataSetChanged();
+                }else{
+                    notifyDataSetChanged();
+                }
+//                if(itemListDataAdapter != null){
+//                    String charString = charSequence.toString();
+//                    itemListDataAdapter.setFilter(charString);
+//                }
+            }
+        };
 
     }
 
@@ -180,11 +287,13 @@ public class BrowseCourseCategoryAdapterNew<T> extends RecyclerView.Adapter<Brow
 
         int size = items.size();
         dataList.addAll(items);
-        notifyItemRangeInserted(positionStart, size);
+        filteredDataset = dataList;
+        notifyDataSetChanged();
+        //notifyItemRangeInserted(positionStart, size);
     }
     @Override
     public int getItemCount() {
-        return (null != dataList ? dataList.size() : 0);
+        return (null != filteredDataset ? filteredDataset.size() : 0);
     }
 
     public class ItemRowHolder extends RecyclerView.ViewHolder {
@@ -202,7 +311,7 @@ public class BrowseCourseCategoryAdapterNew<T> extends RecyclerView.Adapter<Brow
     }
 
     public void clearData() {
-        dataList.clear();
+        filteredDataset.clear();
         notifyDataSetChanged();
     }
 

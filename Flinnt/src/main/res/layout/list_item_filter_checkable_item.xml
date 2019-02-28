@@ -5,12 +5,12 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/_5sdp">
     
-    <android.support.v7.widget.AppCompatCheckBox
+    <CheckBox
         android:id="@+id/checkable_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/CheckBoxStyle"
+        android:textSize="@dimen/text_size_15sp"
         android:textColor="@color/black" />
-
-
 
 </android.support.v7.widget.LinearLayoutCompat>

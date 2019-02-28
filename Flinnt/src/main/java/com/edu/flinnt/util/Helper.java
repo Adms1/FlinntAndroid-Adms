@@ -500,8 +500,6 @@ public class Helper {
 
                         }
                         rows.deleteAllFromRealm();
-
-
                     } catch (Exception e) {
                         LogWriter.err(e);
                     }
@@ -515,8 +513,7 @@ public class Helper {
 
 
     public static void cancelNotification(int notificationId) {
-
-        NotificationManager nMgr = (NotificationManager) FlinntApplication.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager nMgr = (NotificationManager)FlinntApplication.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationId != Flinnt.INVALID) {
             nMgr.cancel(notificationId);
         } else {
@@ -635,7 +632,7 @@ public class Helper {
         alertDialogBuilder
                 .setMessage(R.string.no_internet_conn_message_dialog)
                 .setCancelable(false)
-                .setPositiveButton(R.string.action_settings, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.action_settings,new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
                             Intent intent = new Intent(android.provider.Settings.ACTION_SETTINGS);

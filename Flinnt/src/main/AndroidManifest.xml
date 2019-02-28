@@ -683,6 +683,18 @@
         <activity android:name=".gui.store.BrowseBookSetDetailAcivity" />
         <activity android:name=".gui.store.ShippingAddressActivity" />
         <activity android:name=".gui.store.ShippingAdreessListActivity"></activity>
+        <activity
+            android:name=".gui.store.CheckoutActivityNew"
+            android:label=""
+            android:parentActivityName=".gui.MyCoursesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.edu.flinnt.gui.MyCoursesActivity" />
+        </activity>
     </application>
 
 </manifest>

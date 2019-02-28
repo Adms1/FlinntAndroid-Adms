@@ -128,12 +128,12 @@ public class StoreBookSetListAdapter extends RecyclerView.Adapter<StoreBookSetLi
 
             // String url = coursPictureUrl + Flinnt.COURSE_MEDIUM + File.separator + course.getPicture();
 
-            String url = course.getOriginalPath();
+            String url = course.getThumbnailPath();
 
             int[] androidColors = mContext.getResources().getIntArray(R.array.androidcolors);
             int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
             holder.courseImage.setBackgroundColor(randomAndroidColor);
-            holder.courseImage.setImageUrl(url, mImageLoader);
+            holder.courseImage.setImageUrl(url,mImageLoader);
 
             holder.courseName.setText(course.getBookName());
 

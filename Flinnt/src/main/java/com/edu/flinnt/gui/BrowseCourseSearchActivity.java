@@ -157,7 +157,7 @@ public class BrowseCourseSearchActivity extends AppCompatActivity {
         try {
             RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(BrowseCourseSearchActivity.this, 2);
             mRecyclerView.setLayoutManager(mLayoutManager);
-            mBrowseCourseSearchAdapter = new BrowseCourseSearchAdapter(this, mCourseList);
+            mBrowseCourseSearchAdapter = new BrowseCourseSearchAdapter(this,mCourseList);
             mRecyclerView.setAdapter(mBrowseCourseSearchAdapter);
 
         } catch (Exception e) {
@@ -209,7 +209,6 @@ public class BrowseCourseSearchActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.institute_course_menu, menu);
-
         MenuItem actionSearchItem = menu.findItem(R.id.action_search);
         actionSearchItem.setVisible(true);
 
@@ -330,7 +329,6 @@ public class BrowseCourseSearchActivity extends AppCompatActivity {
                                 mBrowseCourseSearchAdapter.setSearchSubmitted(false);
                                 updateCourseList(mReserveCourseList);
                                 mReserveCourseList.clear();
-
                             }
                             mBrowseCourseCategory = new BrowseCourseCategory(mHandler);
                             mBrowseCourseCategory.setSearchString("");

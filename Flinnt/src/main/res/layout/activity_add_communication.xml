@@ -134,7 +134,7 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_close" />
+            android:src="@drawable/ic_close_material" />
 
     </RelativeLayout>
 

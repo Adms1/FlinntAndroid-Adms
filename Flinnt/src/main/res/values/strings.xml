@@ -408,6 +408,8 @@
 
     <!-- Checkout -->
     <string name="payment_summary_text">Payment Summary</string>
+    <string name="order_summary_text">Order Summary</string>
+
     <string name="subtotal_text">Subtotal</string>
     <string name="discount_text">Discount</string>
     <string name="total_text">Total</string>

@@ -77,10 +77,10 @@ public class LocationService extends Service implements FlinntLocationCallBack{
             longitude = Double.parseDouble(Config.getStringValue(Config.USER_LOCATION_LONGITUDE));
             UPDATE_THRESHOLD = Config.getIntValue(Config.DISTANCE_VARIATION_THRESHOLD);
         }catch(Exception e){
-
+            e.printStackTrace();
         }
 
-        if(latitude==0.0 || longitude==0.0){
+        if(latitude == 0.0 || longitude==0.0){
             return true;
         }
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/_5sdp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:visibility="visible"
+        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tv_minprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Min (₹ 0)"
+        android:layout_gravity="left"
+        android:layout_alignParentLeft="true"
+        android:textSize="@dimen/text_size_15sp"
+        android:textColor="@color/ColorPrimary" />
+    <TextView
+        android:id="@+id/tv_maxprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max (₹ 1000)"
+        android:layout_gravity="right"
+        android:layout_alignParentRight="true"
+        android:textSize="@dimen/text_size_15sp"
+        android:textColor="@color/ColorPrimary" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/price_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_24sdp"
+        android:min="0"
+        android:max="1000"
+        android:progress="0"
+        android:visibility="gone"
+        android:theme="@style/Widget.AppCompat.SeekBar.Discrete" />
+
+    <com.edu.flinnt.customviews.store.rangeseekbar.RangeSeekBar
+        android:id="@+id/seekbar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingRight="@dimen/_5sdp"
+        app:rsb_min="100"
+        app:rsb_max="1000"
+        app:rsb_mode="range"
+        app:rsb_range_interval="100"
+        app:rsb_progress_height="@dimen/_2sdp"
+        app:rsb_progress_color="@color/ColorPrimary"
+        app:rsb_progress_default_color="@color/rsbColorSeekBarDefault"
+        app:rsb_tick_mark_mode="other"
+        app:rsb_tick_mark_text_margin="@dimen/_14sdp"
+        app:rsb_tick_mark_text_size="14sp"
+        app:rsb_tick_mark_text_color="@color/ColorPrimary"
+        app:rsb_indicator_height="@dimen/_20sdp"
+        app:rsb_indicator_width="@dimen/_50sdp"
+        app:rsb_indicator_background_color="@color/ColorPrimary"
+        app:rsb_indicator_show_mode="alwaysShow"
+        app:rsb_thumb_size="@dimen/_15sdp"
+        app:rsb_indicator_margin="@dimen/_2sdp"
+        app:rsb_thumb_scale_ratio="1"
+
+        app:rsb_thumb_drawable="@drawable/thumb_gradient"
+        />
+
+    <!--android:thumb="@drawable/price_seekbar_progress"-->
+
+
+</android.support.v7.widget.LinearLayoutCompat>

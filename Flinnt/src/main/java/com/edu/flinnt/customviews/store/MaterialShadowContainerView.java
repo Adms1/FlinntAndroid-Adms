@@ -406,8 +406,8 @@ public class MaterialShadowContainerView extends FrameLayout {
         final View childView = (getChildCount() > 0) ? getChildAt(0) : null;
 
         if (childView != null) {
-            ViewCompat.setTranslationZ(childView, translationZ);
-            ViewCompat.setElevation(childView, elevation);
+            ViewCompat.setTranslationZ(childView,translationZ);
+            ViewCompat.setElevation(childView,elevation);
         }
     }
 
@@ -442,12 +442,13 @@ public class MaterialShadowContainerView extends FrameLayout {
         }
 
         updateNinePatchBounds(mCurrentAmbientShadowDrawable1, childLeft, childTop, childRight, childBottom);
+
         if (mCurrentAmbientShadowDrawable1 != mCurrentAmbientShadowDrawable2) {
             updateNinePatchBounds(mCurrentAmbientShadowDrawable2, childLeft, childTop, childRight, childBottom);
         }
     }
 
-    private void updateNinePatchBounds(NinePatchDrawable ninePatch, int childLeft, int childTop, int childRight, int childBottom) {
+    private void updateNinePatchBounds(NinePatchDrawable ninePatch,int childLeft, int childTop, int childRight, int childBottom) {
         if (ninePatch == null) {
             return;
         }

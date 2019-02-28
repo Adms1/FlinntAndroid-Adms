@@ -242,19 +242,36 @@
                     android:layout_height="wrap_content"
                     app:layout_scrollFlags="enterAlwaysCollapsed|enterAlways" />
 
-                <android.support.v7.widget.AppCompatMultiAutoCompleteTextView
+
+
+                <com.edu.flinnt.customviews.store.CustomAutoCompleteTextView
                     android:id="@+id/edt_search_store_box"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_40dp"
                     android:layout_margin="@dimen/text_size_10sp"
                     android:background="@drawable/rounded_edges"
-                    android:drawableRight="@drawable/ic_search_blue"
+                    android:drawableLeft="@drawable/ic_search_blue"
                     android:hint="Search"
+                    android:inputType="text"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:gravity="center_vertical"
+                    android:completionThreshold="1"
                     android:imeOptions="actionSearch"
                     android:padding="@dimen/margin_5dp"
                     android:textColor="@color/text_color"
-                    android:textColorHint ="@color/text_color"
+                    android:textColorHint ="@color/hint_foreground_material_light"
                     android:visibility="gone" />
+
+                <com.edu.flinnt.customviews.store.MaterialSearchView
+                    android:id="@+id/material_searchview"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_margin="4dp"
+                    android:visibility="gone"
+                    app:cardElevation="4dp"
+
+                    app:search_hint="Search"
+                    app:search_menu_position="1" />
 
 
                 <FrameLayout
@@ -282,9 +299,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-
-
-
             </RelativeLayout>
 
         </android.support.design.widget.CoordinatorLayout>
@@ -294,6 +308,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@color/black_semi_transparent"
+
             android:visibility="invisible" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -407,19 +422,6 @@
                 fab:fab_title="@string/course" />
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
-        <RelativeLayout
-            android:id="@+id/ll_footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:gravity="bottom"
-            android:visibility="gone"
-            android:orientation="vertical">
-
-            <include layout="@layout/layout_bottom_filter_menu" />
-
-        </RelativeLayout>
     </FrameLayout>
 
     <android.support.design.widget.NavigationView

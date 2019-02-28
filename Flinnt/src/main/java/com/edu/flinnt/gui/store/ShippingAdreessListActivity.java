@@ -1,5 +1,6 @@
 package com.edu.flinnt.gui.store;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -30,7 +31,10 @@ import com.edu.flinnt.util.LogWriter;
 import com.edu.flinnt.util.MyCommFun;
 import com.google.android.gms.analytics.GoogleAnalytics;
 
-public class ShippingAdreessListActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class ShippingAdreessListActivity extends AppCompatActivity implements ShippingAddressListAdapter.AddressSelectListener {
 
     private Toolbar toolbar;
     private ShippingAddressListAdapter shippingAddressListAdapter;
@@ -38,7 +42,9 @@ public class ShippingAdreessListActivity extends AppCompatActivity {
     public static ProgressDialog mProgressDialog = null;
     private ShippingAdressModel shippingAdressModel;
     private RecyclerView rvAddressList;
-    private Button btnAddAddress;
+    private Button btnAddAddress,btnDelivery;
+    private ShippingAddressListAdapter.AddressSelectListener addressSelectListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,8 @@ public class ShippingAdreessListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_shipping_adreess_list);
 
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         //toolbar.setNavigationIcon(R.drawable.ic_drawer);
@@ -59,7 +67,9 @@ public class ShippingAdreessListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         rvAddressList = (RecyclerView)findViewById(R.id.rv_user_address_list);
         btnAddAddress = (Button)findViewById(R.id.btn_add_new);
+        btnDelivery = (Button)findViewById(R.id.btn_delivery);
 
+        addressSelectListener = (ShippingAddressListAdapter.AddressSelectListener)this;
 
         mHandler = new Handler(Looper.getMainLooper()) {
             @Override
@@ -72,10 +82,11 @@ public class ShippingAdreessListActivity extends AppCompatActivity {
 
                         if(msg.obj instanceof ShippingAdressModel){
                             shippingAdressModel = (ShippingAdressModel) msg.obj;
-                            shippingAddressListAdapter = new ShippingAddressListAdapter(ShippingAdreessListActivity.this,shippingAdressModel.getData());
+                            shippingAddressListAdapter = new ShippingAddressListAdapter(ShippingAdreessListActivity.this,shippingAdressModel.getData(),addressSelectListener);
                             rvAddressList.setLayoutManager(new LinearLayoutManager(ShippingAdreessListActivity.this));
                             rvAddressList.setAdapter(shippingAddressListAdapter);
                         }
+
                         break;
 
                     case Flinnt.FAILURE:
@@ -150,5 +161,58 @@ public class ShippingAdreessListActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 109:
+                if(resultCode == Activity.RESULT_OK){
+                    AddressResponse shippingAddressRequest = new AddressResponse(mHandler,Config.getStringValue(Config.USER_ID));
+                    shippingAddressRequest.getAddressListRequest();
+                }
+            case 110:
+                if(resultCode == Activity.RESULT_OK){
+
+                    try {
+
+
+                        String userAddressId = data.getStringExtra("user_address_id");
+
+                        if (userAddressId != null) {
+
+                            for (int count = 0; count < shippingAdressModel.getData().size(); count++) {
+                                if (shippingAdressModel.getData().get(count).getUserAddressId() == Integer.parseInt(userAddressId)) {
+                                    shippingAddressListAdapter.setCheckItem(count);
+                                    break;
+                                }
+                            }
+                        }
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                }
+            break;
+        }
+    }
+
+    @Override
+    public void onAddressSelected(boolean isSelected, final ArrayList<ShippingAdressModel.Datum> bundleData2) {
+
+            btnDelivery.setEnabled(true);
+            btnDelivery.setAlpha(1);
+
+            btnDelivery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intentCheckout = new Intent(ShippingAdreessListActivity.this,CheckoutActivityNew.class);
+                    ArrayList<ShippingAdressModel.Datum> bundleData1 = new ArrayList<ShippingAdressModel.Datum>();
+                    bundleData1.addAll(bundleData2);
+                    intentCheckout.putParcelableArrayListExtra("address_data",bundleData1);
+                    startActivityForResult(intentCheckout,110);
+                }
+            });
+
+
     }
 }

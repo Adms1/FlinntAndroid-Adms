@@ -55,9 +55,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.R;
 import com.edu.flinnt.adapter.store.PlacesAutocompleteAdapter;
-import com.edu.flinnt.core.store.AddUserAddress;
+import com.edu.flinnt.core.store.ManageUserAddress;
 import com.edu.flinnt.core.Requester;
 import com.edu.flinnt.core.store.AddUserAddressResponse;
+import com.edu.flinnt.models.store.ShippingAdressModel;
 import com.edu.flinnt.util.Config;
 import com.edu.flinnt.util.Helper;
 import com.edu.flinnt.util.LogWriter;
@@ -70,7 +71,6 @@ import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.common.data.DataBufferUtils;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -121,7 +121,7 @@ public class ShippingAddressActivity extends AppCompatActivity implements Google
     private AppCompatAutoCompleteTextView mAddress2AutoComplete,mAddress1AutoComplete;
     protected GeoDataClient mGeoDataClient;
     private PlacesAutocompleteAdapter mAdapter,mAdapter1,mAdapter2;
-    private AddUserAddress addUserAddress;
+    private ManageUserAddress addUserAddress;
     private Handler mHandler;
     public static ProgressDialog mProgressDialog = null;
     private TextInputEditText inputfullName,inputMobileNo,inputlandMark;
@@ -136,7 +136,11 @@ public class ShippingAddressActivity extends AppCompatActivity implements Google
     private LocationRequest mLocationRequest;
     private double currentLat,currentLong;
     private ProgressBar progressBarLocation;
-    private  ObjectAnimator objectAnimator;
+    private ObjectAnimator objectAnimator;
+    private ArrayList<ShippingAdressModel.Datum> addressList;
+    private boolean isRecordInUpdate;
+    private String userAddresId = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +152,7 @@ public class ShippingAddressActivity extends AppCompatActivity implements Google
         }
         setContentView(R.layout.activity_shipping_address);
 
+        addressList = new ArrayList<ShippingAdressModel.Datum>();
 
         mHandler = new Handler(Looper.getMainLooper()) {
             @Override
@@ -156,7 +161,7 @@ public class ShippingAddressActivity extends AppCompatActivity implements Google
                 switch (msg.what) {
                     case Flinnt.SUCCESS:
                         if (LogWriter.isValidLevel(Log.INFO))
-                            LogWriter.write("SUCCESS_RESPONSE : " + msg.obj.toString());
+                           // LogWriter.write("SUCCESS_RESPONSE : " + msg.obj.toString());
 
                         if(msg.obj instanceof AddUserAddressResponse){
                             Toast.makeText(ShippingAddressActivity.this,"Address added successfully",Toast.LENGTH_SHORT).show();
@@ -165,7 +170,9 @@ public class ShippingAddressActivity extends AppCompatActivity implements Google
                             finish();
 
                         }else if(msg.arg1 == 200){
-
+                            Toast.makeText(ShippingAddressActivity.this,"Address updated successfully",Toast.LENGTH_SHORT).show();
+                            setResult(Activity.RESULT_OK);
+                            finish();
                         }
                         break;
 
@@ -215,6 +222,35 @@ public class ShippingAddressActivity extends AppCompatActivity implements Google
         } else
             Toast.makeText(this, "Not Connected!", Toast.LENGTH_SHORT).show();
 
+
+        try {
+            addressList = getIntent().getParcelableArrayListExtra("bundle_address_data");
+
+            if(addressList != null){
+
+                inputMobileNo.setText(String.valueOf(addressList.get(0).getPhone()));
+                inputfullName.setText(String.valueOf(addressList.get(0).getFullname()));
+                //inputlandMark.setText(String.valueOf(addressList.get(0).ge));
+                cityAutocomplete.setText(String.valueOf(addressList.get(0).getCity()));
+                stateAutoComplete.setText(String.valueOf(addressList.get(0).getName()));
+                pin.setText(String.valueOf(addressList.get(0).getPin()));
+                inputMobileNo.setText(String.valueOf(addressList.get(0).getPhone()));
+                mAddress1AutoComplete.setText(String.valueOf(addressList.get(0).getAddress1()));
+                mAddress2AutoComplete.setText(String.valueOf(addressList.get(0).getAddress2()));
+                userAddresId = String.valueOf(addressList.get(0).getUserAddressId());
+
+                isRecordInUpdate = true;
+
+            }else{
+                isRecordInUpdate = false;
+
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+            isRecordInUpdate = false;
+
+        }
 
         sendStateDataRequest();
 
@@ -314,7 +350,7 @@ public class ShippingAddressActivity extends AppCompatActivity implements Google
                             } else {
                                 //run on background thread.
                                 Helper.hideKeyboardFromWindow(ShippingAddressActivity.this);
-//                                new GetLocationFromPinCodeTask().execute();
+                            //    new GetLocationFromPinCodeTask().execute();
                             }
                         }
 
@@ -341,8 +377,13 @@ public class ShippingAddressActivity extends AppCompatActivity implements Google
                 }
                 if(validateFields()){
                     startProgressDialog();
-                    addUserAddress = new AddUserAddress(mHandler,Config.getStringValue(Config.USER_ID),inputfullName.getText().toString(),mAddress1AutoComplete.getText().toString(),mAddress2AutoComplete.getText().toString(),cityAutocomplete.getText().toString(),selectedStateId,pin.getText().toString(),addressType,inputMobileNo.getText().toString());
-                    addUserAddress.sendAddUserAddressRequest();
+                    if(isRecordInUpdate){
+                        addUserAddress = new ManageUserAddress(mHandler,Config.getStringValue(Config.USER_ID),inputfullName.getText().toString(),mAddress1AutoComplete.getText().toString(),mAddress2AutoComplete.getText().toString(),cityAutocomplete.getText().toString(),selectedStateId,pin.getText().toString(),addressType,inputMobileNo.getText().toString(),userAddresId);
+                        addUserAddress.sendUpdateUserAddressRequest();
+                    }else{
+                        addUserAddress = new ManageUserAddress(mHandler,Config.getStringValue(Config.USER_ID),inputfullName.getText().toString(),mAddress1AutoComplete.getText().toString(),mAddress2AutoComplete.getText().toString(),cityAutocomplete.getText().toString(),selectedStateId,pin.getText().toString(),addressType,inputMobileNo.getText().toString());
+                        addUserAddress.sendRequest();
+                    }
                 }
 
             }
@@ -417,17 +458,23 @@ public class ShippingAddressActivity extends AppCompatActivity implements Google
                                     builder1.setCancelable(true);
 
                                     builder1.setPositiveButton(
-                                            "Use",
+                                            "Set",
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int id) {
 
-                                                    String [] addressArray = str_address.split(",");
+
+                                                    String [] addressArray = str_address.split("(?=,)");
+
+
                                                     // String country  = addressArray[addressArray.length - 1];
                                                     // String stateAndPin  = addressArray[addressArray.length - 2].replace(" ","/");
-                                                    String area = addressArray[addressArray.length - 4];
+
+                                                    String [] fullAddress  = addressArray.toString().split(",");
+                                                    String area = fullAddress[fullAddress.length - 4];
 
                                                     try {
-                                                        int addressEndIndex = str_address.indexOf(area);
+                                                        //int addressEndIndex = str_address.indexOf(area);
+                                                        int addressEndIndex = (area.length() - 1);
                                                         String completeAddress = str_address.substring(0,addressEndIndex);
                                                         mAddress1AutoComplete.setText(completeAddress.substring(0,completeAddress.length() - 1));
                                                         mAddress2AutoComplete.setText(address.getSubLocality());

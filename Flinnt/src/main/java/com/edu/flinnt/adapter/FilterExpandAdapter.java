@@ -9,16 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.flinnt.R;
-import com.edu.flinnt.expandableRecylerview.ExpandableGroup;
-import com.edu.flinnt.expandableRecylerview.ExpandableRecyclerViewAdapter;
-import com.edu.flinnt.expandableRecylerview.viewholders.ChildViewHolder;
-import com.edu.flinnt.expandableRecylerview.viewholders.GroupViewHolder;
+import com.edu.flinnt.customviews.store.expandableRecylerview.ExpandableGroup;
+import com.edu.flinnt.customviews.store.expandableRecylerview.ExpandableRecyclerViewAdapter;
+import com.edu.flinnt.customviews.store.expandableRecylerview.viewholders.ChildViewHolder;
+import com.edu.flinnt.customviews.store.expandableRecylerview.viewholders.GroupViewHolder;
 
 import java.util.List;
 
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
-public class FilterExpandAdapter extends ExpandableRecyclerViewAdapter<FilterExpandAdapter.ParentViewHolder, FilterExpandAdapter.ChildViewHolder12> {
+public class FilterExpandAdapter extends ExpandableRecyclerViewAdapter<GroupViewHolder,ChildViewHolder> {
+
+    private int childViewType;
 
     public FilterExpandAdapter(List<? extends ExpandableGroup> groups) {
         super(groups);
@@ -31,24 +33,32 @@ public class FilterExpandAdapter extends ExpandableRecyclerViewAdapter<FilterExp
     }
 
     @Override
-    public FilterExpandAdapter.ChildViewHolder12 onCreateChildViewHolder(ViewGroup parent, int viewType) {
+    public ChildViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_filter_checkable_item, parent, false);
         return new FilterExpandAdapter.ChildViewHolder12(view);
+
     }
 
     @Override
-    public void onBindChildViewHolder(FilterExpandAdapter.ChildViewHolder12 holder, int flatPosition, ExpandableGroup group,int childIndex) {
-        final String checkableItem  = (String) group.getItems().get(childIndex);
-        holder.childTextView.setChecked(false);
-        holder.childTextView.setTag(childIndex);
-        holder.childTextView.setText(checkableItem);
+    public void onBindChildViewHolder(ChildViewHolder holder, int flatPosition, ExpandableGroup group,int childIndex) {
+       try {
+           if (holder instanceof ChildViewHolder12) {
+               final String checkableItem = (String) group.getItems().get(childIndex);
+               ((ChildViewHolder12) holder).childTextView.setChecked(false);
+               ((ChildViewHolder12) holder).childTextView.setTag(childIndex);
+               ((ChildViewHolder12) holder).childTextView.setText(checkableItem);
+           }
+       }catch (Exception ex){
+           ex.printStackTrace();
+       }
+
     }
 
     @Override
-    public void onBindGroupViewHolder(FilterExpandAdapter.ParentViewHolder holder, int flatPosition, ExpandableGroup group) {
-        holder.filtertitle.setText(group.getTitle());
+    public void onBindGroupViewHolder(GroupViewHolder holder, int flatPosition,ExpandableGroup group) {
+        ((FilterExpandAdapter.ParentViewHolder)holder).filtertitle.setText(group.getTitle());
+        // childViewType = group.getViewType();
     }
-
 
     public class ChildViewHolder12 extends ChildViewHolder {
 
@@ -60,6 +70,7 @@ public class FilterExpandAdapter extends ExpandableRecyclerViewAdapter<FilterExp
         }
 
     }
+
 
     public class ParentViewHolder extends GroupViewHolder {
 
@@ -73,7 +84,6 @@ public class FilterExpandAdapter extends ExpandableRecyclerViewAdapter<FilterExp
             arrow = (ImageView)itemView.findViewById(R.id.iv_arrow);
 
         }
-
 
         @Override
         public void expand() {

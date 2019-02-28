@@ -32,7 +32,7 @@ public class TagTokenLayout extends LinearLayout {
         TextView v = (TextView)findViewById(R.id.name);
         v.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_close, 0);
         /*if (selected) {
-            v.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_close, 0);
+            v.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_close_material, 0);
         } else {
         	v.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
         }*/

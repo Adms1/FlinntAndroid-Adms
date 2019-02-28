@@ -31,7 +31,7 @@
                 android:layout_alignParentTop="true"
                 android:minWidth="140dp"
 
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/default_course_image" />
 
         </RelativeLayout>
@@ -54,11 +54,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:maxLines="2"
                     android:minLines="2"
                     android:gravity="center"
                     android:lineSpacingExtra="@dimen/margin_5dp"
-                    android:text="6Th-HBK-English"
                     android:textColor="@color/ColorPrimary"
                     android:textSize="@dimen/text_size_15sp" />
             </RelativeLayout>

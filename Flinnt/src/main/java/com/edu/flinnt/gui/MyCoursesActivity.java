@@ -27,7 +27,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -42,11 +41,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatMultiAutoCompleteTextView;
 import android.support.v7.widget.AppCompatRatingBar;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnCloseListener;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
@@ -73,6 +68,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,7 +79,6 @@ import com.crashlytics.android.Crashlytics;
 import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.FlinntApplication;
 import com.edu.flinnt.R;
-import com.edu.flinnt.adapter.FilterExpandAdapter;
 import com.edu.flinnt.adapter.PromoCoursePagerAdapter;
 import com.edu.flinnt.core.AppUpdate;
 import com.edu.flinnt.core.CourseReviewWrite;
@@ -98,13 +93,12 @@ import com.edu.flinnt.core.RegisterDevice;
 import com.edu.flinnt.core.Requester;
 import com.edu.flinnt.core.UpdateBirthdate;
 import com.edu.flinnt.customviews.CustomViewPager;
+import com.edu.flinnt.customviews.store.CustomAutoCompleteTextView;
 import com.edu.flinnt.database.CourseInterface;
 import com.edu.flinnt.database.NotificationInterface;
 import com.edu.flinnt.database.UserInterface;
-import com.edu.flinnt.expandableRecylerview.model.FilterModel;
 import com.edu.flinnt.fragments.MyERPFragment;
-import com.edu.flinnt.gui.store.BrowseCoursesFragmentNew;
-import com.edu.flinnt.gui.store.StoreBookSetActivity;
+import com.edu.flinnt.fragments.store.BrowseCoursesFragmentNew;
 import com.edu.flinnt.helper.AskPermition;
 import com.edu.flinnt.helper.listner.AppBarStateChangeListener;
 import com.edu.flinnt.models.PopularStoryDataModel;
@@ -281,6 +275,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
     boolean doubleBackToExitPressedOnce = false;
     public static String coursePictureURLstatic = "https://flinnt1.s3.amazonaws.com/courses/";
 
+    private  ProgressBar filterProgressBar;
 
 //*********
 
@@ -289,9 +284,9 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
     public static final int REQUEST_SELECT_FILE = 100;//@Chirag:20/08/2018
     public final static int FILECHOOSER_RESULTCODE = 1;//@Chirag:20/08/2018
     public static Uri mCapturedImageURI = null;
-    private AppCompatMultiAutoCompleteTextView storeSearchBox;
-    private LinearLayout ll_filter,ll;
-    private RelativeLayout rlFilterBottomContainer;
+    private CustomAutoCompleteTextView storeSearchBox; //@vijay 07/02/2019
+
+
     //********
 
     @SuppressLint("ClickableViewAccessibility")
@@ -332,7 +327,6 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
                     userID = bundle.getString(Config.USER_ID);
 
                 if (null != userID && !userID.equals(Config.getStringValue(Config.USER_ID))) {
-
                     Helper.setCurrentUserConfig(userID);
                     //Log.d(TAG, "setCurrentUserConfig 2 : notificationUserId : " + userID);
                 }
@@ -347,32 +341,11 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
         }
 
         setContentView(R.layout.my_courses_activity);
-        ll_filter = (LinearLayout)findViewById(R.id.ll_filter);
 
-        findViewById(R.id.ll_price).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        findViewById(R.id.ll_alpha).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MyCoursesActivity.this,StoreBookSetActivity.class));
-            }
-        });
-        findViewById(R.id.ll_rating).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         mTooltipBrowseCourseLinear = (LinearLayout) findViewById(R.id.tooltipBrowseCourseLinear);
         //@Nikhil 21062018
         fab_category = (FloatingActionButton) findViewById(R.id.fab_category);
-
-        rlFilterBottomContainer = (RelativeLayout)findViewById(R.id.ll_footer);
         fab_category.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -385,73 +358,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
         });
 
 
-        ll_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MyCoursesActivity.this);
-                bottomSheetDialog.setCancelable(true);
-                bottomSheetDialog.setContentView(R.layout.dialog_filter_book_store);
 
-                ImageView closeImage = (ImageView)bottomSheetDialog.findViewById(R.id.close_image);
-
-                FilterExpandAdapter filterExpandAdapter;
-
-
-                bottomSheetDialog.getWindow().setGravity(Gravity.RIGHT|Gravity.LEFT);
-                WindowManager.LayoutParams layoutParams = bottomSheetDialog.getWindow().getAttributes();
-                layoutParams.x = 100; // left margin
-                layoutParams.y = 100; // right margin
-                bottomSheetDialog.getWindow().setAttributes(layoutParams);
-
-                RecyclerView recyclerView = (RecyclerView)bottomSheetDialog.findViewById(R.id.rv_filter_list);
-                recyclerView.setLayoutManager(new LinearLayoutManager(MyCoursesActivity.this));
-                RecyclerView.ItemAnimator animator = recyclerView.getItemAnimator();
-
-                ArrayList<FilterModel> dataHeader  = new ArrayList<FilterModel>();
-
-
-                ArrayList<String> datas = new ArrayList<String>();
-                datas.add("English");
-                datas.add("Hindi");
-                FilterModel filterModel = new FilterModel("English & Indian Languages",datas);
-                dataHeader.add(filterModel);
-
-
-                ArrayList<String> datas2 = new ArrayList<String>();
-                datas2.add("Paperback");
-                datas2.add("Kindal eBooks");
-                datas2.add("HardCover");
-                datas2.add("Board Book");
-                FilterModel filterMode2 = new FilterModel("Format",datas2);
-                dataHeader.add(filterMode2);
-
-
-                ArrayList<String> datas3 = new ArrayList<String>();
-                datas3.add("Savi Sharma");
-                datas3.add("Josheph Murphy");
-                datas3.add("Amish Tripathi");
-                FilterModel filterMode3 = new FilterModel("Author",datas3);
-                dataHeader.add(filterMode3);
-
-
-                filterExpandAdapter = new FilterExpandAdapter(dataHeader);
-                recyclerView.setAdapter(filterExpandAdapter);
-
-                if (animator instanceof DefaultItemAnimator) {
-                    ((DefaultItemAnimator) animator).setSupportsChangeAnimations(false);
-                }
-
-
-                closeImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                bottomSheetDialog.show();
-
-            }
-        });
 
 
 
@@ -464,7 +371,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
             }
         });
 
-        storeSearchBox = (AppCompatMultiAutoCompleteTextView)findViewById(R.id.edt_search_store_box);
+        storeSearchBox = (CustomAutoCompleteTextView)findViewById(R.id.edt_search_store_box);
         storeSearchBox.setVisibility(View.GONE);
 
         mTooltipMultipleAccLinear = (LinearLayout) findViewById(R.id.tooltipMultipleAccLinear);
@@ -491,8 +398,6 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
         }
 
 
-        // TODO: Move this to where you establish a user session
-        //Crashlytics
         logUser();
         mMainToolbar = (Toolbar) findViewById(R.id.my_courses_main_toolbar);
         setSupportActionBar(mMainToolbar);
@@ -528,7 +433,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mMainToolbar,
+        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,mMainToolbar,
                 R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 // getActionBar().setTitle(mTitle);
@@ -706,6 +611,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
                                 }
                             }
 
+
                         } catch (Exception e) {
                             LogWriter.err(e);
                         }
@@ -778,7 +684,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
                     Fragment fragment = coursesViewPagerAdapter.getItem(mViewPager.getCurrentItem()); //@Chirag:23/08/2018
                     ((MyERPFragment) fragment).onOffsetChanged(MyERPFragment.WEBVIEW_CALL_API_THEN_LOAD_URL); //@Chirag:23/08/2018
                     storeSearchBox.setVisibility(View.GONE);
-                    rlFilterBottomContainer.setVisibility(View.GONE);
+                    //rlFilterBottomContainer.setVisibility(View.GONE);
 
 
                 }
@@ -789,7 +695,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
                     CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
                     AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
                     storeSearchBox.setVisibility(View.VISIBLE);
-                    rlFilterBottomContainer.setVisibility(View.VISIBLE);
+                    //rlFilterBottomContainer.setVisibility(View.VISIBLE);
 
 
                     appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
@@ -832,7 +738,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
                     });
 
                     storeSearchBox.setVisibility(View.GONE);
-                    rlFilterBottomContainer.setVisibility(View.GONE);
+                    //rlFilterBottomContainer.setVisibility(View.GONE);
 
 
                 }
@@ -888,7 +794,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
                     Fragment fragment = coursesViewPagerAdapter.getItem(mViewPager.getCurrentItem()); //@Chirag:23/08/2018
                     ((MyERPFragment) fragment).onOffsetChanged(MyERPFragment.WEBVIEW_CALL_API_THEN_LOAD_URL); //@Chirag:23/08/2018
                     storeSearchBox.setVisibility(View.GONE);
-                    rlFilterBottomContainer.setVisibility(View.GONE);
+                    //rlFilterBottomContainer.setVisibility(View.GONE);
 
 
                 }
@@ -899,7 +805,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
                     CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
                     AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
                     storeSearchBox.setVisibility(View.VISIBLE);
-                    rlFilterBottomContainer.setVisibility(View.VISIBLE);
+                    //rlFilterBottomContainer.setVisibility(View.VISIBLE);
 
 
                     appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
@@ -942,9 +848,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
                     });
 
                     storeSearchBox.setVisibility(View.GONE);
-                    rlFilterBottomContainer.setVisibility(View.GONE);
-
-
+                    //rlFilterBottomContainer.setVisibility(View.GONE);
                 }
 
                 doSearch("", false);
@@ -2676,8 +2580,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
             }
             if (searchView != null) {
                 try {
-                    searchView.setSearchableInfo(searchManager
-                            .getSearchableInfo(this.getComponentName()));
+                    searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
 
                     final EditText searchTextView = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
                     try {
@@ -2685,6 +2588,7 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
                         mCursorDrawableRes.setAccessible(true);
                         mCursorDrawableRes.set(searchTextView, R.drawable.cursor_color); //This sets the cursor resource ID to 0 or @null which will make it visible on white background
                     } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                 } catch (Exception e) {
@@ -3328,15 +3232,15 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
 
     }
 
-    /**
-     * Show the app update dialog
-     *
-     * @param isHardUpdate
-     * @param isShowGracePerios
-     * @param appUpdateResponse app update response
-     */
-    private void showAppUpdateDialog(final boolean isHardUpdate,
-                                     final boolean isShowGracePerios, AppUpdateResponse appUpdateResponse) {
+
+    private void callFilterData(){
+
+
+    }
+
+
+
+    private void showAppUpdateDialog(final boolean isHardUpdate,final boolean isShowGracePerios, AppUpdateResponse appUpdateResponse) {
         try {
             if (LogWriter.isValidLevel(Log.DEBUG))
                 LogWriter.write("isHardUpdate : " + isHardUpdate + " , isShowGracePerios : " + isShowGracePerios);
@@ -3401,12 +3305,13 @@ public class MyCoursesActivity extends AppCompatActivity implements AppBarLayout
      * Open the apps in playstore
      */
     private void openAppInPlaystore() {
-        final String appPackageName = "com.edu.flinnt";//getPackageName(); // getPackageName() from Context or Activity object
+        //getPackageName(); // getPackageName() from Context or Activity object
+        final String appPackageName = "com.edu.flinnt";
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
         } catch (android.content.ActivityNotFoundException anfe) {
             try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id="+appPackageName)));
             } catch (Exception e) {
                 LogWriter.err(e);
             }

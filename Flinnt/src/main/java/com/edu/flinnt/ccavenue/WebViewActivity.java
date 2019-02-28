@@ -205,7 +205,7 @@ public class WebViewActivity extends Activity {
 			params.append(ServiceUtility.addToPostParams(AvenuesParams.BILLING_TEL,mCheckoutResponse.getData().getPayload().getBillingTel()));
 			params.append(ServiceUtility.addToPostParams(AvenuesParams.BILLING_EMAIL,mCheckoutResponse.getData().getPayload().getBillingEmail()));
 
-			params.append(ServiceUtility.addToPostParams(AvenuesParams.ENC_VAL, URLEncoder.encode(encVal)));
+			params.append(ServiceUtility.addToPostParams(AvenuesParams.ENC_VAL,URLEncoder.encode(encVal)));
 //			params.append(ServiceUtility.addToPostParams(AvenuesParams.ENC_VAL, URLEncoder.encode(mCheckoutResponse.getData().getPublicKey())));
 			
 			String vPostParams = params.substring(0,params.length()-1);

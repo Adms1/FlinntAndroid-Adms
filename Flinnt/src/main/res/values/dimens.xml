@@ -47,4 +47,7 @@
     <dimen name="communication_frame_height">154dp</dimen>
     <dimen name="communication_thumb_height">148dp</dimen>
     <dimen name="tap_target_menu_max_width">350dp</dimen>
+
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
+    <dimen name="bottom_sheet_top_padding">8dp</dimen>
 </resources>

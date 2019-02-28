@@ -31,7 +31,7 @@ public class ProductDetailListAdapter extends RecyclerView.Adapter<ProductDetail
     @Override
     public void onBindViewHolder(ProductDetailListAdapter.CustomViewHolder customViewHolder, int i) {
         String key = keyList.get(i);
-        String value  = valueList.get(i);
+        String value = valueList.get(i);
         customViewHolder.key.setText(key);
         customViewHolder.value.setText(String.valueOf(value));
     }

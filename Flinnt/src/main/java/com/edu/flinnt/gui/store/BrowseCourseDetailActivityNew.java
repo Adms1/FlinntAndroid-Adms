@@ -66,12 +66,16 @@ import com.edu.flinnt.core.CourseReviewWrite;
 import com.edu.flinnt.core.ErrorCodes;
 import com.edu.flinnt.core.Requester;
 import com.edu.flinnt.core.store.CartItems;
+import com.edu.flinnt.customviews.store.QuantityView;
+import com.edu.flinnt.fragments.store.BrowseCoursesFragmentNew;
 import com.edu.flinnt.gui.AddCommunicationActivity;
+import com.edu.flinnt.gui.BrowseCoursesFragment;
 import com.edu.flinnt.gui.BuyerListActivity;
 import com.edu.flinnt.gui.ContentsDisplayAdapter;
 import com.edu.flinnt.gui.CourseBuyerAdapter;
 import com.edu.flinnt.gui.MyCoursesActivity;
 import com.edu.flinnt.gui.ProfileActivity;
+import com.edu.flinnt.models.store.CartResponseModel;
 import com.edu.flinnt.models.store.RelatedBookResponse;
 import com.edu.flinnt.models.store.RelatedVendorsResponse;
 import com.edu.flinnt.models.store.StoreBookDetailResponse;
@@ -201,8 +205,10 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
     private TextView tv_title;
     private BrowseCoursesNew mBrowseCourses;
     private StoreModelResponse storeModelResponse;
-
-
+    private QuantityView quantityView;
+    private CartItems cartItems;
+    private String bookRowId = "";
+    private CartResponseModel cartResponseModel ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -229,51 +235,56 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
 
         Bundle bundle = getIntent().getExtras();
 
-        if (null != bundle) {
-            if (bundle.containsKey("couserHash"))
-                couserHash = bundle.getString("couserHash");
+        try {
 
-            if (bundle.containsKey(BrowsableCourse.ID_KEY))
-                courseId = bundle.getString(BrowsableCourse.ID_KEY);
 
-            if (bundle.containsKey(BrowsableCourse.PICTURE_KEY)) {
-                coursePictureName = bundle.getString(BrowsableCourse.PICTURE_KEY);
+            if (null != bundle) {
+                if (bundle.containsKey("couserHash"))
+                    couserHash = bundle.getString("couserHash");
+
+                if (bundle.containsKey(BrowsableCourse.ID_KEY))
+                    courseId = bundle.getString(BrowsableCourse.ID_KEY);
+
+                if (bundle.containsKey(BrowsableCourse.PICTURE_KEY)) {
+                    coursePictureName = bundle.getString(BrowsableCourse.PICTURE_KEY);
 //                coursePictureUrl = baseCoursePictureUrl + coursePictureName;
 //                mCoursePictureImg.setImageUrl(coursePictureUrl, mImageLoader);
-            }
+                }
 
-            if (bundle.containsKey(Flinnt.STANDARD_ID))
-                standardId = bundle.getString(Flinnt.STANDARD_ID);
+                if (bundle.containsKey(Flinnt.STANDARD_ID))
+                    standardId = bundle.getString(Flinnt.STANDARD_ID);
 
-            if (bundle.containsKey(BrowsableCourse.NAME_KEY))
-                courseName = bundle.getString(BrowsableCourse.NAME_KEY);
+                if (bundle.containsKey(BrowsableCourse.NAME_KEY))
+                    courseName = bundle.getString(BrowsableCourse.NAME_KEY);
                 mCourseNameTxt.setText(courseName);
 
-            if (bundle.containsKey(BrowsableCourse.INSTITUTE_NAME_KEY))
-                mInstituteNameTxt.setText(bundle.getString(BrowsableCourse.INSTITUTE_NAME_KEY));
+                if (bundle.containsKey(BrowsableCourse.INSTITUTE_NAME_KEY))
+                    mInstituteNameTxt.setText(bundle.getString(BrowsableCourse.INSTITUTE_NAME_KEY));
 
-            if (bundle.containsKey(BrowsableCourse.RATINGS_KEY))
-                mCourseRatingBar.setRating(Float.parseFloat(bundle.getString(BrowsableCourse.RATINGS_KEY)));
+                if (bundle.containsKey(BrowsableCourse.RATINGS_KEY))
+                    mCourseRatingBar.setRating(Float.parseFloat(bundle.getString(BrowsableCourse.RATINGS_KEY)));
 
-            if (bundle.containsKey(JoinCourseResponse.JOINED_KEY))
-                addedAndRemovedCourses = (HashMap<Course, Boolean>) bundle.getSerializable(JoinCourseResponse.JOINED_KEY);
+                if (bundle.containsKey(JoinCourseResponse.JOINED_KEY))
+                    addedAndRemovedCourses = (HashMap<Course, Boolean>) bundle.getSerializable(JoinCourseResponse.JOINED_KEY);
 
-            if (bundle.containsKey(Flinnt.BROWSECOURSE_NOTIFICATION_TYPE))
-                isFromNotification = bundle.getInt(Flinnt.BROWSECOURSE_NOTIFICATION_TYPE);
+                if (bundle.containsKey(Flinnt.BROWSECOURSE_NOTIFICATION_TYPE))
+                    isFromNotification = bundle.getInt(Flinnt.BROWSECOURSE_NOTIFICATION_TYPE);
 
-            if(bundle.containsKey(BrowsableCourse.CART_COUNT)){
-                cartCount = bundle.getString(BrowsableCourse.CART_COUNT);
-                mCartItemCount = Integer.parseInt(cartCount);
-                setupBadge();
+                if (bundle.containsKey(BrowsableCourse.CART_COUNT)) {
+                    cartCount = bundle.getString(BrowsableCourse.CART_COUNT);
+                    mCartItemCount = Integer.parseInt(cartCount);
+                    setupBadge();
+                }
+
+                if (isFromNotification > Flinnt.FALSE && bundle.containsKey(Config.USER_ID))
+                    userId = bundle.getString(Config.USER_ID);
+
+                if (null != userId && !userId.equals(Config.getStringValue(Config.USER_ID))) {
+                    Helper.setCurrentUserConfig(userId);
+                }
             }
-
-            if (isFromNotification > Flinnt.FALSE && bundle.containsKey(Config.USER_ID))
-                userId = bundle.getString(Config.USER_ID);
-
-            if (null != userId && !userId.equals(Config.getStringValue(Config.USER_ID))) {
-                Helper.setCurrentUserConfig(userId);
-            }
-
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
 
         mHandler = new Handler(Looper.getMainLooper()) {
@@ -323,7 +334,6 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
                             relatedBookResponse = new RelatedBookResponse();
                             relatedBookResponse =(RelatedBookResponse)msg.obj;
                             fillSuggestedCourses(relatedBookResponse);
-
                            // new SuggestedBooks(mHandler,courseId,standardId).sendSuggestedVendorsRequest();
                         }
                         if (msg.obj instanceof RelatedVendorsResponse) {
@@ -332,20 +342,19 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
                            // fillSuggestedCourses(relatedBookResponse);
                         }
 
-                        if(msg.arg1 == 1) {
+                        if(msg.obj instanceof CartResponseModel) {
                             startProgressDialog();
+                            cartResponseModel = new CartResponseModel();
+                            cartResponseModel = (CartResponseModel)msg.obj;
+                            String message = cartResponseModel.getMessage();
 
-                            if(msg.obj instanceof  String){
-                                String message = (String)msg.obj;
-                                Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content),message,Snackbar.LENGTH_LONG)
-                                        .setActionTextColor(getColor(R.color.white))
-                                        .setAction("View Cart",new View.OnClickListener() {
+                            Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content),message,Snackbar.LENGTH_LONG).setActionTextColor(getColor(R.color.white)).setAction("View Cart",new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
                                                 startActivity(new Intent(BrowseCourseDetailActivityNew.this,ShoppingCartActivity.class));
                                             }
                                         }).show();
-                            }
+
 
 
                             mBrowseCourses = new BrowseCoursesNew(mHandler);
@@ -358,6 +367,24 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
                             btnAddCart.setAlpha(1);
                             storeModelResponse = (StoreModelResponse)msg.obj;
                             updateCartCount(storeModelResponse);
+                        }
+                        //
+                        if(msg.arg1 == 2){
+                            stopProgressDialog();
+                            setupBadge();
+
+                            if(msg.obj instanceof CartResponseModel) {
+
+                                cartResponseModel = new CartResponseModel();
+                                cartResponseModel = (CartResponseModel) msg.obj;
+                                String message = cartResponseModel.getMessage();
+                                Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).setActionTextColor(getColor(R.color.white)).setAction("View Cart", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        startActivity(new Intent(BrowseCourseDetailActivityNew.this, ShoppingCartActivity.class));
+                                    }
+                                }).show();
+                            }
 
                         }
 
@@ -442,12 +469,20 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
 
         resetListsAndAdapters();
 
-//        mJoinedCoursesAdapter.setOnItemClickListener(new SuggestedCoursesAdapterNew.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                startNewActivity(mJoinedCoursesAdapter.getItem(position));
-//            }
-//        });
+        mJoinedCoursesAdapter.setOnItemClickListener(new SuggestedCoursesAdapterNew.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent courseDescriptionIntent = new Intent(BrowseCourseDetailActivityNew.this,BrowseCourseDetailActivityNew.class);
+                courseDescriptionIntent.putExtra(BrowsableCourse.ID_KEY, relatedBookResponse.getData().get(position).getBookId());
+                courseDescriptionIntent.putExtra(BrowsableCourse.PICTURE_KEY,relatedBookResponse.getData().get(position).getBookImagePath());
+                courseDescriptionIntent.putExtra(BrowsableCourse.NAME_KEY, relatedBookResponse.getData().get(position).getBookName());
+                courseDescriptionIntent.putExtra(BrowsableCourse.INSTITUTE_NAME_KEY,String.valueOf(relatedBookResponse.getData().get(position).getInstitutionId()));
+                courseDescriptionIntent.putExtra(BrowsableCourse.RATINGS_KEY, 0);
+                courseDescriptionIntent.putExtra(BrowsableCourse.USER_COUNT_KEY, 0);
+                courseDescriptionIntent.putExtra(JoinCourseResponse.JOINED_KEY, addedAndRemovedCourses);
+                startActivityForResult(courseDescriptionIntent, MyCoursesActivity.BROWSE_COURSE_SUBSCRIBE_CALLBACK);
+            }
+        });
 //        mInstituteCoursesAdapter.setOnItemClickListener(new SuggestedCoursesAdapterNew.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(View view, int position) {
@@ -464,7 +499,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
                 try{
                     btnAddCart.setEnabled(false);
                     btnAddCart.setAlpha(0.5f);
-                    new CartItems(mHandler,Config.getStringValue(Config.USER_ID),String.valueOf(courseId),mBrowsableCourse2.getBookName(),String.valueOf(mBrowsableCourse2.getBookId()),String.valueOf(mBrowsableCourse2.getSalePrice()),"1","book").sendAddCartRequest();
+                    new CartItems(mHandler,Config.getStringValue(Config.USER_ID),String.valueOf(courseId),mBrowsableCourse2.getBookName(),String.valueOf(mBrowsableCourse2.getBookId()),String.valueOf(mBrowsableCourse2.getSalePrice()),String.valueOf(quantityView.getQuantity()),"book").sendAddCartRequest();
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
@@ -493,7 +528,6 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
 
     private void setupBadge() {
         try {
-
             mCartItemCount = BrowseCoursesFragmentNew.cart_count;
             if (textCartItemCount != null) {
                 if (mCartItemCount <= 0) {
@@ -504,7 +538,6 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
                     textCartItemCount.setText(String.valueOf(mCartItemCount));
                     textCartItemCount.setVisibility(View.VISIBLE);
                     fl_badge_containers.setVisibility(View.VISIBLE);
-
                 }
             }
         }catch (Exception ex){
@@ -1413,14 +1446,17 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
 
     //09-01-2019 by  vijay
     private void updateCourseDetailsNew(final StoreBookDetailResponse.Data browsableCourse) {
-        if (null != browsableCourse) {
+        try {
+
+
+            if (null != browsableCourse) {
 //            if (null == mContentsList && browsableCourse.getIsPublic().equals(Flinnt.ENABLED)) {
 //                mContentsList = new ContentsList(mHandler, courseId);
 //                mContentsList.setSearchString("");
 //                mContentsList.sendContentsListRequest();
 //                startProgressDialog();
 //            }
-            //mTotalRattingsTxt.setText(browsableCourse.getTotalNoRating() + " " + getResources().getString(R.string.ratting_total_text));
+                //mTotalRattingsTxt.setText(browsableCourse.getTotalNoRating() + " " + getResources().getString(R.string.ratting_total_text));
 //            if (!browsableCourse.getVideoUrl().equalsIgnoreCase("")) {
 //                // start for youtube video
 //                mPostMediaRelative.setVisibility(View.VISIBLE);
@@ -1451,82 +1487,93 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
 //                mCoursePictureImg.setVisibility(View.VISIBLE);
 //                mPostMediaRelative.setVisibility(View.GONE);
 //            }
-            this.browsableCourse = browsableCourse;
-            mCoursePictureImg.setVisibility(View.VISIBLE);
-            mPostMediaRelative.setVisibility(View.GONE);
+                this.browsableCourse = browsableCourse;
+                mCoursePictureImg.setVisibility(View.VISIBLE);
+                mPostMediaRelative.setVisibility(View.GONE);
 
-            btnAddCart.setEnabled(true);
-            btnAddCart.setAlpha(1);
+                btnAddCart.setEnabled(true);
+                btnAddCart.setAlpha(1);
 
-            mCourseNameTxt.setText(browsableCourse.getBookName());
-            mInstituteNameTxt.setText(browsableCourse.getVendorName());
-            //BrowseCoursesFragmentNew.cart_count = browsableCourse.getCart_total();
+                mCourseNameTxt.setText(browsableCourse.getBookName());
+                mInstituteNameTxt.setText(browsableCourse.getVendorName());
+                //BrowseCoursesFragmentNew.cart_count = browsableCourse.getCart_total();
 
-            authorListAdapter = new AuthorListAdapter(BrowseCourseDetailActivityNew.this,browsableCourse.getAuthors());
-            mAuthorRvList.setLayoutManager(new LinearLayoutManager(BrowseCourseDetailActivityNew.this));
-            mAuthorRvList.setAdapter(authorListAdapter);
-
-
-            try {
-                Gson jsonData =  new Gson();
-                String jsonStringData  = jsonData.toJson(browsableCourse.getAttribute());
-
-                JSONObject dataObject = new JSONObject(jsonStringData);
-
-                if(dataObject!= null) {
-
-                    Iterator<String> iterator = dataObject.keys();
-
-                    ArrayList<String> keys = new ArrayList<String>();
-                    ArrayList<String> values = new ArrayList<String>();
+                authorListAdapter = new AuthorListAdapter(BrowseCourseDetailActivityNew.this, browsableCourse.getAuthors());
+                mAuthorRvList.setLayoutManager(new LinearLayoutManager(BrowseCourseDetailActivityNew.this));
+                mAuthorRvList.setAdapter(authorListAdapter);
 
 
-                    while (iterator.hasNext()) {
-                        String key = iterator.next();
-                        keys.add(key);
-                        values.add(dataObject.optString(key));
+                try {
+                    Gson jsonData = new Gson();
+                    String jsonStringData = jsonData.toJson(browsableCourse.getAttribute());
+
+                    JSONObject dataObject = new JSONObject(jsonStringData);
+
+                    if (dataObject != null) {
+
+                        Iterator<String> iterator = dataObject.keys();
+
+                        ArrayList<String> keys = new ArrayList<String>();
+                        ArrayList<String> values = new ArrayList<String>();
+
+
+                        while (iterator.hasNext()) {
+                            String key = iterator.next();
+                            keys.add(key);
+                            values.add(dataObject.optString(key));
+                        }
+
+                        productDetailListAdapter = new ProductDetailListAdapter(BrowseCourseDetailActivityNew.this, keys, values);
+                        mRVProductAttributeList.setLayoutManager(new LinearLayoutManager(BrowseCourseDetailActivityNew.this));
+                        mRVProductAttributeList.setAdapter(productDetailListAdapter);
+
                     }
 
-                    productDetailListAdapter = new ProductDetailListAdapter(BrowseCourseDetailActivityNew.this, keys, values);
-                    mRVProductAttributeList.setLayoutManager(new LinearLayoutManager(BrowseCourseDetailActivityNew.this));
-                    mRVProductAttributeList.setAdapter(productDetailListAdapter);
-
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
 
-            }catch (Exception ex){
-                ex.printStackTrace();
-            }
-
-            //mInstituteNameTxt.setText(browsableCourse.getInstituteName());
-            //mMoreCoursesFromInstituteTxt.setText(String.format("%s %s", getString(R.string.more_courses_from), browsableCourse.getInstituteName()));
-            //*****change 32
-            //&& mBrowsableCourse.getIsPublic().equals("1")
+                //mInstituteNameTxt.setText(browsableCourse.getInstituteName());
+                //mMoreCoursesFromInstituteTxt.setText(String.format("%s %s", getString(R.string.more_courses_from), browsableCourse.getInstituteName()));
+                //*****change 32
+                //&& mBrowsableCourse.getIsPublic().equals("1")
 
 
+                if (browsableCourse.getDescriptions().get(0).getDescription() != null) {
+                    if (!browsableCourse.getDescriptions().get(0).getDescription().equalsIgnoreCase("")) {
 
-            if (!browsableCourse.getDescriptions().get(0).getDescription().equalsIgnoreCase("")) {
+                        if (browsableCourse.getDescriptions().get(1).getDescription() != null) {
+                            mCourseDescriptionTxt.setText(Html.fromHtml(browsableCourse.getDescriptions().get(1).getDescription(), null, new MyTagHandler()));
+                        } else {
+                            mCourseDescriptionTxt.setText("");
 
-                mCourseDescriptionTxt.setText(Html.fromHtml(browsableCourse.getDescriptions().get(1).getDescription(), null, new MyTagHandler()));
+                        }
 
-                mRefunPolicyTxt.setText(browsableCourse.getDescriptions().get(0).getDescription());
+                        mRefunPolicyTxt.setText(browsableCourse.getDescriptions().get(0).getDescription());
 
 //                mCourseDescriptionTxt.setText(getStrippedString(browsableCourse.getDescription()));
-                mDescriptionLinear.setVisibility(View.VISIBLE);
-            } else {
-                mDescriptionLinear.setVisibility(View.GONE);
-            }
-            mCourseDescriptionTxt.setMovementMethod(LinkMovementMethod.getInstance());
-            coursePictureUrl = browsableCourse.getImages().get(0).getOriginalPath();
-            mCoursePictureImg.setImageUrl(coursePictureUrl,mImageLoader);
-            mCourseDescriptionTxt.post(new Runnable() {
-                @Override
-                public void run() {
-                    lineCount = mCourseDescriptionTxt.getLineCount();
-                    if (LogWriter.isValidLevel(Log.DEBUG))
-                        LogWriter.write("lineCount : " + lineCount);
-                    mReadMoreLinear.setVisibility(lineCount >= 10 ? View.VISIBLE : View.GONE);
+                        mDescriptionLinear.setVisibility(View.VISIBLE);
+                    } else {
+                        mDescriptionLinear.setVisibility(View.GONE);
+                    }
+                } else {
+                    mDescriptionLinear.setVisibility(View.GONE);
                 }
-            });
+                mCourseDescriptionTxt.setMovementMethod(LinkMovementMethod.getInstance());
+
+                if (browsableCourse.getImages() != null) {
+                    coursePictureUrl = browsableCourse.getImages().get(0).getOriginalPath();
+                    mCoursePictureImg.setImageUrl(coursePictureUrl, mImageLoader);
+                }
+                mCourseDescriptionTxt.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        lineCount = mCourseDescriptionTxt.getLineCount();
+                        if (LogWriter.isValidLevel(Log.DEBUG))
+                            LogWriter.write("lineCount : " + lineCount);
+                        mReadMoreLinear.setVisibility(lineCount >= 10 ? View.VISIBLE : View.GONE);
+                    }
+                });
 //            if (browsableCourse.getPublicType().equalsIgnoreCase(Flinnt.COURSE_TYPE_TIMEBOUND)) {
 //                mDateTimeAddressLinear.setVisibility(View.VISIBLE);
 //                mDatetimeTxt.setText(getStrippedString(browsableCourse.getEventDatetime()));
@@ -1536,32 +1583,32 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
 //            } else {
 //                mDateTimeAddressLinear.setVisibility(View.GONE);
 //            }
-            //mCourseRatingBar.setRating(Float.parseFloat(browsableCourse.getRatings()));
-            mCourseRatingBar.setRating(Float.parseFloat("3.5"));
+                //mCourseRatingBar.setRating(Float.parseFloat(browsableCourse.getRatings()));
+                mCourseRatingBar.setRating(Float.parseFloat("3.5"));
 
-            //shareUrl = browsableCourse.getShareUrl();
-            mSubscriptionBtn.setVisibility(View.VISIBLE);
+                //shareUrl = browsableCourse.getShareUrl();
+                mSubscriptionBtn.setVisibility(View.VISIBLE);
 
-            mOldPriceTxt.setVisibility(View.VISIBLE);
-            mOPriceTxt.setVisibility(View.VISIBLE);
-            mFinalPriceTxt.setVisibility(View.VISIBLE);
-            mFPriceTxt.setVisibility(View.VISIBLE);
+                mOldPriceTxt.setVisibility(View.VISIBLE);
+                mOPriceTxt.setVisibility(View.VISIBLE);
+                mFinalPriceTxt.setVisibility(View.VISIBLE);
+                mFPriceTxt.setVisibility(View.VISIBLE);
 
 
-            mOldPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getListPrice());
-            mOldPriceTxt.setPaintFlags(mOldPriceTxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                mOldPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getListPrice());
+                mOldPriceTxt.setPaintFlags(mOldPriceTxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
                 mFinalPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getSalePrice());
-               mFPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getSalePrice());
+                mFPriceTxt.setText(getResources().getString(R.string.currency) + browsableCourse.getSalePrice());
 
-            //LogWriter.write("Is free : " + browsableCourse.getIs_free() + " , unsubscribe : " + browsableCourse.getCanSubscribe());
+                //LogWriter.write("Is free : " + browsableCourse.getIs_free() + " , unsubscribe : " + browsableCourse.getCanSubscribe());
 
 //            if (browsableCourse.getCanSubscribe() != Flinnt.TRUE && browsableCourse.getCan_unsubscribe() != Flinnt.TRUE) {
 //            mSubscriptionBtn.setVisibility(View.GONE);
 //            mUnableToJoinTxt.setVisibility(View.VISIBLE);
-           // mUnableToJoinTxt.setText(mBrowsableCourse.getMessage_text());
+                // mUnableToJoinTxt.setText(mBrowsableCourse.getMessage_text());
 
-           // mUnableToJoinTxt.setText("Unable to Join");
+                // mUnableToJoinTxt.setText("Unable to Join");
 
 //            if (mBrowsableCourse.getIs_free().equalsIgnoreCase(Flinnt.DISABLED)) {
 //                mFinalPriceTxt.setVisibility(View.VISIBLE);
@@ -1594,7 +1641,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
 //            } else {
 //                mTempTxt.setVisibility(View.GONE);
 //            }
-        }
+            }
 //            } else if (browsableCourse.getCanSubscribe() == Flinnt.TRUE && browsableCourse.getIsPublic().equalsIgnoreCase(Flinnt.DISABLED)) {
 //                mSubscriptionBtn.setText(R.string.send_request);
 //            } else if (browsableCourse.getCanSubscribe() == Flinnt.TRUE && browsableCourse.getIs_free().equalsIgnoreCase(Flinnt.ENABLED)) {
@@ -1723,7 +1770,9 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
 //                mRefunPolicyTxt.setVisibility(View.GONE);
 //            }
 
-
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -1849,8 +1898,7 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
         btnAddCart.setEnabled(false);
         btnAddCart.setAlpha(0.5f);
 
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mBuyerRecycler = (RecyclerView) findViewById(R.id.course_buyer_recycler);
         mBuyerRecycler.setLayoutManager(layoutManager);
 
@@ -1924,17 +1972,15 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
         mInstituteCoursesRecycler = (RecyclerView) findViewById(R.id.institute_courses_recycler);
         mInstituteCoursesRecycler.setHasFixedSize(true);
         mInstituteCoursesRecycler.setNestedScrollingEnabled(false);
-
+        quantityView = (QuantityView)findViewById(R.id.quantityView);
         mCustomNestedScrollView = (CustomNestedScrollView) findViewById(R.id.customNestedScrollView);
         final Rect scrollBounds = new Rect();
         mCustomNestedScrollView.getHitRect(scrollBounds);
 
         // load the animation
-        animFadein = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.fade_in);
+        animFadein = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
 
-        animFadeOut = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.fade_out);
+        animFadeOut = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
 
         // set animation listener
         animFadein.setAnimationListener(this);
@@ -1974,6 +2020,43 @@ public class BrowseCourseDetailActivityNew extends AppCompatActivity implements 
                // onOptionsItemSelected(menuItem);
             }
         });
+
+        quantityView.setOnQuantityChangeListener(new QuantityView.OnQuantityChangeListener() {
+            @Override
+            public void onQuantityChanged(int oldQuantity, int newQuantity, boolean programmatically) {
+                if(newQuantity > 0){
+
+                    BrowseCoursesFragmentNew.cart_count = newQuantity;
+                    cartCount = String.valueOf(BrowseCoursesFragmentNew.cart_count);
+
+
+                    if(cartResponseModel != null){
+                        if(cartResponseModel.getData().getRowId() != null && !TextUtils.isEmpty(cartResponseModel.getData().getRowId())){
+                            bookRowId = cartResponseModel.getData().getRowId();
+                            startProgressDialog();
+                            cartCount = String.valueOf(newQuantity);
+                            BrowseCoursesFragmentNew.cart_count = newQuantity;
+                            //setupBadge();
+                            //refreshTotalPrice();
+                            cartItems = new CartItems(mHandler,Config.getStringValue(Config.USER_ID),String.valueOf(bookRowId),String.valueOf(newQuantity));
+                            cartItems.updateCartItemRequest();
+                        }else{
+                            setupBadge();
+                        }
+                    }else{
+                        setupBadge();
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onLimitReached() {
+
+            }
+        });
+
         setupBadge();
     }
 

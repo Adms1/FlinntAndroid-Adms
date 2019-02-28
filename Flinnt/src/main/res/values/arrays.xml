@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="priceArray">
+
+        <item>₹100 - ₹400 </item>
+        <item>₹400 - ₹800 </item>
+        <item>Up to ₹800</item>
+
+    </string-array>
+
+
+</resources>

@@ -47,7 +47,8 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartListI
    private Handler mHandler = null;
    private CartListItemResponse cartListItemResponse;
    private FrameLayout flEmptyView;
-   private Button btnContinue,btnContinue1,btnCheckout;
+   private Button btnContinue;
+   private TextView btnContinue1,btnCheckout;
    private CartListItemAdapter.onCartEmptyListner onCartEmptyListnerRef;
    private ShippingAdressModel shippingAdressModel;
 
@@ -77,8 +78,8 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartListI
         totalPriceCheckout = (TextView)findViewById(R.id.totalPriceCheckout);
         flEmptyView = (FrameLayout)findViewById(R.id.fl_emptyview);
         btnContinue = (Button)findViewById(R.id.btn_contine);
-        btnContinue1 = (Button)findViewById(R.id.btn_continue_shopping);
-        btnCheckout = (Button)findViewById(R.id.btn_checkout);
+        btnContinue1 = (TextView)findViewById(R.id.btn_continue_shopping);
+        btnCheckout = (TextView)findViewById(R.id.btn_checkout);
         Bundle bundle = getIntent().getExtras();
 
         btnContinue.setOnClickListener(new View.OnClickListener() {

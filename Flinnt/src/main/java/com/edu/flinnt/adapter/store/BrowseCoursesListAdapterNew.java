@@ -18,7 +18,7 @@ import com.edu.flinnt.core.Requester;
 import com.edu.flinnt.gui.MyCoursesActivity;
 import com.edu.flinnt.gui.store.BrowseBookSetDetailAcivity;
 import com.edu.flinnt.gui.store.BrowseCourseDetailActivityNew;
-import com.edu.flinnt.gui.store.BrowseCoursesFragmentNew;
+import com.edu.flinnt.fragments.store.BrowseCoursesFragmentNew;
 import com.edu.flinnt.models.store.StoreBookSetResponse;
 import com.edu.flinnt.models.store.StoreModelResponse;
 import com.edu.flinnt.protocol.BrowsableCourse;
@@ -43,6 +43,7 @@ public class BrowseCoursesListAdapterNew<T> extends RecyclerView.Adapter<BrowseC
     private String searchQuery = "";
     private Context mContext;
     private int type;
+
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public BrowseCoursesListAdapterNew(Context context, List<T> myDataset, int type) {
@@ -99,8 +100,17 @@ public class BrowseCoursesListAdapterNew<T> extends RecyclerView.Adapter<BrowseC
                 holder.courseImage.setImageUrl(url, mImageLoader);
 
 
+
+                if(Integer.parseInt(course.getListPrice()) == Integer.parseInt(course.getSalePrice())){
+                    holder.oldPriceTxt.setVisibility(View.GONE);
+                }else{
+                    holder.oldPriceTxt.setVisibility(View.VISIBLE);
+                }
+
                 holder.oldPriceTxt.setText(mContext.getResources().getString(R.string.currency) + String.valueOf(course.getListPrice()));
                 holder.newPriceTxt.setText(mContext.getResources().getString(R.string.currency) + String.valueOf(course.getSalePrice()));
+
+
 
 //            if (course.getIs_free().equalsIgnoreCase(Flinnt.DISABLED)) {
 //                holder.oldPriceTxt.setText(mContext.getResources().getString(R.string.currency) + course.getListPrice());
@@ -160,7 +170,7 @@ public class BrowseCoursesListAdapterNew<T> extends RecyclerView.Adapter<BrowseC
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return filteredDataset.size();
+        return (null != filteredDataset ? filteredDataset.size() : 0);
     }
 
     /**
@@ -271,6 +281,34 @@ public class BrowseCoursesListAdapterNew<T> extends RecyclerView.Adapter<BrowseC
         filteredDataset.addAll(mDataset);
         notifyDataSetChanged();
     }
+
+
+    public void setFilter(String searchQuery) {
+
+        if (searchQuery.isEmpty()) {
+            filteredDataset = mDataset;
+        }else {
+            ArrayList<StoreModelResponse.Course> filteredList = new ArrayList<StoreModelResponse.Course>();
+
+            for (int count = 0; count < mDataset.size(); count++) {
+                StoreModelResponse.Course data = (StoreModelResponse.Course) mDataset.get(count);
+                        if (data.getBookName().equalsIgnoreCase(searchQuery)) {
+//                                    tempData = new ArrayList<StoreModelResponse.Course>();
+//                                    tempData.add(courseData.get(subcount));
+                                filteredList.add(data);
+
+                            }
+                        }
+                       filteredDataset = (ArrayList<T>)filteredList;
+                      notifyDataSetChanged();
+                    }
+
+
+            }
+
+
+
+
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {

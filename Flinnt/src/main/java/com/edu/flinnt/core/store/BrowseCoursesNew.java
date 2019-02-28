@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.edu.flinnt.Flinnt;
 import com.edu.flinnt.core.CustomJsonObjectRequest;
 import com.edu.flinnt.core.Requester;
+import com.edu.flinnt.models.store.FilterDataResponse;
 import com.edu.flinnt.models.store.StoreModelResponse;
 import com.edu.flinnt.protocol.BrowsableCourse;
 import com.edu.flinnt.protocol.BrowseCoursesRequest;
@@ -18,6 +19,7 @@ import com.edu.flinnt.protocol.BrowseCoursesResponse;
 import com.edu.flinnt.util.Config;
 import com.edu.flinnt.util.Helper;
 import com.edu.flinnt.util.LogWriter;
+import com.edu.flinnt.util.store.StoreConstants;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -31,6 +33,7 @@ public class BrowseCoursesNew {
     public BrowseCoursesResponse mBrowseCoursesResponse = null;
 
     public StoreModelResponse storeModelResponse = null;
+    public FilterDataResponse filterDataResponse = null;
 
     public BrowseCoursesRequest mBrowseCoursesRequest = null;
     public Handler mHandler = null;
@@ -102,6 +105,16 @@ public class BrowseCoursesNew {
 
     }
 
+    public String buildURLStringNew1() {
+        // return Flinnt.LOCAL_API_URL_NEW +Flinnt.STORE_BOOK_LIST_API;
+        return Flinnt.LOCAL_API_URL_NEW +Flinnt.FILTER_BOOK_LIST;
+
+
+
+    }
+
+
+
 
     public void sendBrowseCoursesRequest() {
         new Thread() {
@@ -119,7 +132,22 @@ public class BrowseCoursesNew {
             }
         }.start();
     }
-
+    public void sendFilterBrowseCoursesRequest() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                Helper.lockCPU();
+                try {
+                    sendFilterRequest();
+                } catch (Exception e) {
+                    LogWriter.err(e);
+                } finally {
+                    Helper.unlockCPU();
+                }
+            }
+        }.start();
+    }
     /**
      * sends request along with parameters
      */
@@ -170,7 +198,50 @@ public class BrowseCoursesNew {
             }
         }
     }
+    public void sendFilterRequest() {
+        synchronized (BrowseCoursesNew.class) {
+            try {
 
+                // String url = buildURLString();
+
+                //08-01-2019 by vijay
+
+                String url  = buildURLStringNew1();
+                //Log.d("Brr", "sendRequest() in try - url : " + url);
+
+//                if (null == mBrowseCoursesRequest) {
+//                    mBrowseCoursesRequest = getBrowseCoursesRequest();
+//                } else {
+//                    offset = offset + max_count;
+//                    mBrowseCoursesRequest.setOffset(offset);
+//                    mBrowseCoursesRequest.setMax(max_count);
+//                }
+//                if (LogWriter.isValidLevel(Log.DEBUG)) {
+//                    LogWriter.write("mBrowseCourses Request :\nUrl : " + url + "\nData : " + mBrowseCoursesRequest.getJSONString());
+//                    //Log.d("Brr","mBrowseCourses Request :\nUrl : " + url + "\nData : " + mBrowseCoursesRequest.getJSONString());
+//                }
+
+
+                if (null == mBrowseCoursesRequest) {
+                    mBrowseCoursesRequest = getBrowseCoursesRequest();
+                } else {
+                    offset = offset + max_count;
+                    mBrowseCoursesRequest.setOffset(offset);
+                    mBrowseCoursesRequest.setMax(max_count);
+                }
+                if (LogWriter.isValidLevel(Log.DEBUG)) {
+                    LogWriter.write("mBrowseCourses Request :\nUrl : " + url + "\nData : " + mBrowseCoursesRequest.getJSONString());
+                    //Log.d("Brr","mBrowseCourses Request :\nUrl : " + url + "\nData : " + mBrowseCoursesRequest.getJSONString());
+                }
+                JSONObject jsonObject = mBrowseCoursesRequest.getJSONObjectForFilter(StoreConstants.Lang_ids,StoreConstants.Formats,StoreConstants.Author_ids,StoreConstants.Price_max,StoreConstants.Price_min,StoreConstants.Category_Tree_id);
+                // sendJsonObjectRequest(url, jsonObject);
+                sendJsonObjectRequestForFilter(url,jsonObject);
+            } catch (Exception e) {
+                //.d("Brr", "sendRequest() Failuar catch - msg : " + e.getMessage());
+                LogWriter.err(e);
+            }
+        }
+    }
     /**
      * Method to send json object request.
      */
@@ -293,6 +364,44 @@ public class BrowseCoursesNew {
 
         Requester.getInstance().addToRequestQueue(jsonObjReq, TAG);
     }
+
+    private void sendJsonObjectRequestForFilter(String url, JSONObject jsonObject) {
+
+        CustomJsonObjectRequest jsonObjReq = new CustomJsonObjectRequest(Method.POST,url,jsonObject,new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                int status = response.optInt("status");
+
+                if(status == 1) {
+
+                    try {
+                        Gson gsonData = new Gson();
+                        storeModelResponse = gsonData.fromJson(String.valueOf(response),StoreModelResponse.class);
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                    sendMesssageToGUIForFilter(Flinnt.SUCCESS);
+                }else{
+                    sendMesssageToGUI(Flinnt.FAILURE);
+
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                sendMesssageToGUI(Flinnt.FAILURE);
+            }
+        });
+        jsonObjReq.setPriority(Priority.HIGH);
+        jsonObjReq.setShouldCache(false);
+
+        Requester.getInstance().addToRequestQueue(jsonObjReq, TAG);
+    }
+
+
     /**
      * Sends response to handlers
      *
@@ -311,6 +420,20 @@ public class BrowseCoursesNew {
         }
     }
 
+
+    public void sendMesssageToGUIForFilter(int messageID) {
+        if (null != mHandler) {
+            //Log.d("Brr", "sendMesgToGUI() msgID : " + String.valueOf(messageID));
+            Message msg = new Message();
+            msg.what = messageID;
+            msg.obj = storeModelResponse;
+            msg.arg1 = 200;//ok
+            mHandler.sendMessage(msg);
+        } else {
+            //Log.d("Brr", "sendMesgToGUI() handler is null : " + String.valueOf(messageID));
+            if (LogWriter.isValidLevel(Log.INFO)) LogWriter.write("mHandler is null");
+        }
+    }
     public String getSearchString() {
         return searchString;
     }

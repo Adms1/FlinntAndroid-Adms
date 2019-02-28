@@ -21,7 +21,7 @@ import com.edu.flinnt.R;
 import com.edu.flinnt.core.store.BrowseCoursesNew;
 import com.edu.flinnt.core.Requester;
 import com.edu.flinnt.customviews.store.QuantityView;
-import com.edu.flinnt.gui.store.BrowseCoursesFragmentNew;
+import com.edu.flinnt.fragments.store.BrowseCoursesFragmentNew;
 import com.edu.flinnt.core.store.CartItems;
 import com.edu.flinnt.core.store.CartListItemResponse;
 import com.edu.flinnt.gui.store.ShoppingCartActivity;
@@ -87,18 +87,14 @@ public class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapte
                             mBrowseCourses.setSearchString("");
                             mBrowseCourses.sendBrowseCoursesRequest();
 
-                        }
-                        else if(msg.obj instanceof StoreModelResponse){
+                        } else if(msg.obj instanceof StoreModelResponse){
                             storeModelResponse = (StoreModelResponse)msg.obj;
                             stopProgressDialog();
                             updateCartCount(storeModelResponse);
-
                         }
                         break;
                     case Flinnt.FAILURE:
-
                         Snackbar.make(((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content),"Something wrong",Snackbar.LENGTH_LONG).show();
-
                         break;
                    }
             }

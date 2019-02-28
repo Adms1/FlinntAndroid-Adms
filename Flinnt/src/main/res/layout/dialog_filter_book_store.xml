@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.v7.widget.FitWindowsFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/linear_border2"
-    android:layout_margin="@dimen/margin_5dp"
-    android:layout_height="@dimen/_300sdp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:minHeight="@dimen/_300sdp"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:padding="@dimen/margin_5dp"
-        android:background="@color/ColorPrimary">
+        app:title="Refine your search"
+        app:titleTextColor="@color/white"
+        android:background="@drawable/bg_bottom_sheet_dialog_blue_header">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+            android:layout_height="wrap_content"
+           >
 
 
             <ImageView
@@ -25,8 +33,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/close"
+                android:src="@drawable/ic_close2"
+                android:tint="#ffffff"
+                android:layout_centerVertical="true"
                 android:padding="@dimen/margin_5dp"/>
+
+            <ImageView
+                android:id="@+id/btn_apply_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/close_image"
+                android:layout_marginRight="@dimen/_7sdp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_check" />
 
             <TextView
                 android:id="@+id/tv_title"
@@ -36,37 +55,64 @@
                 android:gravity="center"
                 android:padding="@dimen/margin_5dp"
                 android:textSize="@dimen/text_size_15sp"
+                android:visibility="visible"
                 android:textColor="@color/white"/>
-
-
-
         </RelativeLayout>
-
-
-
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_filter_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/btn_apply_filter"/>
+    <!--<ScrollView-->
+        <!--android:id="@+id/scroller"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_below="@+id/toolbar"-->
+        <!--android:fillViewport="true">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_filter_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+
+            />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:progressTint="@color/ColorPrimary"
+            android:layout_gravity="center"/>
+
+        <!--</LinearLayout>-->
+
+    <!--</ScrollView>-->
+
+    </RelativeLayout>
+
 
     <Button
-        android:id="@+id/btn_apply_filter"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_35sdp"
-        android:background="@drawable/bg_account_blue_edges"
-        android:capitalize="characters"
+        android:layout_height="@dimen/_30sdp"
         android:layout_gravity="center|bottom"
-        android:text="@string/apply_filters"
-        android:padding="@dimen/_10sdp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        app:backgroundTint="@color/ColorPrimary"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_margin="@dimen/_5sdp"
-        android:textColor="@color/button_dark_text_color"
-        android:textSize="14sp" />
-
-
-</RelativeLayout>
+        android:elevation="@dimen/_5sdp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:paddingLeft="@dimen/margin_15dp"
+        android:paddingRight="@dimen/margin_15dp"
+        android:background="@drawable/raised_button_blue"
+        android:text="@string/apply_filters"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:visibility="gone" />
+</android.support.v7.widget.FitWindowsFrameLayout>

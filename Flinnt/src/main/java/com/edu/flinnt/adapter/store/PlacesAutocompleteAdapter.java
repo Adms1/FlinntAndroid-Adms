@@ -194,9 +194,7 @@ public class PlacesAutocompleteAdapter extends ArrayAdapter<AutocompletePredicti
 
         // Submit the query to the autocomplete API and retrieve a PendingResult that will
         // contain the results when the query completes.
-        Task<AutocompletePredictionBufferResponse> results =
-                mGeoDataClient.getAutocompletePredictions(constraint.toString(),mBounds,
-                        mPlaceFilter);
+        Task<AutocompletePredictionBufferResponse> results = mGeoDataClient.getAutocompletePredictions(constraint.toString(),mBounds, mPlaceFilter);
 
         // This method should have been called off the main UI thread. Block and wait for at most
         // 60s for a result from the API.

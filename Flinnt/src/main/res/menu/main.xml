@@ -33,4 +33,11 @@
         android:orderInCategory="100"
         android:title="Scan"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_cart"
+        android:icon="@drawable/ic_cart"
+        android:orderInCategory="100"
+        android:title="Cart"
+        android:iconTint="@color/white"
+        app:showAsAction="always" />
 </menu>
